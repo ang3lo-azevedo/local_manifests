@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+    <remote name="github" fetch="https://github.com/" />
+
+    <project name="ang3lo-azevedo/android_device_nothing_Spacewar"
+             path="device/nothing/Spacewar"
+             remote="github"
+             revision="voltage" />
+
+    <project name="smrth097/proprietary_vendor_nothing_Spacewar"
+             path="vendor/nothing/Spacewar"
+             remote="github"
+             revision="16.2" />
+
+    <project name="ang3lo-azevedo/android_kernel_nothing_sm7325"
+             path="kernel/nothing/sm7325"
+             remote="github"
+             revision="Sakura-QPR2" />
+
+    <project name="smrth097/android_hardware_nothing"
+             path="hardware/nothing"
+             remote="github"
+             revision="16.0" />
+
+    <project name="smrth097/proprietary_vendor_nothing_camera"
+             path="vendor/nothing/camera"
+             remote="github"
+             revision="14" />
+
+    <project name="smrth097/packages_apps_ParanoidGlyph"
+            path="packages/apps/ParanoidGlyph"
+             remote="github"
+             revision="16" />
+
+    <project name="smrth097/hardware_dolby"
+            path="hardware/dolby"
+             remote="github"
+             revision="16.0" />
+</manifest>
