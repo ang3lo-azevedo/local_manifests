@@ -11,12 +11,12 @@
     <project name="smrth097/proprietary_vendor_nothing_Spacewar"
              path="vendor/nothing/Spacewar"
              remote="github"
-             revision="16.2" />
+             revision="16.0" />
 
     <project name="ang3lo-azevedo/android_kernel_nothing_sm7325"
              path="kernel/nothing/sm7325"
              remote="github"
-             revision="Sakura-QPR2" />
+             revision="Personal-RKSU" />
 
     <project name="smrth097/android_hardware_nothing"
              path="hardware/nothing"
