@@ -13,10 +13,10 @@
              remote="github"
              revision="16.2" />
 
-    <project name="ang3lo-azevedo/android_kernel_nothing_sm7325"
+    <project name="William24hmar/android_kernel_nothing_sm7325"
              path="kernel/nothing/sm7325"
              remote="github"
-             revision="Caf-16" />
+             revision="RKSU-SUSFSv2.0.0" />
 
     <project name="smrth097/android_hardware_nothing"
              path="hardware/nothing"
