@@ -16,7 +16,7 @@
     <project name="ang3lo-azevedo/android_kernel_nothing_sm7325"
              path="kernel/nothing/sm7325"
              remote="github"
-             revision="CAF/MCQ-16QPR2" />
+             revision="Caf-16" />
 
     <project name="smrth097/android_hardware_nothing"
              path="hardware/nothing"
