@@ -5,7 +5,8 @@
 
     <project name="ang3lo-azevedo/vendor_voltage-priv_keys"
              path="vendor/voltage-priv/keys"
-             remote="github" />
+             remote="github"
+             override="true" />
 
     <project name="ang3lo-azevedo/android_device_nothing_Spacewar"
              path="device/nothing/Spacewar"
