@@ -12,25 +12,25 @@
              remote="github"
              revision="voltage" />
 
-    <project name="smrth097/proprietary_vendor_nothing_Spacewar"
+    <project name="kleidione/vendor_nothing_Spacewar"
              path="vendor/nothing/Spacewar"
              remote="github"
-             revision="16.2" />
+             revision="bp4a" />
 
     <project name="William24hmar/android_kernel_nothing_sm7325"
              path="kernel/nothing/sm7325"
              remote="github"
-             revision="RKSU-SUSFSv2.0.0" />
+             revision="Rebase-New" />
 
-    <project name="smrth097/android_hardware_nothing"
+    <project name="StudioKeys-Dumps/hardware_nothing"
              path="hardware/nothing"
              remote="github"
-             revision="16.0" />
+             revision="waterlily-qpr2" />
 
-    <project name="smrth097/proprietary_vendor_nothing_camera"
+    <project name="StudioKeys-Dumps/proprietary_vendor_nothing_Spacewar"
              path="vendor/nothing/camera"
              remote="github"
-             revision="14" />
+             revision="waterlily-qpr2" />
 
     <project name="smrth097/packages_apps_ParanoidGlyph"
             path="packages/apps/ParanoidGlyph"
