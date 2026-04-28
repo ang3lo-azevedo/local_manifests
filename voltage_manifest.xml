@@ -3,6 +3,8 @@
 
     <remote name="github" fetch="https://github.com/" />
 
+        <remove-project path="vendor/voltage-priv/keys" />
+
     <project name="ang3lo-azevedo/vendor_voltage-priv_keys"
              path="vendor/voltage-priv/keys"
              remote="github"
