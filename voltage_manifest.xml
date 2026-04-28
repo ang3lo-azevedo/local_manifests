@@ -19,7 +19,7 @@
              remote="github"
              revision="bp4a" />
 
-    <project name="William24hmar/android_kernel_nothing_sm7325"
+    <project name="William24hmar/nothing_android_kernel_sm7325"
              path="kernel/nothing/sm7325"
              remote="github"
              revision="Rebase-New" />
