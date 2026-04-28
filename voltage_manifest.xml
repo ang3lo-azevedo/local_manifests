@@ -15,15 +15,15 @@
              remote="github"
              revision="voltage" />
 
-    <project name="StudioKeys-Dumps/proprietary_vendor_nothing_Spacewar"
-             path="vendor/nothing/Spacewar"
-             remote="github"
-             revision="waterlily-qpr2" />
-
     <project name="William24hmar/nothing_android_kernel_sm7325"
              path="kernel/nothing/sm7325"
              remote="github"
              revision="Rebase-New" />
+
+    <project name="StudioKeys-Dumps/proprietary_vendor_nothing_Spacewar"
+             path="vendor/nothing/Spacewar"
+             remote="github"
+             revision="waterlily-qpr2" />
 
     <project name="StudioKeys-Dumps/hardware_nothing"
              path="hardware/nothing"
