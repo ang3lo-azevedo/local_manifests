@@ -20,10 +20,10 @@
              remote="github"
              revision="Rebase-New" />
 
-    <project name="StudioKeys-Dumps/proprietary_vendor_nothing_Spacewar"
+    <project name="DaViDev985/vendor_nothing_Spacewar"
              path="vendor/nothing/Spacewar"
              remote="github"
-             revision="waterlily-qpr2" />
+             revision="derp16.2" />
 
     <project name="StudioKeys-Dumps/hardware_nothing"
              path="hardware/nothing"
