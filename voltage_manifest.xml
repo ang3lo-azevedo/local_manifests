@@ -3,12 +3,11 @@
 
     <remote name="github" fetch="https://github.com/" />
 
-        <remove-project path="vendor/voltage-priv/keys" />
+    <remove-project path="vendor/voltage-priv/keys" />
 
     <project name="ang3lo-azevedo/vendor_voltage-priv_keys"
              path="vendor/voltage-priv/keys"
-             remote="github"
-             override="true" />
+             remote="github" />
 
     <project name="ang3lo-azevedo/android_device_nothing_Spacewar"
              path="device/nothing/Spacewar"
