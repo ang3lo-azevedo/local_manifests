@@ -30,10 +30,10 @@
              remote="github"
              revision="waterlily-qpr2" />
 
-    <project name="StudioKeys-Dumps/proprietary_vendor_nothing_Spacewar"
+    <project name="DaViDev985/proprietary_vendor_nothing_camera"
              path="vendor/nothing/camera"
              remote="github"
-             revision="waterlily-qpr2" />
+             revision="derp16" />
 
     <project name="smrth097/packages_apps_ParanoidGlyph"
             path="packages/apps/ParanoidGlyph"
