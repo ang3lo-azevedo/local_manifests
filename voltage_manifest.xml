@@ -35,11 +35,6 @@
              remote="github"
              revision="derp16" />
 
-    <project name="smrth097/packages_apps_ParanoidGlyph"
-            path="packages/apps/ParanoidGlyph"
-             remote="github"
-             revision="16" />
-
     <project name="smrth097/hardware_dolby"
             path="hardware/dolby"
              remote="github"
