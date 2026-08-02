@@ -130,26 +130,54 @@ git ls-remote https://github.com/ang3lo-azevedo/vendor_voltage-priv_keys.git
 
 Some prebuilt binaries may be missing from the vendor tree. Verify the branch exists and has the required files. Comment out missing modules from `Android.bp` if necessary.
 
-### Git Cookies (Rate Limiting)
+### ServerHive Build Server
 
-Google rate-limits unauthenticated syncs. Set up git cookies to avoid `429 Too Many Requests` errors:
+If building on [ServerHive](https://github.com/ServerHive-Development/guide) bare-metal servers:
+
+**SSH access:**
+
+```bash
+ssh username@server.serverhive.com -p 22
+```
+
+**Persistent sessions (Byobu):**
+
+ServerHive uses Byobu as the default terminal multiplexer. Your build keeps running even if you disconnect.
+
+```bash
+# Detach: F6 or Ctrl+A then D
+# New window: F2
+# Navigate windows: F3 (previous) / F4 (next)
+# Reattach after disconnect: byobu
+```
+
+**Git cookies (avoid rate limits):**
+
+Google rate-limits unauthenticated syncs. Set up git cookies:
 
 1. Visit https://android.googlesource.com
 2. Click "Generate Password"
-3. Follow the "Configure Git" instructions shown on the page
+3. Authenticate and follow the "Configure Git" instructions
+4. Copy and run the provided shell script
 
-### Persistent Build Sessions
-
-If building on a remote server, use a terminal multiplexer to survive disconnections:
+**Global git config:**
 
 ```bash
-# Start a session
-tmux new -s build
-
-# Detach: Ctrl+B then D
-# Reattach later
-tmux attach -t build
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
 ```
+
+**Package requests:**
+
+Root access is not provided. If a system package is missing:
+
+> "Hi, could you please install `libncurses5` via `sudo apt install`?"
+
+Most tools can be installed locally in `~/bin` or via `pip install --user`.
+
+**Plan extension:**
+
+Each rental can be extended by 2 hours for free once via the dashboard. Use it when your build is nearly done.
 
 ## Features Enabled
 
