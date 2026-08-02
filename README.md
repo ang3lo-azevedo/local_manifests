@@ -161,14 +161,15 @@ tmux attach -t build
 
 ## Credits
 
-- [kleidione](https://github.com/kleidione) -- device tree base, FP fix, ghost touch fix
-- [DaViDev985](https://github.com/DaViDev985) -- vendor blobs, camera, NOS 3.2 fixes
-- [smrth097](https://github.com/smrth097) -- original Spacewar bringup
-- [Jis G Jacob (StudioKeys)](https://github.com/StudioKeys-Dumps) -- NGlyphs, recovery ADSP patch
-- [William24hmar](https://github.com/William24hmar) -- kernel source
-- [LineageOS](https://github.com/LineageOS) -- hardware/nothing base
-- [VoltageOS](https://github.com/VoltageOS) -- ROM platform
-- [ServerHive](https://github.com/ServerHive-Development/guide) -- build environment guide
+- [kleidione](https://github.com/kleidione) - device tree base, FP fix, ghost touch fix
+- [DaViDev985](https://github.com/DaViDev985) - vendor blobs, camera, NOS 3.2 fixes
+- [smrth097](https://github.com/smrth097) - original Spacewar bringup
+- [Jis G Jacob (StudioKeys)](https://github.com/StudioKeys-Dumps) - NGlyphs, recovery ADSP patch
+- [William24hmar](https://github.com/William24hmar) - kernel source
+- [LineageOS](https://github.com/LineageOS) - hardware/nothing base
+- [crDroid](https://github.com/crdroidandroid) - Bluetooth and radio improvements
+- [VoltageOS](https://github.com/VoltageOS) - ROM platform
+- [ServerHive](https://github.com/ServerHive-Development/guide) - build environment guide
 
 ## Useful Links
 
