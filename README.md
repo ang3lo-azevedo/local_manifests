@@ -136,6 +136,16 @@ git ls-remote https://github.com/ang3lo-azevedo/vendor_voltage-priv_keys.git
 
 Some prebuilt binaries may be missing from the vendor tree. Verify the branch exists and has the required files. Comment out missing modules from `Android.bp` if necessary.
 
+### Duplicate sysprop assignments (audio)
+
+If the build fails with `found duplicate sysprop assignments` for `ro.config.ringtone`, `ro.config.notification_sound`, or `ro.config.alarm_alert`, the ROM and device tree are both setting these properties on the product partition. Fix by using weak assignment in the ROM config:
+
+```bash
+sed -i 's/ro.config.ringtone=/ro.config.ringtone?=/; s/ro.config.alarm_alert=/ro.config.alarm_alert?=/; s/ro.config.notification_sound=/ro.config.notification_sound?=/' vendor/voltage/audio/audio.mk
+```
+
+This allows the device tree to override the ROM defaults with Nothing tones without a build conflict.
+
 ### ServerHive Build Server
 
 If building on [ServerHive](https://github.com/ServerHive-Development/guide) bare-metal servers:
