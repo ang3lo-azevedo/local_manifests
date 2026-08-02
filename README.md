@@ -18,16 +18,16 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 
 The device tree (`android_device_nothing_Spacewar`) merges improvements from:
 
-- **kleidione/bp4a** -- base with NOS 3.2 fixes (vibrator, FP, power profile)
-- **DaViDev985/derp16.2** -- NOS 3.2 post_boot.sh, sepolicy, FP unlock
-- **smrth097/16.2-clean** -- overlay improvements
-- **crDroid/16.0** -- Bluetooth, radio, audio mixer improvements
-- **halogenOS/XOS-16.2** -- Display brightness and Extra Dim config
+- **kleidione/bp4a** - base with NOS 3.2 fixes (vibrator, FP, power profile)
+- **DaViDev985/derp16.2** - NOS 3.2 post_boot.sh, sepolicy, FP unlock
+- **smrth097/16.2-clean** - overlay improvements
+- **crDroid/16.0** - Bluetooth, radio, audio mixer improvements
+- **halogenOS/XOS-16.2** - Display brightness and Extra Dim config
 
 The hardware/nothing tree (`android_hardware_nothing`) is based on:
 
-- **DaViDev985/derp16.2** -- base with NtOnlineConfig stub (required for Nothing Camera)
-- **StudioKeys-Dumps/waterlily-qpr2** -- NGlyphs patches (20 commits cherry-picked)
+- **DaViDev985/derp16.2** - base with NtOnlineConfig stub (required for Nothing Camera)
+- **StudioKeys-Dumps/waterlily-qpr2** - NGlyphs patches (20 commits cherry-picked)
 
 ## Prerequisites
 
