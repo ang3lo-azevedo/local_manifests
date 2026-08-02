@@ -21,6 +21,8 @@ The device tree (`android_device_nothing_Spacewar`) merges improvements from:
 - **kleidione/bp4a** -- base with NOS 3.2 fixes (vibrator, FP, power profile)
 - **DaViDev985/derp16.2** -- NOS 3.2 post_boot.sh, sepolicy, FP unlock
 - **smrth097/16.2-clean** -- overlay improvements
+- **crDroid/16.0** -- Bluetooth, radio, audio mixer improvements
+- **halogenOS/XOS-16.2** -- Display brightness and Extra Dim config
 
 The hardware/nothing tree (`android_hardware_nothing`) is based on:
 
@@ -168,6 +170,7 @@ tmux attach -t build
 - [William24hmar](https://github.com/William24hmar) - kernel source
 - [LineageOS](https://github.com/LineageOS) - hardware/nothing base
 - [crDroid](https://github.com/crdroidandroid) - Bluetooth and radio improvements
+- [halogenOS](https://github.com/halogenOS) - Display brightness and Extra Dim config
 - [VoltageOS](https://github.com/VoltageOS) - ROM platform
 - [ServerHive](https://github.com/ServerHive-Development/guide) - build environment guide
 
