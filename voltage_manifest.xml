@@ -18,7 +18,7 @@
     <project name="ang3lo-azevedo/android_kernel_nothing_sm7325"
              path="kernel/nothing/sm7325"
              remote="github"
-             revision="voltage" />
+             revision="voltage-nethunter" />
 
     <project name="DaViDev985/vendor_nothing_Spacewar"
              path="vendor/nothing/Spacewar"
