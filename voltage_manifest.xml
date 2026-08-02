@@ -18,7 +18,7 @@
     <project name="William24hmar/nothing_android_kernel_sm7325"
              path="kernel/nothing/sm7325"
              remote="github"
-             revision="Los-24" />
+             revision="Staging-1" />
 
     <project name="DaViDev985/vendor_nothing_Spacewar"
              path="vendor/nothing/Spacewar"
