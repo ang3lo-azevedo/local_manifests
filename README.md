@@ -70,11 +70,10 @@ repo init -u https://github.com/VoltageOS/manifest.git -b <branch>
 
 ### 2. Add the local manifest
 
-Copy `voltage_manifest.xml` into `.repo/local_manifests/`:
+Clone this repository into `.repo/local_manifests/`:
 
 ```bash
-mkdir -p .repo/local_manifests
-cp voltage_manifest.xml .repo/local_manifests/
+git clone https://github.com/ang3lo-azevedo/local_manifests.git .repo/local_manifests
 ```
 
 ### 3. Sync
