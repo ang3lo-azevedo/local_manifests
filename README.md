@@ -18,16 +18,23 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 
 The device tree (`android_device_nothing_Spacewar`) merges improvements from:
 
-- **kleidione/bp4a** - base with NOS 3.2 fixes (vibrator, FP, power profile)
-- **DaViDev985/derp16.2** - NOS 3.2 post_boot.sh, sepolicy, FP unlock
-- **smrth097/16.2-clean** - overlay improvements
-- **crDroid/16.0** - Bluetooth, radio, audio mixer improvements
-- **halogenOS/XOS-16.2** - Display brightness and Extra Dim config
+- **kleidione/bp4a** - base with NOS 3.2 fixes (vibrator, FP, power profile, ghost touch fix)
+- **DaViDev985/derp16.2** - NOS 3.2 post_boot.sh, sepolicy perf, FP screen-off unlock, camera fix, UDFPS null guard
+- **smrth097/16.2-clean** - keyguard margin, vibrate on icon animation
+- **crDroid/16.0** - NOS 3.2 EOL mixer paths, camcorder audio, radio power saving, Bluetooth ASHA/AptX Adaptive R2
+- **halogenOS/XOS-16.2** - linear-nits brightness mapping, Extra Dim evening dimmer
 
 The hardware/nothing tree (`android_hardware_nothing`) is based on:
 
 - **DaViDev985/derp16.2** - base with NtOnlineConfig stub (required for Nothing Camera)
-- **StudioKeys-Dumps/waterlily-qpr2** - NGlyphs patches (20 commits cherry-picked)
+- **StudioKeys-Dumps/waterlily-qpr2** - NGlyphs/GlyphManager (20 commits, replaces ParanoidGlyph)
+- **kleidione/bp4a** - FP goodix_fp node wait and HAL null guards
+
+The kernel (`android_kernel_nothing_sm7325`) is based on:
+
+- **William24hmar/Nethunter** - Kali NetHunter (monitor mode, HID injection, Wi-Fi drivers, HID gamepads, WireGuard)
+- **William24hmar/Staging-1** - BORE scheduler, NoMount, Baseband-Guard, MPTCP, BBR, RCU boost, DCE, IRQ tuning
+- **rodrig20/moonwake** - USB gadget reconfiguration, proper HID keyboard descriptor
 
 ## Prerequisites
 
@@ -180,21 +187,29 @@ Each rental can be extended by 2 hours for free once via the dashboard. Use it w
 
 ## Features Enabled
 
-- NGlyphs (glyph LED control, audio sync, recording LED, no root needed)
-- Nothing Camera with video recording fix
-- Dolby audio
-- Device as Webcam
-- FP screen-off unlock
-- NOS 3.2 vibrator improvements
-- LTO + O3 + ThinLTO optimizations
+- NGlyphs - glyph LED control (audio sync, recording LED, music visualizer, Glyph Converter)
+- Nothing Camera with video recording fix (libui-v34, vidhance blob fixup)
+- Kali NetHunter - Wi-Fi monitor mode, HID attacks, mac80211 injection, WireGuard
+- Dolby audio (Sony Dolby with spatial audio)
+- Device as Webcam (HQ mode default)
+- FP screen-off unlock enabled by default
+- NOS 3.2 vibrator improvements (amplitude, richtap consistency, effect remapping)
+- NOS 3.2 post_boot.sh and power profile
+- LTO + O3 + ThinLTO optimizations with HWUI compile for performance
+- KernelSU with SUSFS 2.2.0, NoMount, Baseband-Guard
+- BORE + CASS schedulers, BBR default TCP, MPTCP
+- Display linear-nits brightness mapping with Extra Dim
+- Bluetooth ASHA/AptX Adaptive R2 + radio power saving
+- Recovery ADSP battery monitoring
 
 ## Credits
 
-- [kleidione](https://github.com/kleidione) - device tree base, FP fix, ghost touch fix
-- [DaViDev985](https://github.com/DaViDev985) - vendor blobs, camera, NOS 3.2 fixes
-- [smrth097](https://github.com/smrth097) - original Spacewar bringup
+- [kleidione](https://github.com/kleidione) - device tree base, FP fix, ghost touch fix, Dolby
+- [DaViDev985](https://github.com/DaViDev985) - vendor blobs, camera, NOS 3.2 fixes, NtOnlineConfig stub
+- [smrth097](https://github.com/smrth097) - original Spacewar bringup, overlay improvements
 - [Jis G Jacob (StudioKeys)](https://github.com/StudioKeys-Dumps) - NGlyphs, recovery ADSP patch
-- [William24hmar](https://github.com/William24hmar) - kernel source
+- [William24hmar](https://github.com/William24hmar) - NetHunter and Staging-1 kernel bases
+- [rodrig20](https://github.com/rodrig20) - USB gadget reconfiguration and HID keyboard descriptor
 - [LineageOS](https://github.com/LineageOS) - hardware/nothing base
 - [crDroid](https://github.com/crdroidandroid) - Bluetooth and radio improvements
 - [halogenOS](https://github.com/halogenOS) - Display brightness and Extra Dim config
