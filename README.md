@@ -32,9 +32,11 @@ The hardware/nothing tree (`android_hardware_nothing`) is based on:
 
 The kernel (`android_kernel_nothing_sm7325`) is based on:
 
-- **William24hmar/KSU-SUSFS - KSU syscall tamper, full SUSFS, NetHunter
-- **William24hmar - SUSFS patches and NetHunter config
-- **rodrig20/moonwake** - USB gadget reconfiguration, proper HID keyboard descriptor
+- **William24hmar/Lineage-Rom** - RCU 5.15, scheduler 6.1, CASS, BBRv3, net/audio fixes
+- **backslashxx/KernelSU** - KSU syscall tamper
+- **William24hmar/KernelSU (master-susfs)** - full SUSFS support
+- **William24hmar/Nethunter** - NetHunter config and driver options
+- **rodrig20/moonwake** - USB gadget reconfiguration, HID keyboard descriptor
 
 ## Prerequisites
 
@@ -199,18 +201,17 @@ Each rental can be extended by 2 hours for free once via the dashboard. Use it w
 
 - NGlyphs - glyph LED control (audio sync, recording LED, music visualizer, Glyph Converter)
 - Nothing Camera with video recording fix (libui-v34, vidhance blob fixup)
-- Kali NetHunter - Wi-Fi monitor mode, HID attacks, mac80211 injection, WireGuard
+- Kali NetHunter - Wi-Fi monitor mode, HID attacks, mac80211 injection, WireGuard, HID gamepads
+- KernelSU with syscall tamper and full SUSFS (root hiding: sus_path, sus_mount, try_umount, spoof_uname)
+- RCU 5.15 backports and scheduler 6.1 mainline with CASS
+- BBRv3 default TCP congestion control
 - Dolby audio (Sony Dolby with spatial audio)
 - Device as Webcam (HQ mode default)
 - FP screen-off unlock enabled by default
-- NOS 3.2 vibrator improvements (amplitude, richtap consistency, effect remapping)
-- NOS 3.2 post_boot.sh and power profile
+- NOS 3.2 vibrator improvements
 - LTO + O3 + ThinLTO optimizations with HWUI compile for performance
-- KernelSU with SUSFS 2.2.0, NoMount, Baseband-Guard
-- BORE + CASS schedulers, BBR default TCP, MPTCP
-- Display linear-nits brightness mapping with Extra Dim
-- Bluetooth ASHA/AptX Adaptive R2 + radio power saving
-- Recovery ADSP battery monitoring
+- NoMount security hardening, MPTCP multipath TCP, Baseband-Guard LSM
+- USB gadget reconfiguration with proper HID keyboard descriptor
 
 ## Credits
 
