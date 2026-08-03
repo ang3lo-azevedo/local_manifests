@@ -7,7 +7,7 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 | Path | Repository | Branch |
 |------|------------|--------|
 | `device/nothing/Spacewar` | `ang3lo-azevedo/android_device_nothing_Spacewar` | `voltage` |
-| `kernel/nothing/sm7325` | `ang3lo-azevedo/android_kernel_nothing_sm7325` | `voltage-nethunter` |
+| `kernel/nothing/sm7325` | `William24hmar/nothing_android_kernel_sm7325` | `KSU-SUSFS` |
 | `vendor/nothing/Spacewar` | `DaViDev985/vendor_nothing_Spacewar` | `derp16.2` |
 | `vendor/nothing/camera` | `DaViDev985/proprietary_vendor_nothing_camera` | `derp16` |
 | `hardware/nothing` | `ang3lo-azevedo/android_hardware_nothing` | `16.2-nglyphs` |
@@ -30,13 +30,9 @@ The hardware/nothing tree (`android_hardware_nothing`) is based on:
 - **StudioKeys-Dumps/waterlily-qpr2** - NGlyphs/GlyphManager (20 commits, replaces ParanoidGlyph)
 - **kleidione/bp4a** - FP goodix_fp node wait and HAL null guards
 
-The kernel (`android_kernel_nothing_sm7325`) is based on:
+The kernel is based on:
 
-- **William24hmar/Lineage-Rom** - RCU 5.15, scheduler 6.1, CASS, BBRv3, net/audio fixes
-- **backslashxx/KernelSU** - KSU syscall tamper
-- **William24hmar/KernelSU (master-susfs)** - full SUSFS support
-- **William24hmar/Nethunter** - NetHunter config and driver options
-- **rodrig20/moonwake** - USB gadget reconfiguration, HID keyboard descriptor
+- **William24hmar/KSU-SUSFS** - KSU syscall tamper, full SUSFS, NetHunter, root hiding
 
 ## Prerequisites
 
