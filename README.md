@@ -83,25 +83,13 @@ Clone this repository into `.repo/local_manifests/`:
 git clone https://github.com/ang3lo-azevedo/local_manifests.git .repo/local_manifests
 ```
 
-### 3. Run KernelSU setup
-
-The kernel uses KSU-SUSFS which requires fetching the KernelSU source:
-
-```bash
-cd kernel/nothing/sm7325
-curl -LSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
-rm -rf KernelSU
-git clone -b master-susfs https://github.com/William24hmar/KernelSU.git
-cd ../../..
-```
-
-### 4. Sync
+### 3. Sync
 
 ```bash
 repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune
 ```
 
-### 5. Build
+### 4. Build
 
 ```bash
 source build/envsetup.sh
