@@ -15,10 +15,10 @@
              remote="github"
              revision="voltage" />
 
-    <project name="William24hmar/nothing_android_kernel_sm7325"
+    <project name="ang3lo-azevedo/android_kernel_nothing_sm7325"
              path="kernel/nothing/sm7325"
              remote="github"
-             revision="KSU-SUSFS" />
+             revision="voltage-nethunter" />
 
     <project name="DaViDev985/vendor_nothing_Spacewar"
              path="vendor/nothing/Spacewar"

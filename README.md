@@ -7,7 +7,7 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 | Path | Repository | Branch |
 |------|------------|--------|
 | `device/nothing/Spacewar` | `ang3lo-azevedo/android_device_nothing_Spacewar` | `voltage` |
-| `kernel/nothing/sm7325` | `William24hmar/nothing_android_kernel_sm7325` | `KSU-SUSFS` |
+| `kernel/nothing/sm7325` | `ang3lo-azevedo/android_kernel_nothing_sm7325` | `voltage-nethunter` |
 | `vendor/nothing/Spacewar` | `DaViDev985/vendor_nothing_Spacewar` | `derp16.2` |
 | `vendor/nothing/camera` | `DaViDev985/proprietary_vendor_nothing_camera` | `derp16` |
 | `hardware/nothing` | `ang3lo-azevedo/android_hardware_nothing` | `16.2-nglyphs` |
