@@ -39,4 +39,9 @@
              path="hardware/dolby"
               remote="github"
               revision="bp4a" />
+
+    <project name="kleidione/vendor_google_GoogleCamera"
+             path="vendor/google/GoogleCamera"
+             remote="github"
+             revision="bp3a" />
 </manifest>
