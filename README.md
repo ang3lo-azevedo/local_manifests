@@ -32,8 +32,8 @@ The hardware/nothing tree (`android_hardware_nothing`) is based on:
 
 The kernel (`android_kernel_nothing_sm7325`) is based on:
 
-- **William24hmar/Lineage-Rom** - RCU 5.15 backports, scheduler 6.1, BBRv3, TCP fixes
-- **William24hmar/Staging-1** - NoMount, BORE, MPTCP, Baseband-Guard
+- **William24hmar/KSU-SUSFS - KSU syscall tamper, full SUSFS, NetHunter
+- **William24hmar - SUSFS patches and NetHunter config
 - **rodrig20/moonwake** - USB gadget reconfiguration, proper HID keyboard descriptor
 
 ## Prerequisites
@@ -83,13 +83,25 @@ Clone this repository into `.repo/local_manifests/`:
 git clone https://github.com/ang3lo-azevedo/local_manifests.git .repo/local_manifests
 ```
 
-### 3. Sync
+### 3. Run KernelSU setup
+
+The kernel uses KSU-SUSFS which requires fetching the KernelSU source:
+
+```bash
+cd kernel/nothing/sm7325
+curl -LSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
+rm -rf KernelSU
+git clone -b master-susfs https://github.com/William24hmar/KernelSU.git
+cd ../../..
+```
+
+### 4. Sync
 
 ```bash
 repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune
 ```
 
-### 4. Build
+### 5. Build
 
 ```bash
 source build/envsetup.sh
@@ -218,7 +230,7 @@ Each rental can be extended by 2 hours for free once via the dashboard. Use it w
 - [DaViDev985](https://github.com/DaViDev985) - vendor blobs, camera, NOS 3.2 fixes, NtOnlineConfig stub
 - [smrth097](https://github.com/smrth097) - original Spacewar bringup, overlay improvements
 - [Jis G Jacob (StudioKeys)](https://github.com/StudioKeys-Dumps) - NGlyphs, recovery ADSP patch
-- [William24hmar](https://github.com/William24hmar) - NetHunter and Staging-1 kernel bases
+- [William24hmar - SUSFS patches and NetHunter config
 - [rodrig20](https://github.com/rodrig20) - USB gadget reconfiguration and HID keyboard descriptor
 - [LineageOS](https://github.com/LineageOS) - hardware/nothing base
 - [crDroid](https://github.com/crdroidandroid) - Bluetooth and radio improvements
