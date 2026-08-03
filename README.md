@@ -12,6 +12,7 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 | `vendor/nothing/camera` | [DaViDev985/proprietary_vendor_nothing_camera](https://github.com/DaViDev985/proprietary_vendor_nothing_camera) | `derp16` |
 | `hardware/nothing` | [ang3lo-azevedo/android_hardware_nothing](https://github.com/ang3lo-azevedo/android_hardware_nothing) | `16.2-nglyphs` |
 | `hardware/dolby` | [kleidione/hardware_dolby](https://github.com/kleidione/hardware_dolby) | `bp4a` |
+| `vendor/google/GoogleCamera` | [kleidione/vendor_google_GoogleCamera](https://github.com/kleidione/vendor_google_GoogleCamera) | `bp3a` |
 | `vendor/voltage-priv/keys` | [ang3lo-azevedo/vendor_voltage-priv_keys](https://github.com/ang3lo-azevedo/vendor_voltage-priv_keys) | `main` |
 
 ### Tree Sources
@@ -195,28 +196,28 @@ Each rental can be extended by 2 hours for free once via the dashboard. Use it w
 
 ## Features Enabled
 
+- Nothing Camera and Google Camera (dual camera support)
 - NGlyphs - glyph LED control (audio sync, recording LED, music visualizer, Glyph Converter)
-- Nothing Camera with video recording fix (libui-v34, vidhance blob fixup)
+- KernelSU with syscall tamper and full SUSFS (root hiding)
 - Kali NetHunter - Wi-Fi monitor mode, HID attacks, mac80211 injection, WireGuard, HID gamepads
-- KernelSU with syscall tamper and full SUSFS (root hiding: sus_path, sus_mount, try_umount, spoof_uname)
-- RCU 5.15 backports and scheduler 6.1 mainline with CASS
-- BBRv3 default TCP congestion control
 - Dolby audio (Sony Dolby with spatial audio)
 - Device as Webcam (HQ mode default)
 - FP screen-off unlock enabled by default
 - NOS 3.2 vibrator improvements
 - LTO + O3 + ThinLTO optimizations with HWUI compile for performance
 - NoMount security hardening, MPTCP multipath TCP, Baseband-Guard LSM
+- OrangeFox recovery compatible (TARGET_NO_RECOVERY set)
 - USB gadget reconfiguration with proper HID keyboard descriptor
 
 ## Credits
 
-- [kleidione](https://github.com/kleidione) - device tree base, FP fix, ghost touch fix, Dolby
-- [DaViDev985](https://github.com/DaViDev985) - vendor blobs, camera, NOS 3.2 fixes, NtOnlineConfig stub
+- [kleidione](https://github.com/kleidione) - device tree base, FP fix, ghost touch fix, Dolby, Google Camera
+- [DaViDev985](https://github.com/DaViDev985) - vendor blobs, Nothing Camera, NOS 3.2 fixes, NtOnlineConfig stub
 - [smrth097](https://github.com/smrth097) - original Spacewar bringup, overlay improvements
 - [Jis G Jacob (StudioKeys)](https://github.com/StudioKeys-Dumps) - NGlyphs, recovery ADSP patch
-- [William24hmar - SUSFS patches and NetHunter config
+- [William24hmar](https://github.com/William24hmar) - KSU-SUSFS kernel base
 - [rodrig20](https://github.com/rodrig20) - USB gadget reconfiguration and HID keyboard descriptor
+- [QCerberusQ](https://github.com/QCerberusQ) - OrangeFox recovery for Spacewar
 - [LineageOS](https://github.com/LineageOS) - hardware/nothing base
 - [crDroid](https://github.com/crdroidandroid) - Bluetooth and radio improvements
 - [halogenOS](https://github.com/halogenOS) - Display brightness and Extra Dim config
