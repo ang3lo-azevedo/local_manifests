@@ -201,7 +201,6 @@ Each rental can be extended by 2 hours for free once via the dashboard. Use it w
 - KernelSU with syscall tamper and full SUSFS (root hiding)
 - Kali NetHunter - Wi-Fi monitor mode, HID attacks, mac80211 injection, WireGuard, HID gamepads
 - Dolby audio (Sony Dolby with spatial audio)
-- Device as Webcam (HQ mode default)
 - FP screen-off unlock enabled by default
 - NOS 3.2 vibrator improvements
 - LTO + O3 + ThinLTO optimizations with HWUI compile for performance
