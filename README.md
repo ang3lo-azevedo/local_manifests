@@ -7,7 +7,7 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 | Path | Repository | Branch |
 |------|------------|--------|
 | `device/nothing/Spacewar` | `ang3lo-azevedo/android_device_nothing_Spacewar` | `voltage` |
-| `kernel/nothing/sm7325` | `ang3lo-azevedo/android_kernel_nothing_sm7325` | `voltage-nethunter` |
+| `kernel/nothing/sm7325` | `ang3lo-azevedo/android_kernel_nothing_sm7325` | `voltage-lr` |
 | `vendor/nothing/Spacewar` | `DaViDev985/vendor_nothing_Spacewar` | `derp16.2` |
 | `vendor/nothing/camera` | `DaViDev985/proprietary_vendor_nothing_camera` | `derp16` |
 | `hardware/nothing` | `ang3lo-azevedo/android_hardware_nothing` | `16.2-nglyphs` |
@@ -32,8 +32,8 @@ The hardware/nothing tree (`android_hardware_nothing`) is based on:
 
 The kernel (`android_kernel_nothing_sm7325`) is based on:
 
-- **William24hmar/Nethunter** - Kali NetHunter (monitor mode, HID injection, Wi-Fi drivers, HID gamepads, WireGuard)
-- **William24hmar/Staging-1** - BORE scheduler, NoMount, Baseband-Guard, MPTCP, BBR, RCU boost, DCE, IRQ tuning
+- **William24hmar/Lineage-Rom** - RCU 5.15 backports, scheduler 6.1, BBRv3, TCP fixes
+- **William24hmar/Staging-1** - NoMount, BORE, MPTCP, Baseband-Guard
 - **rodrig20/moonwake** - USB gadget reconfiguration, proper HID keyboard descriptor
 
 ## Prerequisites
