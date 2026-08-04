@@ -20,20 +20,20 @@
              remote="github"
              revision="voltage-nethunter" />
 
-    <project name="DaViDev985/vendor_nothing_Spacewar"
+    <project name="kleidione/vendor_nothing_Spacewar"
              path="vendor/nothing/Spacewar"
              remote="github"
-             revision="derp16.2" />
+             revision="bp4a" />
 
     <project name="ang3lo-azevedo/android_hardware_nothing"
              path="hardware/nothing"
               remote="github"
               revision="16.2-nglyphs" />
 
-    <project name="DaViDev985/proprietary_vendor_nothing_camera"
+    <project name="MySelly/vendor_nothing_camera-spacewar"
              path="vendor/nothing/camera"
              remote="github"
-             revision="derp16" />
+             revision="16.0" />
 
     <project name="kleidione/hardware_dolby"
              path="hardware/dolby"
