@@ -8,8 +8,8 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 |------|------------|--------|
 | `device/nothing/Spacewar` | [ang3lo-azevedo/android_device_nothing_Spacewar](https://github.com/ang3lo-azevedo/android_device_nothing_Spacewar) | `voltage` |
 | `kernel/nothing/sm7325` | [ang3lo-azevedo/android_kernel_nothing_sm7325](https://github.com/ang3lo-azevedo/android_kernel_nothing_sm7325) | `voltage-nethunter` |
-| `vendor/nothing/Spacewar` | [crdroidandroid/proprietary_vendor_nothing_Spacewar](https://github.com/crdroidandroid/proprietary_vendor_nothing_Spacewar) | `16.0` |
-| `vendor/nothing/camera` | [crdroidandroid/vendor_nothing_camera-Spacewar](https://github.com/crdroidandroid/vendor_nothing_camera-Spacewar) | `16.0` |
+| `vendor/nothing/Spacewar` | [DaViDev985/vendor_nothing_Spacewar](https://github.com/DaViDev985/vendor_nothing_Spacewar) | `derp16.2` |
+| `vendor/nothing/camera` | [DaViDev985/proprietary_vendor_nothing_camera](https://github.com/DaViDev985/proprietary_vendor_nothing_camera) | `derp16` |
 | `hardware/nothing` | [ang3lo-azevedo/android_hardware_nothing](https://github.com/ang3lo-azevedo/android_hardware_nothing) | `16.2-nglyphs` |
 | `hardware/dolby` | [kleidione/hardware_dolby](https://github.com/kleidione/hardware_dolby) | `bp4a` |
 | `vendor/google/GoogleCamera` | [kleidione/vendor_google_GoogleCamera](https://github.com/kleidione/vendor_google_GoogleCamera) | `bp3a` |
@@ -32,7 +32,7 @@ The hardware/nothing tree (`android_hardware_nothing`) is based on:
 - **StudioKeys-Dumps/waterlily-qpr2** - NGlyphs/GlyphManager (20 commits, replaces ParanoidGlyph)
 - **kleidione/bp4a** - FP goodix_fp node wait and HAL null guards
 
-The vendor and camera blobs come from crDroid's repos (the MySelly-proven combo for working portrait/night mode).
+The vendor and camera blobs come from DaViDev985 (NOS 3.2, photo/video working, portrait on Google Camera).
 
 The kernel (`android_kernel_nothing_sm7325`) is based on:
 
