@@ -8,8 +8,8 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 |------|------------|--------|
 | `device/nothing/Spacewar` | [ang3lo-azevedo/android_device_nothing_Spacewar](https://github.com/ang3lo-azevedo/android_device_nothing_Spacewar) | `voltage` |
 | `kernel/nothing/sm7325` | [ang3lo-azevedo/android_kernel_nothing_sm7325](https://github.com/ang3lo-azevedo/android_kernel_nothing_sm7325) | `voltage-nethunter` |
-| `vendor/nothing/Spacewar` | [kleidione/vendor_nothing_Spacewar](https://github.com/kleidione/vendor_nothing_Spacewar) | `bp4a` |
-| `vendor/nothing/camera` | [MySelly/vendor_nothing_camera-spacewar](https://github.com/MySelly/vendor_nothing_camera-spacewar) | `16.0` |
+| `vendor/nothing/Spacewar` | [crdroidandroid/proprietary_vendor_nothing_Spacewar](https://github.com/crdroidandroid/proprietary_vendor_nothing_Spacewar) | `16.0` |
+| `vendor/nothing/camera` | [crdroidandroid/vendor_nothing_camera-Spacewar](https://github.com/crdroidandroid/vendor_nothing_camera-Spacewar) | `16.0` |
 | `hardware/nothing` | [ang3lo-azevedo/android_hardware_nothing](https://github.com/ang3lo-azevedo/android_hardware_nothing) | `16.2-nglyphs` |
 | `hardware/dolby` | [kleidione/hardware_dolby](https://github.com/kleidione/hardware_dolby) | `bp4a` |
 | `vendor/google/GoogleCamera` | [kleidione/vendor_google_GoogleCamera](https://github.com/kleidione/vendor_google_GoogleCamera) | `bp3a` |
@@ -31,6 +31,8 @@ The hardware/nothing tree (`android_hardware_nothing`) is based on:
 - **DaViDev985/derp16.2** - base with NtOnlineConfig stub (required for Nothing Camera)
 - **StudioKeys-Dumps/waterlily-qpr2** - NGlyphs/GlyphManager (20 commits, replaces ParanoidGlyph)
 - **kleidione/bp4a** - FP goodix_fp node wait and HAL null guards
+
+The vendor and camera blobs come from crDroid's repos (the MySelly-proven combo for working portrait/night mode).
 
 The kernel (`android_kernel_nothing_sm7325`) is based on:
 
@@ -229,7 +231,7 @@ Each rental can be extended by 2 hours for free once via the dashboard. Use it w
 - [maxsteeel](https://github.com/maxsteeel) - NoMount kernel subsystem
 - [QCerberusQ](https://github.com/QCerberusQ) - OrangeFox recovery for Spacewar
 - [LineageOS](https://github.com/LineageOS) - hardware/nothing base
-- [crDroid](https://github.com/crdroidandroid) - Bluetooth, radio, sensor calibration libs
+- [crDroid](https://github.com/crdroidandroid) - vendor blobs, camera APK, Bluetooth, sensor calibration libs
 - [halogenOS](https://github.com/halogenOS) - Display brightness and Extra Dim config
 - [VoltageOS](https://github.com/VoltageOS) - ROM platform
 - [ServerHive](https://github.com/ServerHive-Development/guide) - build environment guide
