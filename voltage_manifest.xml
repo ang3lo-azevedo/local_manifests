@@ -30,10 +30,10 @@
               remote="github"
               revision="16.2-nglyphs" />
 
-    <project name="MySelly/vendor_nothing_camera-spacewar"
+    <project name="DaViDev985/proprietary_vendor_nothing_camera"
              path="vendor/nothing/camera"
              remote="github"
-             revision="16.0" />
+             revision="derp16" />
 
     <project name="kleidione/hardware_dolby"
              path="hardware/dolby"
