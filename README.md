@@ -8,7 +8,7 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 |------|------------|--------|
 | `device/nothing/Spacewar` | [ang3lo-azevedo/android_device_nothing_Spacewar](https://github.com/ang3lo-azevedo/android_device_nothing_Spacewar) | `voltage` |
 | `kernel/nothing/sm7325` | [ang3lo-azevedo/android_kernel_nothing_sm7325](https://github.com/ang3lo-azevedo/android_kernel_nothing_sm7325) | `voltage-nethunter` |
-| `vendor/nothing/Spacewar` | [DaViDev985/vendor_nothing_Spacewar](https://github.com/DaViDev985/vendor_nothing_Spacewar) | `16.0.2` |
+| `vendor/nothing/Spacewar` | [DaViDev985/vendor_nothing_Spacewar](https://github.com/DaViDev985/vendor_nothing_Spacewar) | `derp16.2` |
 | `vendor/nothing/camera` | [MySelly/vendor_nothing_camera-spacewar](https://github.com/MySelly/vendor_nothing_camera-spacewar) | `16.0` |
 | `hardware/nothing` | [ang3lo-azevedo/android_hardware_nothing](https://github.com/ang3lo-azevedo/android_hardware_nothing) | `16.2-nglyphs` |
 | `hardware/dolby` | [kleidione/hardware_dolby](https://github.com/kleidione/hardware_dolby) | `bp4a` |
@@ -20,20 +20,24 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 The device tree (`android_device_nothing_Spacewar`) merges improvements from:
 
 - **kleidione/bp4a** - base with NOS 3.2 fixes (vibrator, FP, power profile, ghost touch fix)
-- **DaViDev985/16.0.2** - NOS 3.2 post_boot.sh, sepolicy perf, FP screen-off unlock, camera fix, UDFPS null guard
-- **smrth097/16.2-clean** - keyguard margin, vibrate on icon animation
-- **crDroid/16.0** - NOS 3.2 EOL mixer paths, camcorder audio, radio power saving, Bluetooth ASHA/AptX Adaptive R2
+- **DaViDev985/derp16.2** - NOS 3.2 post_boot.sh, sepolicy perf, FP screen-off unlock, camera sepolicy
+- **smrth097/luna** - perf init script, IRQ balance config, SPAMMY_LOG_TAGS, QTI vndfwk
+- **crDroid/16.0** - NOS 3.2 EOL mixer paths, camcorder audio, radio power saving, Bluetooth ASHA/AptX, sensor calibration libs
 - **halogenOS/XOS-16.2** - linear-nits brightness mapping, Extra Dim evening dimmer
+- **StudioKeys-Dumps/waterlily-qpr2** - NGlyphs/GlyphManager, recovery ADSP
 
 The hardware/nothing tree (`android_hardware_nothing`) is based on:
 
-- **DaViDev985/16.0.2** - base with NtOnlineConfig stub (required for Nothing Camera)
+- **DaViDev985/derp16.2** - base with NtOnlineConfig stub (required for Nothing Camera)
 - **StudioKeys-Dumps/waterlily-qpr2** - NGlyphs/GlyphManager (20 commits, replaces ParanoidGlyph)
 - **kleidione/bp4a** - FP goodix_fp node wait and HAL null guards
 
-The kernel is based on:
+The kernel (`android_kernel_nothing_sm7325`) is based on:
 
-- **William24hmar/KSU-SUSFS** - KSU syscall tamper, full SUSFS, NetHunter, root hiding
+- **William24hmar/KSU-SUSFS** - KSU syscall tamper, full SUSFS
+- **William24hmar/Nethunter** - NetHunter configs (monitor mode, WireGuard, HID gamepads)
+- **maxsteeel/nomount** - NoMount path redirection subsystem
+- **rodrig20/moonwake** - USB gadget reconfiguration, HID keyboard descriptor
 
 ## Prerequisites
 
@@ -196,30 +200,36 @@ Each rental can be extended by 2 hours for free once via the dashboard. Use it w
 
 ## Features Enabled
 
-- Nothing Camera and Google Camera (dual camera support)
+- Nothing Camera with video recording fix (MySelly blobs, portrait/night working)
+- Google Camera (from kleidione vendor)
 - NGlyphs - glyph LED control (audio sync, recording LED, music visualizer, Glyph Converter)
 - KernelSU with syscall tamper and full SUSFS (root hiding)
 - Kali NetHunter - Wi-Fi monitor mode, HID attacks, mac80211 injection, WireGuard, HID gamepads
+- NoMount path redirection subsystem
+- MPTCP multipath TCP (mainline kernel feature)
 - Dolby audio (Sony Dolby with spatial audio)
-- Device as Webcam (HQ mode default)
+- Device as Webcam (USB UVC enabled)
 - FP screen-off unlock enabled by default
 - NOS 3.2 vibrator improvements
-- LTO + O3 + ThinLTO optimizations with HWUI compile for performance
-- MPTCP multipath TCP (mainline kernel feature)
-- OrangeFox recovery compatible (TARGET_NO_RECOVERY set)
+- Perf init script (CPU boost, schedutil, CPUSets, uclamp, IRQ affinity)
+- SPAMMY_LOG_TAGS (cleaner logcat on user builds)
+- OrangeFox recovery compatible (TARGET_NO_RECOVERY)
+- LTO + O3 + ThinLTO + HWUI optimizations
 - USB gadget reconfiguration with proper HID keyboard descriptor
 
 ## Credits
 
 - [kleidione](https://github.com/kleidione) - device tree base, FP fix, ghost touch fix, Dolby, Google Camera
-- [DaViDev985](https://github.com/DaViDev985) - vendor blobs, Nothing Camera, NOS 3.2 fixes, NtOnlineConfig stub
-- [smrth097](https://github.com/smrth097) - original Spacewar bringup, overlay improvements
+- [DaViDev985](https://github.com/DaViDev985) - vendor blobs, camera sepolicy, NOS 3.2 fixes, NtOnlineConfig
+- [smrth097](https://github.com/smrth097) - original Spacewar bringup, perf init, IRQ config, SPAMMY_LOG_TAGS
 - [Jis G Jacob (StudioKeys)](https://github.com/StudioKeys-Dumps) - NGlyphs, recovery ADSP patch
-- [William24hmar](https://github.com/William24hmar) - KSU-SUSFS kernel base
-- [rodrig20](https://github.com/rodrig20) - USB gadget reconfiguration and HID keyboard descriptor
+- [William24hmar](https://github.com/William24hmar) - KSU-SUSFS kernel base, NetHunter configs
+- [MySelly](https://github.com/MySelly) - working Nothing Camera APK
+- [rodrig20](https://github.com/rodrig20) - USB gadget improvements
+- [maxsteeel](https://github.com/maxsteeel) - NoMount kernel subsystem
 - [QCerberusQ](https://github.com/QCerberusQ) - OrangeFox recovery for Spacewar
 - [LineageOS](https://github.com/LineageOS) - hardware/nothing base
-- [crDroid](https://github.com/crdroidandroid) - Bluetooth and radio improvements
+- [crDroid](https://github.com/crdroidandroid) - Bluetooth, radio, sensor calibration libs
 - [halogenOS](https://github.com/halogenOS) - Display brightness and Extra Dim config
 - [VoltageOS](https://github.com/VoltageOS) - ROM platform
 - [ServerHive](https://github.com/ServerHive-Development/guide) - build environment guide
