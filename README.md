@@ -205,7 +205,7 @@ Each rental can be extended by 2 hours for free once via the dashboard. Use it w
 - FP screen-off unlock enabled by default
 - NOS 3.2 vibrator improvements
 - LTO + O3 + ThinLTO optimizations with HWUI compile for performance
-- NoMount security hardening, MPTCP multipath TCP, Baseband-Guard LSM
+- MPTCP multipath TCP (mainline kernel feature)
 - OrangeFox recovery compatible (TARGET_NO_RECOVERY set)
 - USB gadget reconfiguration with proper HID keyboard descriptor
 
