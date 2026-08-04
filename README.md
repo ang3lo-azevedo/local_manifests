@@ -8,8 +8,8 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 |------|------------|--------|
 | `device/nothing/Spacewar` | [ang3lo-azevedo/android_device_nothing_Spacewar](https://github.com/ang3lo-azevedo/android_device_nothing_Spacewar) | `voltage` |
 | `kernel/nothing/sm7325` | [ang3lo-azevedo/android_kernel_nothing_sm7325](https://github.com/ang3lo-azevedo/android_kernel_nothing_sm7325) | `voltage-nethunter` |
-| `vendor/nothing/Spacewar` | [DaViDev985/vendor_nothing_Spacewar](https://github.com/DaViDev985/vendor_nothing_Spacewar) | `derp16.2` |
-| `vendor/nothing/camera` | [DaViDev985/proprietary_vendor_nothing_camera](https://github.com/DaViDev985/proprietary_vendor_nothing_camera) | `derp16` |
+| `vendor/nothing/Spacewar` | [kleidione/vendor_nothing_Spacewar](https://github.com/kleidione/vendor_nothing_Spacewar) | `bp4a` |
+| `vendor/nothing/camera` | [MySelly/vendor_nothing_camera-spacewar](https://github.com/MySelly/vendor_nothing_camera-spacewar) | `16.0` |
 | `hardware/nothing` | [ang3lo-azevedo/android_hardware_nothing](https://github.com/ang3lo-azevedo/android_hardware_nothing) | `16.2-nglyphs` |
 | `hardware/dolby` | [kleidione/hardware_dolby](https://github.com/kleidione/hardware_dolby) | `bp4a` |
 | `vendor/google/GoogleCamera` | [kleidione/vendor_google_GoogleCamera](https://github.com/kleidione/vendor_google_GoogleCamera) | `bp3a` |
@@ -219,7 +219,7 @@ Each rental can be extended by 2 hours for free once via the dashboard. Use it w
 
 ## Credits
 
-- [kleidione](https://github.com/kleidione) - device tree base, FP fix, ghost touch fix, Dolby, Google Camera
+- [kleidione](https://github.com/kleidione) - device tree base, vendor blobs, FP fix, ghost touch fix, Dolby, Google Camera
 - [DaViDev985](https://github.com/DaViDev985) - vendor blobs, camera sepolicy, NOS 3.2 fixes, NtOnlineConfig
 - [smrth097](https://github.com/smrth097) - original Spacewar bringup, perf init, IRQ config, SPAMMY_LOG_TAGS
 - [Jis G Jacob (StudioKeys)](https://github.com/StudioKeys-Dumps) - NGlyphs, recovery ADSP patch
