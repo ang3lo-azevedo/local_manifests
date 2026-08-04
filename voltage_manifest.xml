@@ -33,7 +33,7 @@
     <project name="DaViDev985/proprietary_vendor_nothing_camera"
              path="vendor/nothing/camera"
              remote="github"
-             revision="derp16.2" />
+             revision="derp16" />
 
     <project name="kleidione/hardware_dolby"
              path="hardware/dolby"
