@@ -72,10 +72,6 @@ Root access is not provided. If a system package is missing:
 
 Most tools can be installed locally in `~/bin` or via `pip install --user`.
 
-### Plan Extension
-
-Each rental can be extended by 2 hours for free once via the dashboard. Use it when your build is nearly done.
-
 ## Self-Hosted Setup
 
 If you are NOT using ServerHive, the following is required on your own machine before building.
@@ -98,20 +94,17 @@ If you are not the repo owner, you cannot access the private keys. Pick one:
 | Method | What to do |
 |--------|------------|
 | **Remove it** | Edit `.repo/local_manifests/voltage_manifest.xml` and delete both the `<remove-project>` and `<project>` lines for `vendor/voltage-priv/keys` |
-| **Replace it** | Generate signing keys and see below for instructions |
+| **Replace it** | Clone the [official keys template](https://github.com/VoltageOS/vendor_voltage-priv_keys), generate your own, and push to your repo |
 
-To generate your own keys and create a repo:
+To generate your own keys:
 
 ```bash
-mkdir keys && cd keys
-subject='/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android'
-for key in releasekey platform shared media networkstack testkey verity; do
-    development/tools/make_key $key "$subject"
-done
-echo 'PRODUCT_DEFAULT_DEV_CERTIFICATE := $(LOCAL_PATH)/keys/releasekey' > keys.mk
+croot && git clone https://github.com/VoltageOS/vendor_voltage-priv_keys vendor/voltage-priv/keys
+cd vendor/voltage-priv/keys
+./keys.sh
 ```
 
-Push the folder to a new git repo, then update the `vendor/voltage-priv/keys` project entry in `voltage_manifest.xml` to point to it.
+Push the generated `vendor/voltage-priv/keys` folder (with all `.pk8`, `.x509.pem`, `keys.mk`, etc.) to a new git repo, then update the project entry in `voltage_manifest.xml` to point to it.
 
 > Test keys are sufficient for unofficial builds. The build system skips missing keys automatically.
 
