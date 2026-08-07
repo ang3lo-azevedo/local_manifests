@@ -65,17 +65,13 @@ Started by searching GitHub for "VoltageOS manifest" to find the official platfo
 
 Next, you need a device tree that tells the build system how to compile for the Nothing Phone (1). Searched GitHub for "nothing Spacewar device tree" and found several maintainers. [kleidione's](https://github.com/kleidione/device_nothing_Spacewar) `bp4a` branch was the most complete with vibrator fixes, FP permissions, power profiles, and ghost touch fixes straight from the NOS 3.2 kernel source.
 
-### The Vendor Blobs: DaViDev985
-
-Without proprietary files (camera libs, sensors, audio DSP, fingerprint firmware), the ROM boots but nothing works. Found [DaViDev985's vendor repo](https://github.com/DaViDev985/vendor_nothing_Spacewar) on the `derp16.2` branch. These blobs came from a NOS 3.2 factory image extracted with `extract-files.sh`. His was the only vendor that booted cleanly; others had keymaster version mismatches that broke encrypted storage.
-
-### The Camera: DaViDev985 + Arcsoft Libs
-
-DaViDev985's [camera vendor repo](https://github.com/DaViDev985/proprietary_vendor_nothing_camera) has the Nothing Camera APK and companion libs. But the APK `dlopen`s arcsoft processing libs at runtime, and they are not listed anywhere in the build system. The fix was found by running `adb logcat` on a booted ROM and grepping for "dlopen failed" -- 14 arcsoft libs were failing to load. Added them to `public.libraries.txt` and `file_contexts` in the device tree to whitelist and label them for SELinux.
-
 ### The Kernel: William24hmar
 
 The stock kernel lacks KernelSU and SUSFS for root hiding. Found [William24hmar's kernel](https://github.com/William24hmar/nothing_android_kernel_sm7325) `KSU-SUSFS` branch with KSU syscall tamper and full SUSFS. Then cherry-picked his `Nethunter` branch for Wi-Fi monitor mode and HID attacks, his `module` branch for Re:Kernel and log silencing, and his `Test` branch for security fixes and critical task boost. The kernel assembly was: `KSU-SUSFS` (base) + `Nethunter` (configs) + `module` (proc_ops, NF tables, silencing) + `Test` (security fixes, binder boost, TCP annotations).
+
+### The Vendor Blobs: DaViDev985
+
+Without proprietary files (camera libs, sensors, audio DSP, fingerprint firmware), the ROM boots but nothing works. Found [DaViDev985's vendor repo](https://github.com/DaViDev985/vendor_nothing_Spacewar) on the `derp16.2` branch. These blobs came from a NOS 3.2 factory image extracted with `extract-files.sh`. His was the only vendor that booted cleanly; others had keymaster version mismatches that broke encrypted storage.
 
 ### The Hardware HAL: NGlyphs from StudioKeys
 
