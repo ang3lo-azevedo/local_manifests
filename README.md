@@ -15,56 +15,16 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 | `vendor/google/GoogleCamera` | [kleidione/vendor_google_GoogleCamera](https://github.com/kleidione/vendor_google_GoogleCamera) | `bp3a` |
 | `vendor/voltage-priv/keys` | [ang3lo-azevedo/vendor_voltage-priv_keys](https://github.com/ang3lo-azevedo/vendor_voltage-priv_keys) | `main` |
 
-## Building from Source
+## Index
 
-All sources (device tree, kernel, vendor blobs, HAL) are pulled automatically by `repo sync`. The manifest handles everything you just need the steps below.
+- [ServerHive Build Server](#serverhive-build-server) -- rent a build machine
+- [One-Line Setup](#one-line-setup) -- curl and done
+- [Manual Setup](#manual-setup) -- step by step
+- [How All the Pieces Were Found](#how-all-the-pieces-were-found) -- finding and assembling ROM sources
+- [Features Enabled](#features-enabled) -- what is in the ROM
+- [Troubleshooting](#troubleshooting) -- common fixes
 
-### Full Build Guide
-
-#### 1. Get the VoltageOS source
-
-```bash
-mkdir -p ~/voltageos && cd ~/voltageos
-repo init -u https://github.com/VoltageOS/manifest.git -b 16.2 --git-lfs
-```
-
-#### 2. Add this manifest
-
-```bash
-git clone https://github.com/ang3lo-azevedo/local_manifests.git .repo/local_manifests
-```
-
-This pulls in all Nothing Phone (1) specific trees: device, kernel, vendor blobs, camera, hardware/nothing, Dolby, and Google Camera.
-
-#### 3. Handle signing keys
-
-The manifest includes a private keys repo. If you are not the repo owner, remove it before syncing. Edit `.repo/local_manifests/voltage_manifest.xml` and delete the `<remove-project>` and `<project>` lines for `vendor/voltage-priv/keys`. The build will use test keys.
-
-If you are the repo owner, set up [GitHub authentication](#github-authentication) first.
-
-#### 4. Set up git cookies (recommended)
-
-Google rate-limits unauthenticated syncs. Visit [android.googlesource.com](https://android.googlesource.com), click "Generate Password", authenticate, and run the provided shell script.
-
-#### 5. Sync
-
-```bash
-repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune
-```
-
-This downloads all ~200GB of source code. It takes a while.
-
-#### 6. Build
-
-```bash
-source build/envsetup.sh
-lunch voltage_Spacewar-bp4a-user
-mka bacon
-```
-
-Output: `out/target/product/Spacewar/voltage-*.zip`
-
-### What Each Tree Provides
+## What Each Tree Provides
 
 All trees are pulled automatically by `repo sync` after adding the local manifest. If you need to work on a tree directly:
 
