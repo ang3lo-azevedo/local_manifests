@@ -5,7 +5,7 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 ## Index
 
 - [ServerHive Build Server](#serverhive-build-server)
-  - [Quick Start](#quick-start)
+  - [One-Click Deploy](#one-click-deploy)
   - [Persistent Sessions (Byobu)](#persistent-sessions-byobu)
   - [Package Requests](#package-requests)
 - [Self-Hosted Setup](#self-hosted-setup)
@@ -120,9 +120,11 @@ This project is designed to build on [ServerHive](https://github.com/ServerHive-
 
 Rent a server at [@ServerHive_bot](https://t.me/ServerHive_bot). Connection details are sent to your dashboard after provisioning. Community chat at [t.me/ServerRentals](https://t.me/ServerRentals).
 
-### Quick Start
+### One-Click Deploy
 
-```bash
+Run this from your local machine after renting a server:
+
+```
 curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/local_manifests/16.2/setup.sh | bash
 ```
 
