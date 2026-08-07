@@ -66,17 +66,25 @@ Output: `out/target/product/Spacewar/voltage-*.zip`
 
 ### What Each Tree Provides
 
-The manifest includes these repositories automatically. No manual cloning needed.
+All trees are pulled automatically by `repo sync` after adding the local manifest. If you need to work on a tree directly:
 
-| Tree | What it provides | Source |
-|------|-----------------|--------|
-| `device/nothing/Spacewar` | Board config, overlays, init scripts, sepolicy | [voltage](https://github.com/ang3lo-azevedo/android_device_nothing_Spacewar) |
-| `kernel/nothing/sm7325` | Linux 5.4.302 with KSU-SUSFS, NetHunter, NoMount | [voltage-nethunter](https://github.com/ang3lo-azevedo/android_kernel_nothing_sm7325) |
-| `vendor/nothing/Spacewar` | Proprietary blobs from NOS 3.2 | [derp16.2](https://github.com/DaViDev985/vendor_nothing_Spacewar) |
-| `vendor/nothing/camera` | Nothing Camera app + libs | [derp16](https://github.com/DaViDev985/proprietary_vendor_nothing_camera) |
-| `hardware/nothing` | NGlyphs, fingerprint HAL, NtOnlineConfig | [16.2-nglyphs](https://github.com/ang3lo-azevedo/android_hardware_nothing) |
-| `hardware/dolby` | Dolby audio processing | [bp4a](https://github.com/kleidione/hardware_dolby) |
-| `vendor/google/GoogleCamera` | Google Camera APK | [bp3a](https://github.com/kleidione/vendor_google_GoogleCamera) |
+| Tree | Source repo | Branch |
+|------|-----------|--------|
+| `device/nothing/Spacewar` | `ang3lo-azevedo/android_device_nothing_Spacewar` | `voltage` |
+| `kernel/nothing/sm7325` | `ang3lo-azevedo/android_kernel_nothing_sm7325` | `voltage-nethunter` |
+| `vendor/nothing/Spacewar` | `DaViDev985/vendor_nothing_Spacewar` | `derp16.2` |
+| `vendor/nothing/camera` | `DaViDev985/proprietary_vendor_nothing_camera` | `derp16` |
+| `hardware/nothing` | `ang3lo-azevedo/android_hardware_nothing` | `16.2-nglyphs` |
+| `hardware/dolby` | `kleidione/hardware_dolby` | `bp4a` |
+| `vendor/google/GoogleCamera` | `kleidione/vendor_google_GoogleCamera` | `bp3a` |
+
+To clone a tree for local development:
+
+```bash
+git clone -b <branch> https://github.com/<source> <path>
+# Example:
+git clone -b voltage https://github.com/ang3lo-azevedo/android_device_nothing_Spacewar device/nothing/Spacewar
+```
 
 ### Tree Sources
 
