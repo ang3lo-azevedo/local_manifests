@@ -2,6 +2,8 @@
 
 Local manifest and tutorial for building VoltageOS on Nothing Phone (1) (Spacewar).
 
+A local manifest is an XML file placed in `.repo/local_manifests/` that tells the repo tool to fetch additional repositories beyond what the main VoltageOS manifest specifies. It is how you add device-specific trees (device, kernel, vendor, hardware) to a ROM build without modifying the upstream manifest.
+
 ## Index
 
 - [ServerHive Build Server](#serverhive-build-server)
@@ -106,7 +108,7 @@ Rent a server at [@ServerHive_bot](https://t.me/ServerHive_bot). Connection deta
 Run this from your local machine after renting a server:
 
 ```
-curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/local_manifests/16.2/setup.sh | bash
+curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/voltageos-spacewar/16.2/setup.sh | bash
 ```
 
 The script prompts for your SSH details and GitHub PAT, then handles: terminfo, git config, repo init, manifest, sync, and aliases. After setup, SSH in and run `sync` or `build`.
@@ -207,7 +209,7 @@ repo init -u https://github.com/VoltageOS/manifest.git -b 16.2 --git-lfs
 #### 2. Add the local manifest
 
 ```bash
-git clone https://github.com/ang3lo-azevedo/local_manifests.git .repo/local_manifests
+git clone https://github.com/ang3lo-azevedo/voltageos-spacewar.git .repo/local_manifests
 ```
 
 **Optional build aliases** -- add these to `~/.zshrc` for convenience (the one-line setup does this automatically):
@@ -360,6 +362,6 @@ This allows the device tree to override the ROM defaults with Nothing tones with
 - Device tree: https://github.com/ang3lo-azevedo/android_device_nothing_Spacewar
 - Kernel source: https://github.com/ang3lo-azevedo/android_kernel_nothing_sm7325
 - Hardware/nothing: https://github.com/ang3lo-azevedo/android_hardware_nothing
-- Local manifests: https://github.com/ang3lo-azevedo/local_manifests
+- Local manifests: https://github.com/ang3lo-azevedo/voltageos-spacewar
 - VoltageOS platform: https://github.com/VoltageOS
 - ServerHive build guide: https://github.com/ServerHive-Development/guide
