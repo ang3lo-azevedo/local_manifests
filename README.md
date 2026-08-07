@@ -93,9 +93,19 @@ If you are not the repo owner, you cannot access the private keys. Pick one:
 | Method | What to do |
 |--------|------------|
 | **Remove it** | Edit `.repo/local_manifests/voltage_manifest.xml` and delete both the `<remove-project>` and `<project>` lines for `vendor/voltage-priv/keys` |
-| **Replace it** | Create your own keys repo (see [AOSP signing docs](https://source.android.com/docs/core/ota/sign_builds)) and change the project entry to point to yours |
+| **Replace it** | Generate your own signing keys and create a repo for them |
 
-The build will use **test keys** if no custom keys are provided. This is fine for personal use.
+**Generating VoltageOS signing keys:**
+
+```bash
+mkdir -p ~/android-certs && cd ~/android-certs
+git clone https://github.com/VoltageOS/vendor_extra_keys .
+./generate.sh
+```
+
+Then create a git repo from the output, push it, and update the `voltage_manifest.xml` project entry to point to your repo.
+
+> The VoltageOS build will fail without valid signing keys. Test keys are not sufficient.
 
 #### Option B: Use the private keys repo (ang3lo-azevedo only)
 
@@ -131,26 +141,31 @@ Google rate-limits unauthenticated repo syncs, sometimes causing `429 Too Many R
 3. Authenticate and follow the "Configure Git" instructions
 4. Copy and run the provided shell script
 
-### Global Git Config (required)
+### Global Git Config
 
 `repo` uses git internally. Git refuses to operate without `user.name` and `user.email` set:
 
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+```
+
 ### One-Line Setup
 
-Run this from your local machine (not the server). It prompts for your SSH details and GitHub PAT, then does everything automatically:
+Run this from your local machine (not the server):
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/local_manifests/16.2/setup.sh | bash
 ```
 
-The script handles: pushing terminfo to the server, configuring git credentials, initializing the repo, cloning local manifests, syncing sources, and adding build aliases. Git cookies are not set up by the script (they are optional but recommended, see above). You only need `sshpass` installed locally (`apt install sshpass`).
+Git cookies are not set up by the script (optional but recommended, see above). You need `sshpass` installed locally (`apt install sshpass`).
 
 After setup, SSH in and run:
 
 ```bash
-source ~/.zshrc       # load aliases
-sync-voltage          # update sources
-build-voltage         # build the ROM
+source ~/.zshrc    # load aliases
+sync               # update sources
+build              # build the ROM
 ```
 
 ### Manual Setup
@@ -194,8 +209,8 @@ mka bacon
 Add these to `~/.zshrc` (the one-line setup does this for you):
 
 ```bash
-alias sync-voltage='cd ~/voltageos && repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune'
-alias build-voltage='cd ~/voltageos && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon'
+alias sync='cd ~/voltageos && repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune'
+alias build='cd ~/voltageos && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon'
 ```
 
 ## Build Configuration

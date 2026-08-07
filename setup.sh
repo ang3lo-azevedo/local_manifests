@@ -56,15 +56,15 @@ repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fet
 echo "Adding aliases..."
 for RC in ~/.bashrc ~/.zshrc; do
     [ -f "$RC" ] || continue
-    grep -q "build-voltage" "$RC" 2>/dev/null || \
-        echo "alias build-voltage='cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon'" >> "$RC"
-    grep -q "sync-voltage"  "$RC" 2>/dev/null || \
-        echo "alias sync-voltage='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune'" >> "$RC"
+    grep -q "alias build=" "$RC" 2>/dev/null || \
+        echo "alias build='cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon'" >> "$RC"
+    grep -q "alias sync="  "$RC" 2>/dev/null || \
+        echo "alias sync='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune'" >> "$RC"
 done
 
 echo ""
-echo "Done. Run: source ~/.zshrc && build-voltage"
+echo "Done. Run: source ~/.zshrc && build"
 SETUP
 
 echo ""
-echo "Setup finished. SSH in and run 'build-voltage'."
+echo "Setup finished. SSH in and run 'build'."
