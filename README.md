@@ -260,6 +260,7 @@ The `sync` alias updates all source trees from their remotes. The `build` alias 
 
 ```bash
 ccache -M 50G
+```
 
 **Clean builds:** To rebuild from scratch after major changes, use `make clobber` before building. For a faster incremental rebuild, use `make installclean`.
 
