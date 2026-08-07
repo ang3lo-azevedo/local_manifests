@@ -6,7 +6,6 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 
 - [ServerHive Build Server](#serverhive-build-server)
   - [Quick Start](#quick-start)
-  - [One-Line Setup](#one-line-setup)
   - [Persistent Sessions (Byobu)](#persistent-sessions-byobu)
   - [Package Requests](#package-requests)
 - [Self-Hosted Setup](#self-hosted-setup)
@@ -82,6 +81,7 @@ Every active Spacewar maintainer has their own device tree. Rather than fork one
 
 ### How to Find This Stuff Yourself
 
+0. **Start with LineageOS**: For a first build, use [LineageOS device trees](https://github.com/LineageOS) as your base. They are the most compatible out of the box, have proper SELinux policies, and are actively maintained. Clone their device, kernel, and vendor trees, get a booting build, then cherry-pick improvements from other maintainers one at a time. This way you always have a known-good fallback. Once everything works, switch to a custom base.
 1. **GitHub search**: `nothing spacewar device tree`, `sm7325 kernel ksu`, `nothing vendor spacewar`
 2. **Telegram groups**: "Spacewar Development" group where maintainers share their repos
 3. **Other ROM manifests**: Look at `crDroid`, `EvolutionX`, `LineageOS` manifests. They have `*.dependencies` files that list what repos they use
@@ -116,36 +116,23 @@ The kernel (`android_kernel_nothing_sm7325`) is based on:
 
 ## ServerHive Build Server
 
-This project is designed to build on [ServerHive](https://github.com/ServerHive-Development/guide) bare-metal servers. A single rental gives you a fresh machine with all build tools pre-installed. Key features include a browser-based IDE (VS Code), real-time monitoring dashboard, mobile management app, and Drive for build storage.
+This project is designed to build on [ServerHive](https://github.com/ServerHive-Development/guide) bare-metal servers. A single rental gives you a machine with all build tools pre-installed: browser IDE (VS Code), monitoring dashboard, mobile app, and Drive for storage.
+
+Rent a server at [t.me/ServerRentals](https://t.me/ServerRentals). Connection details are sent to your dashboard after provisioning.
 
 ### Quick Start
-
-Rent a ServerHive machine, then SSH in using the details from your dashboard:
-
-```bash
-ssh username@server.serverhive.com -p 22
-```
-
-### One-Line Setup
-
-Run this from your local machine (not the server):
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/local_manifests/16.2/setup.sh | bash
 ```
 
-Git cookies are not set up by the script (optional but recommended, see below). You need `sshpass` installed locally (`apt install sshpass`).
+The script handles everything: terminfo, git config, repo init, manifest, sync, and aliases. Git cookies are not set up (optional, see [Git Cookies](#git-cookies-recommended-not-necessary)). Needs `sshpass` locally (`apt install sshpass`).
 
-After setup, SSH in and run:
-
-```bash
-sync               # update sources
-build              # build the ROM
-```
+After setup, SSH in and run `sync` or `build`.
 
 ### Persistent Sessions (Byobu)
 
-ServerHive uses Byobu as the default terminal multiplexer. Your build keeps running even if you disconnect.
+ServerHive uses Byobu. Your build keeps running even if you disconnect.
 
 ```bash
 # Detach: F6 or Ctrl+A then D
