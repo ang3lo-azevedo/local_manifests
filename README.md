@@ -256,11 +256,10 @@ mka bacon
 
 The `sync` alias updates all source trees from their remotes. The `build` alias compiles the ROM (sources the environment, selects the device, and starts the build).
 
-**ccache (recommended):** Speeds up subsequent builds significantly. Set it up once:
+**ccache:** ServerHive rentals last up to 4 days, enough for multiple builds. Set up ccache on first build to speed up subsequent ones:
 
 ```bash
 ccache -M 50G
-```
 
 **Clean builds:** To rebuild from scratch after major changes, use `make clobber` before building. For a faster incremental rebuild, use `make installclean`.
 
