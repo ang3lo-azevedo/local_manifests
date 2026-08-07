@@ -86,6 +86,50 @@ git clone -b <branch> https://github.com/<source> <path>
 git clone -b voltage https://github.com/ang3lo-azevedo/android_device_nothing_Spacewar device/nothing/Spacewar
 ```
 
+## How All the Pieces Were Found
+
+Every custom ROM is a puzzle where you find and combine pieces from different maintainers. Here is how each piece of this ROM was discovered and assembled.
+
+### The Platform: VoltageOS
+
+Started by searching GitHub for "VoltageOS manifest" to find the official platform source. The [VoltageOS manifest repo](https://github.com/VoltageOS/manifest) lists all the repositories that make up the ROM. Using `git clone` of that manifest gives you the base: frameworks, system apps, build tools, everything from AOSP plus VoltageOS customizations.
+
+### The Device Tree: kleidione as Base
+
+Next, you need a device tree that tells the build system how to compile for the Nothing Phone (1). Searched GitHub for "nothing Spacewar device tree" and found several maintainers. [kleidione's](https://github.com/kleidione/device_nothing_Spacewar) `bp4a` branch was the most complete with vibrator fixes, FP permissions, power profiles, and ghost touch fixes straight from the NOS 3.2 kernel source.
+
+### The Vendor Blobs: DaViDev985
+
+Without proprietary files (camera libs, sensors, audio DSP, fingerprint firmware), the ROM boots but nothing works. Found [DaViDev985's vendor repo](https://github.com/DaViDev985/vendor_nothing_Spacewar) on the `derp16.2` branch. These blobs came from a NOS 3.2 factory image extracted with `extract-files.sh`. His was the only vendor that booted cleanly; others had keymaster version mismatches that broke encrypted storage.
+
+### The Camera: DaViDev985 + Arcsoft Libs
+
+DaViDev985's [camera vendor repo](https://github.com/DaViDev985/proprietary_vendor_nothing_camera) has the Nothing Camera APK and companion libs. But the APK `dlopen`s arcsoft processing libs at runtime, and they are not listed anywhere in the build system. The fix was found by running `adb logcat` on a booted ROM and grepping for "dlopen failed" -- 14 arcsoft libs were failing to load. Added them to `public.libraries.txt` and `file_contexts` in the device tree to whitelist and label them for SELinux.
+
+### The Kernel: William24hmar
+
+The stock kernel lacks KernelSU and SUSFS for root hiding. Found [William24hmar's kernel](https://github.com/William24hmar/nothing_android_kernel_sm7325) `KSU-SUSFS` branch with KSU syscall tamper and full SUSFS. Then cherry-picked his `Nethunter` branch for Wi-Fi monitor mode and HID attacks, his `module` branch for Re:Kernel and log silencing, and his `Test` branch for security fixes and critical task boost. The kernel assembly was: `KSU-SUSFS` (base) + `Nethunter` (configs) + `module` (proc_ops, NF tables, silencing) + `Test` (security fixes, binder boost, TCP annotations).
+
+### The Hardware HAL: NGlyphs from StudioKeys
+
+Nothing Phone (1) has glyph LEDs that need a HAL. DaViDev985's [hardware/nothing repo](https://github.com/DaViDev985/android_hardware_nothing) had a ParanoidGlyph implementation that required root. Found [StudioKeys-Dumps' fork](https://github.com/StudioKeys-Dumps/hardware_nothing) with NGlyphs -- a system app replacement that works without root and has audio-glyph sync, music visualizer, and recording LED. Cherry-picked 20 commits from their `waterlily-qpr2` branch into our hardware/nothing tree.
+
+### Cherry-Picking Improvements
+
+Every active Spacewar maintainer has their own device tree. Rather than fork one, improvements were cherry-picked from each:
+
+- **[smrth097](https://github.com/smrth097/android_device_nothing_Spacewar)** `16.2-clean`: perf init script (CPU boost, schedutil tuning, uclamp), IRQ balance config (prevents GPU micro-stutter), WiFi concurrent STA (hotspot + WiFi), SPAMMY_LOG_TAGS (cleaner logcat), QTI vndfwk (fixes CNE networking)
+- **[crDroid](https://github.com/crdroidandroid/android_device_nothing_Spacewar)** `16.0`: NOS 3.2 mixer paths (camcorder audio fix), Bluetooth ASHA/AptX/HD/Adaptive/LDAC codecs, sensor calibration libs, camera soong configs, audio skip_speaker fix
+- **[halogenOS](https://github.com/halogenOS/android_device_nothing_Spacewar)** `XOS-16.2`: linear-nits brightness mapping with Extra Dim evening dimmer config
+
+### How to Find This Stuff Yourself
+
+1. **GitHub search**: `nothing spacewar device tree`, `sm7325 kernel ksu`, `nothing vendor spacewar`
+2. **Telegram groups**: "Spacewar Development" group where maintainers share their repos
+3. **Other ROM manifests**: Look at `crDroid`, `EvolutionX`, `LineageOS` manifests. They have `*.dependencies` files that list what repos they use
+4. **Build errors are clues**: When a build fails with "missing file X", search GitHub for that filename. The repo containing it is the one you are missing
+5. **logcat debug**: Flash a booting build, `adb logcat | grep -i "failed\|error\|missing"` to find runtime issues like missing libs or SELinux denials
+
 ### Tree Sources
 
 The device tree (`android_device_nothing_Spacewar`) merges improvements from:
