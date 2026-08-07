@@ -1,8 +1,6 @@
 # VoltageOS for Nothing Phone (1) (Spacewar)
 
-Local manifest and tutorial for building VoltageOS on Nothing Phone (1) (Spacewar).
-
-A local manifest is an XML file placed in `.repo/local_manifests/` that tells the repo tool to fetch additional repositories beyond what the main VoltageOS manifest specifies. It is how you add device-specific trees (device, kernel, vendor, hardware) to a ROM build without modifying the upstream manifest.
+Manifest and tutorial for building VoltageOS on Nothing Phone (1) (Spacewar).
 
 ## Index
 
@@ -16,15 +14,16 @@ A local manifest is an XML file placed in `.repo/local_manifests/` that tells th
   - [Global Git Config](#global-git-config)
   - [Manual Setup](#manual-setup)
 - [Included Projects](#included-projects)
-- [How All the Pieces Were Found](#how-all-the-pieces-were-found)
+- [How to Build a VoltageOS ROM](#how-to-build-a-voltageos-rom)
+  - [What is a Local Manifest](#what-is-a-local-manifest)
   - [Platform](#the-platform-voltageos)
   - [Device Tree](#the-device-tree-kleidione-as-base)
+  - [Kernel](#the-kernel-william24hmar)
   - [Vendor Blobs](#the-vendor-blobs-davidev985)
   - [Camera](#the-camera-davidev985--arcsoft-libs)
-  - [Kernel](#the-kernel-william24hmar)
   - [Hardware HAL](#the-hardware-hal-nglyphs-from-studiokeys)
   - [Cherry-Picks](#cherry-picking-improvements)
-  - [How to Find Stuff](#how-to-find-this-stuff-yourself)
+  - [How to Find Stuff](#how-to-find-rom-components-yourself)
 - [Features Enabled](#features-enabled)
 - [Troubleshooting](#troubleshooting)
   - [ServerHive Sessions](#serverhive-persistent-sessions-byobu)
@@ -55,31 +54,43 @@ git clone -b <branch> https://github.com/<source repo> <path>
 git clone -b voltage https://github.com/ang3lo-azevedo/android_device_nothing_Spacewar device/nothing/Spacewar
 ```
 
-## How All the Pieces Were Found
+## How to Build a VoltageOS ROM
+
+This is a tutorial on finding, assembling, and building a custom ROM from scratch. The Nothing Phone (1) VoltageOS build is used as a worked example.
+
+### What is a Local Manifest
+
+A local manifest is an XML file placed in `.repo/local_manifests/` that tells the repo tool to fetch additional repositories beyond what the main ROM manifest specifies. It is how you add device-specific trees (device, kernel, vendor, hardware) to a ROM build without modifying the upstream manifest. This repo provides both the manifest XML and a tutorial on how all the pieces were found and assembled.
+
+### Finding the Pieces
 
 Every custom ROM is a puzzle where you find and combine pieces from different maintainers. Here is how each piece of this ROM was discovered and assembled.
 
-### The Platform: VoltageOS
+#### The Platform: VoltageOS
 
-Started by searching GitHub for "VoltageOS manifest" to find the official platform source. The [VoltageOS manifest repo](https://github.com/VoltageOS/manifest) lists all the repositories that make up the ROM. Using `git clone` of that manifest gives you the base: frameworks, system apps, build tools, everything from AOSP plus VoltageOS customizations.
+Started by searching GitHub for "VoltageOS manifest" to find the official platform source. The [VoltageOS manifest repo](https://github.com/VoltageOS/manifest) lists all the repositories that make up the ROM. `repo init` of that manifest gives you the base: frameworks, system apps, build tools, everything from AOSP plus VoltageOS customizations.
 
-### The Device Tree: kleidione as Base
+#### The Device Tree: kleidione as Base
 
 Next, you need a device tree that tells the build system how to compile for the Nothing Phone (1). Searched GitHub for "nothing Spacewar device tree" and found several maintainers. [kleidione's](https://github.com/kleidione/device_nothing_Spacewar) `bp4a` branch was the most complete with vibrator fixes, FP permissions, power profiles, and ghost touch fixes straight from the NOS 3.2 kernel source.
 
-### The Kernel: William24hmar
+#### The Kernel: William24hmar
 
 The stock kernel lacks KernelSU and SUSFS for root hiding. Found [William24hmar's kernel](https://github.com/William24hmar/nothing_android_kernel_sm7325) `KSU-SUSFS` branch with KSU syscall tamper and full SUSFS. Then cherry-picked his `Nethunter` branch for Wi-Fi monitor mode and HID attacks, his `module` branch for Re:Kernel and log silencing, and his `Test` branch for security fixes and critical task boost. The kernel assembly was: `KSU-SUSFS` (base) + `Nethunter` (configs) + `module` (proc_ops, NF tables, silencing) + `Test` (security fixes, binder boost, TCP annotations).
 
-### The Vendor Blobs: DaViDev985
+#### The Vendor Blobs: DaViDev985
 
 Without proprietary files (camera libs, sensors, audio DSP, fingerprint firmware), the ROM boots but nothing works. Found [DaViDev985's vendor repo](https://github.com/DaViDev985/vendor_nothing_Spacewar) on the `derp16.2` branch. These blobs came from a NOS 3.2 factory image extracted with `extract-files.sh`. His was the only vendor that booted cleanly; others had keymaster version mismatches that broke encrypted storage.
 
-### The Hardware HAL: NGlyphs from StudioKeys
+#### The Camera: DaViDev985 + Arcsoft Libs
+
+DaViDev985's [camera vendor repo](https://github.com/DaViDev985/proprietary_vendor_nothing_camera) has the Nothing Camera APK and companion libs. But the APK `dlopen`s arcsoft processing libs at runtime, and they are not listed anywhere in the build system. The fix was found by running `adb logcat` on a booted ROM and grepping for "dlopen failed" -- 14 arcsoft libs were failing to load. Added them to `public.libraries.txt` and `file_contexts` in the device tree to whitelist and label them for SELinux.
+
+#### The Hardware HAL: NGlyphs from StudioKeys
 
 Nothing Phone (1) has glyph LEDs that need a HAL. DaViDev985's [hardware/nothing repo](https://github.com/DaViDev985/android_hardware_nothing) had a ParanoidGlyph implementation that required root. Found [StudioKeys-Dumps' fork](https://github.com/StudioKeys-Dumps/hardware_nothing) with NGlyphs -- a system app replacement that works without root and has audio-glyph sync, music visualizer, and recording LED. Cherry-picked 20 commits from their `waterlily-qpr2` branch into our hardware/nothing tree.
 
-### Cherry-Picking Improvements
+#### Cherry-Picking Improvements
 
 Every active Spacewar maintainer has their own device tree. Rather than fork one, improvements were cherry-picked from each:
 
@@ -87,7 +98,7 @@ Every active Spacewar maintainer has their own device tree. Rather than fork one
 - **[crDroid](https://github.com/crdroidandroid/android_device_nothing_Spacewar)** `16.0`: NOS 3.2 mixer paths (camcorder audio fix), Bluetooth ASHA/AptX/HD/Adaptive/LDAC codecs, sensor calibration libs, camera soong configs, audio skip_speaker fix
 - **[halogenOS](https://github.com/halogenOS/android_device_nothing_Spacewar)** `XOS-16.2`: linear-nits brightness mapping with Extra Dim evening dimmer config
 
-### How to Find This Stuff Yourself
+### How to Find ROM Components Yourself
 
 0. **Start with LineageOS**: For a first build, use [LineageOS device trees](https://github.com/LineageOS) as your base. They are the most compatible out of the box, have proper SELinux policies, and are actively maintained. Clone their device, kernel, and vendor trees, get a booting build, then cherry-pick improvements from other maintainers one at a time. This way you always have a known-good fallback. Once everything works, switch to a custom base.
 1. **GitHub search**: `nothing spacewar device tree`, `sm7325 kernel ksu`, `nothing vendor spacewar`
