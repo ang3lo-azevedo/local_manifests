@@ -45,7 +45,7 @@ mkdir -p ~/"$BUILD_DIR"
 cd ~/"$BUILD_DIR"
 
 if [ ! -f .repo/manifest.xml ]; then
-    repo init -u https://github.com/VoltageOS/manifest.git -b bp4a --depth=1
+    repo init -u https://github.com/VoltageOS/manifest.git -b 16.2 --git-lfs --depth=1
     mkdir -p .repo/local_manifests
     git clone -b 16.2 https://github.com/ang3lo-azevedo/local_manifests.git .repo/local_manifests
 fi

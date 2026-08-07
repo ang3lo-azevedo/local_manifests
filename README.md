@@ -93,19 +93,22 @@ If you are not the repo owner, you cannot access the private keys. Pick one:
 | Method | What to do |
 |--------|------------|
 | **Remove it** | Edit `.repo/local_manifests/voltage_manifest.xml` and delete both the `<remove-project>` and `<project>` lines for `vendor/voltage-priv/keys` |
-| **Replace it** | Generate your own signing keys and create a repo for them |
+| **Replace it** | Generate signing keys and see below for instructions |
 
-**Generating VoltageOS signing keys:**
+To generate your own keys and create a repo:
 
 ```bash
-mkdir -p ~/android-certs && cd ~/android-certs
-git clone https://github.com/VoltageOS/vendor_extra_keys .
-./generate.sh
+mkdir keys && cd keys
+subject='/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android'
+for key in releasekey platform shared media networkstack testkey verity; do
+    development/tools/make_key $key "$subject"
+done
+echo 'PRODUCT_DEFAULT_DEV_CERTIFICATE := $(LOCAL_PATH)/keys/releasekey' > keys.mk
 ```
 
-Then create a git repo from the output, push it, and update the `voltage_manifest.xml` project entry to point to your repo.
+Push the folder to a new git repo, then update the `vendor/voltage-priv/keys` project entry in `voltage_manifest.xml` to point to it.
 
-> The VoltageOS build will fail without valid signing keys. Test keys are not sufficient.
+> Test keys are sufficient for unofficial builds. The build system skips missing keys automatically.
 
 #### Option B: Use the private keys repo (ang3lo-azevedo only)
 
@@ -175,7 +178,7 @@ If you prefer to set up manually:
 #### 1. Initialize the repo
 
 ```bash
-repo init -u https://github.com/VoltageOS/manifest.git -b bp4a
+repo init -u https://github.com/VoltageOS/manifest.git -b 16.2 --git-lfs
 ```
 
 #### 2. Add the local manifest
@@ -215,12 +218,13 @@ alias build='cd ~/voltageos && source build/envsetup.sh && lunch voltage_Spacewa
 
 ## Build Configuration
 
+These values are set automatically by the device tree and ROM build system. The output zip filename follows the format:
+
 ```
-VOLTAGE_VERSION=5.8-Spacewar-YYYYMMDD-HHMM-UNOFFICIAL
-BUILD_ID=BP4A.251205.006
-TARGET_PRODUCT=voltage_Spacewar
-TARGET_BUILD_VARIANT=user
+voltage-{VERSION}-Spacewar-{DATE}-{TIME}-{BUILD_TYPE}.zip
 ```
+
+Example: `voltage-5.11-EOL-Spacewar-20260806-2155-UNOFFICIAL.zip`
 
 Output goes to `out/target/product/Spacewar/`.
 
