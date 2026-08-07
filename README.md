@@ -17,8 +17,19 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
   - [Manual Setup](#manual-setup)
 - [Included Projects](#included-projects)
 - [How All the Pieces Were Found](#how-all-the-pieces-were-found)
+  - [Platform](#the-platform-voltageos)
+  - [Device Tree](#the-device-tree-kleidione-as-base)
+  - [Vendor Blobs](#the-vendor-blobs-davidev985)
+  - [Camera](#the-camera-davidev985--arcsoft-libs)
+  - [Kernel](#the-kernel-william24hmar)
+  - [Hardware HAL](#the-hardware-hal-nglyphs-from-studiokeys)
+  - [Cherry-Picks](#cherry-picking-improvements)
+  - [How to Find Stuff](#how-to-find-this-stuff-yourself)
+- [Tree Sources](#tree-sources)
 - [Features Enabled](#features-enabled)
 - [Troubleshooting](#troubleshooting)
+- [Credits](#credits)
+- [Useful Links](#useful-links)
 
 ## Included Projects
 
@@ -128,7 +139,9 @@ Run this from your local machine after renting a server:
 curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/local_manifests/16.2/setup.sh | bash
 ```
 
-The script handles everything: terminfo, git config, repo init, manifest, sync, and aliases. Git cookies are not set up (optional, see [Git Cookies](#git-cookies-recommended-not-necessary)). Needs `sshpass` locally (`apt install sshpass`).
+The script prompts for your SSH details and GitHub PAT, then handles: terminfo, git config, repo init, manifest, sync, and aliases. After setup, SSH in and run `sync` or `build`.
+
+> If you do not have access to the private keys repo, see [GitHub Authentication](#github-authentication) for how to remove it before building. The script handles this for the owner. Git cookies are not set up by the script (optional, see [Git Cookies](#git-cookies-recommended-not-necessary)). Needs `sshpass` locally (`apt install sshpass`).
 
 After setup, SSH in and run `sync` or `build`.
 
@@ -253,6 +266,8 @@ alias sync='cd ~/voltageos && repo sync -c -j$(nproc) --force-sync --no-clone-bu
 alias build='cd ~/voltageos && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon'
 ```
 
+`sync` updates all source trees from their remotes. `build` compiles the ROM. Output is at `out/target/product/Spacewar/voltage-*.zip`.
+
 #### 3. Sync
 
 ```bash
@@ -275,17 +290,7 @@ Or with `mka`:
 mka bacon
 ```
 
-## Build Configuration
-
-These values are set automatically by the device tree and ROM build system. The output zip filename follows the format:
-
-```
-voltage-{VERSION}-Spacewar-{DATE}-{TIME}-{BUILD_TYPE}.zip
-```
-
-Example: `voltage-5.11-EOL-Spacewar-20260806-2155-UNOFFICIAL.zip`
-
-Output goes to `out/target/product/Spacewar/`.
+The `sync` alias updates all source trees from their remotes. The `build` alias compiles the ROM (sources the environment, selects the device, and starts the build). Output is at `out/target/product/Spacewar/voltage-*.zip`.
 
 ## Features Enabled
 
