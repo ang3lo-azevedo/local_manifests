@@ -43,33 +43,7 @@ The kernel (`android_kernel_nothing_sm7325`) is based on:
 ## Prerequisites
 
 - Android `repo` tool installed
-- Git configured with GitHub authentication
 - At least 200GB free disk space
-
-## GitHub Authentication
-
-This manifest includes private repositories. Set up authentication first.
-
-### Option A: GitHub CLI
-
-```bash
-gh auth login --hostname github.com --git-protocol https
-gh auth setup-git
-```
-
-Verify: `git ls-remote https://github.com/ang3lo-azevedo/vendor_voltage-priv_keys.git`
-
-### Option B: Manual PAT
-
-1. Create a token at https://github.com/settings/tokens with `repo` scope
-2. Store credentials:
-
-```bash
-git config --global credential.helper store
-read -p "GitHub username: " GH_USER
-read -s -p "GitHub PAT: " GH_PAT; echo
-printf "protocol=https\nhost=github.com\nusername=%s\npassword=%s\n\n" "$GH_USER" "$GH_PAT" | git credential approve
-```
 
 ## ServerHive Build Server
 
@@ -94,22 +68,6 @@ ServerHive uses Byobu as the default terminal multiplexer. Your build keeps runn
 # Reattach after disconnect: byobu
 ```
 
-### Git Cookies (avoid Google rate limits)
-
-Google rate-limits unauthenticated repo syncs. After SSHing in, set up git cookies once:
-
-1. Visit https://android.googlesource.com
-2. Click "Generate Password"
-3. Authenticate and follow the "Configure Git" instructions
-4. Copy and run the provided shell script
-
-### Global Git Config
-
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "your.email@example.com"
-```
-
 ### Package Requests
 
 Root access is not provided. If a system package is missing:
@@ -123,6 +81,47 @@ Most tools can be installed locally in `~/bin` or via `pip install --user`.
 Each rental can be extended by 2 hours for free once via the dashboard. Use it when your build is nearly done.
 
 ## Usage
+
+### GitHub Authentication
+
+This manifest includes private repositories. Set up authentication first.
+
+#### Option A: GitHub CLI
+
+```bash
+gh auth login --hostname github.com --git-protocol https
+gh auth setup-git
+```
+
+Verify: `git ls-remote https://github.com/ang3lo-azevedo/vendor_voltage-priv_keys.git`
+
+#### Option B: Manual PAT
+
+1. Create a token at https://github.com/settings/tokens with `repo` scope
+2. Store credentials:
+
+```bash
+git config --global credential.helper store
+read -p "GitHub username: " GH_USER
+read -s -p "GitHub PAT: " GH_PAT; echo
+printf "protocol=https\nhost=github.com\nusername=%s\npassword=%s\n\n" "$GH_USER" "$GH_PAT" | git credential approve
+```
+
+### Git Cookies (avoid Google rate limits)
+
+Google rate-limits unauthenticated repo syncs. Set up git cookies once:
+
+1. Visit https://android.googlesource.com
+2. Click "Generate Password"
+3. Authenticate and follow the "Configure Git" instructions
+4. Copy and run the provided shell script
+
+### Global Git Config
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+```
 
 ### One-Line Setup
 
@@ -237,6 +236,8 @@ git ls-remote https://github.com/ang3lo-azevedo/vendor_voltage-priv_keys.git
 ### "missing or unsuitable terminal: xterm-ghostty" (or similar)
 
 If your terminal shows errors like `missing or unsuitable terminal`, `unknown terminal type`, or `terminal is not fully functional` when SSHing, your remote server does not have your terminal's terminfo entry. This affects Ghostty, Kitty, WezTerm, Alacritty, and other modern terminals.
+
+See the [Ghostty terminfo docs](https://ghostty.org/docs/help/terminfo#ssh) for more details on this issue.
 
 **Fix:** Push your terminal's terminfo to the server:
 
