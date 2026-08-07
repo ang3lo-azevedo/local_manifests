@@ -254,7 +254,17 @@ Or with `mka`:
 mka bacon
 ```
 
-The `sync` alias updates all source trees from their remotes. The `build` alias compiles the ROM (sources the environment, selects the device, and starts the build). Output is at `out/target/product/Spacewar/voltage-*.zip`.
+The `sync` alias updates all source trees from their remotes. The `build` alias compiles the ROM (sources the environment, selects the device, and starts the build).
+
+**ccache (recommended):** Speeds up subsequent builds significantly. Set it up once:
+
+```bash
+ccache -M 50G
+```
+
+**Clean builds:** To rebuild from scratch after major changes, use `make clobber` before building. For a faster incremental rebuild, use `make installclean`.
+
+Output is at `out/target/product/Spacewar/voltage-*.zip`.
 
 ## Features Enabled
 
@@ -373,6 +383,7 @@ This allows the device tree to override the ROM defaults with Nothing tones with
 - Device tree: https://github.com/ang3lo-azevedo/android_device_nothing_Spacewar
 - Kernel source: https://github.com/ang3lo-azevedo/android_kernel_nothing_sm7325
 - Hardware/nothing: https://github.com/ang3lo-azevedo/android_hardware_nothing
-- Local manifests: https://github.com/ang3lo-azevedo/voltageos-spacewar
 - VoltageOS platform: https://github.com/VoltageOS
 - ServerHive build guide: https://github.com/ServerHive-Development/guide
+- ROM Building resources: [stars list](https://github.com/stars/ang3lo-azevedo/lists/rom-building)
+- Custom ROM beginner guide: [shantanu-sarkar/CustomROM](https://github.com/shantanu-sarkar/CustomROM)
