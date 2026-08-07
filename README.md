@@ -2,6 +2,16 @@
 
 Local manifest for building VoltageOS on the Nothing Phone (1).
 
+## Index
+
+- [ServerHive Build Server](#serverhive-build-server) -- rent a build machine
+- [One-Line Setup](#one-line-setup) -- curl and done
+- [Manual Setup](#manual-setup) -- step by step
+- [What Each Tree Provides](#what-each-tree-provides) -- sources and branches
+- [How All the Pieces Were Found](#how-all-the-pieces-were-found) -- finding and assembling ROM sources
+- [Features Enabled](#features-enabled) -- what is in the ROM
+- [Troubleshooting](#troubleshooting) -- common fixes
+
 ## Included Projects
 
 | Path | Repository | Branch |
@@ -14,15 +24,6 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 | `hardware/dolby` | [kleidione/hardware_dolby](https://github.com/kleidione/hardware_dolby) | `bp4a` |
 | `vendor/google/GoogleCamera` | [kleidione/vendor_google_GoogleCamera](https://github.com/kleidione/vendor_google_GoogleCamera) | `bp3a` |
 | `vendor/voltage-priv/keys` | [ang3lo-azevedo/vendor_voltage-priv_keys](https://github.com/ang3lo-azevedo/vendor_voltage-priv_keys) | `main` |
-
-## Index
-
-- [ServerHive Build Server](#serverhive-build-server) -- rent a build machine
-- [One-Line Setup](#one-line-setup) -- curl and done
-- [Manual Setup](#manual-setup) -- step by step
-- [How All the Pieces Were Found](#how-all-the-pieces-were-found) -- finding and assembling ROM sources
-- [Features Enabled](#features-enabled) -- what is in the ROM
-- [Troubleshooting](#troubleshooting) -- common fixes
 
 ## What Each Tree Provides
 
