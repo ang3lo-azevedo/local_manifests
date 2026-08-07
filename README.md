@@ -71,29 +71,100 @@ read -s -p "GitHub PAT: " GH_PAT; echo
 printf "protocol=https\nhost=github.com\nusername=%s\npassword=%s\n\n" "$GH_USER" "$GH_PAT" | git credential approve
 ```
 
-## Usage
+## ServerHive Build Server
 
-### 1. Initialize the repo
+This project is designed to build on [ServerHive](https://github.com/ServerHive-Development/guide) bare-metal servers. A single rental gives you a fresh machine with all build tools pre-installed.
+
+### Quick Start
+
+Rent a ServerHive machine at https://serverhive.com, then SSH in:
 
 ```bash
-repo init -u https://github.com/VoltageOS/manifest.git -b <branch>
+ssh username@server.serverhive.com -p 22
 ```
 
-### 2. Add the local manifest
+### Persistent Sessions (Byobu)
 
-Clone this repository into `.repo/local_manifests/`:
+ServerHive uses Byobu as the default terminal multiplexer. Your build keeps running even if you disconnect.
+
+```bash
+# Detach: F6 or Ctrl+A then D
+# New window: F2
+# Navigate windows: F3 (previous) / F4 (next)
+# Reattach after disconnect: byobu
+```
+
+### Git Cookies (avoid Google rate limits)
+
+Google rate-limits unauthenticated repo syncs. After SSHing in, set up git cookies once:
+
+1. Visit https://android.googlesource.com
+2. Click "Generate Password"
+3. Authenticate and follow the "Configure Git" instructions
+4. Copy and run the provided shell script
+
+### Global Git Config
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+```
+
+### Package Requests
+
+Root access is not provided. If a system package is missing:
+
+> "Hi, could you please install `libncurses5` via `sudo apt install`?"
+
+Most tools can be installed locally in `~/bin` or via `pip install --user`.
+
+### Plan Extension
+
+Each rental can be extended by 2 hours for free once via the dashboard. Use it when your build is nearly done.
+
+## Usage
+
+### One-Line Setup
+
+Run this from your local machine (not the server). It prompts for your SSH details and GitHub PAT, then does everything automatically:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/local_manifests/16.2/setup.sh | bash
+```
+
+The script handles: pushing terminfo to the server, configuring git credentials, initializing the repo, cloning local manifests, syncing sources, and adding build aliases. All you need is `sshpass` installed locally (`apt install sshpass`).
+
+After setup, SSH in and run:
+
+```bash
+source ~/.zshrc       # load aliases
+sync-voltage          # update sources
+build-voltage         # build the ROM
+```
+
+### Manual Setup
+
+If you prefer to set up manually:
+
+#### 1. Initialize the repo
+
+```bash
+repo init -u https://github.com/VoltageOS/manifest.git -b bp4a
+```
+
+#### 2. Add the local manifest
 
 ```bash
 git clone https://github.com/ang3lo-azevedo/local_manifests.git .repo/local_manifests
 ```
 
-### 3. Sync
+#### 3. Sync
 
 ```bash
 repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune
 ```
 
-### 4. Build
+#### 4. Build
 
 ```bash
 source build/envsetup.sh
@@ -107,6 +178,15 @@ Or with `mka`:
 mka bacon
 ```
 
+### Build Aliases
+
+Add these to `~/.zshrc` (the one-line setup does this for you):
+
+```bash
+alias sync-voltage='cd ~/voltageos && repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune'
+alias build-voltage='cd ~/voltageos && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon'
+```
+
 ## Build Configuration
 
 ```
@@ -117,6 +197,24 @@ TARGET_BUILD_VARIANT=user
 ```
 
 Output goes to `out/target/product/Spacewar/`.
+
+## Features Enabled
+
+- Nothing Camera with video recording fix (MySelly blobs, portrait/night working)
+- Google Camera (from kleidione vendor)
+- NGlyphs - glyph LED control (audio sync, recording LED, music visualizer, Glyph Converter)
+- KernelSU with syscall tamper and full SUSFS (root hiding)
+- Kali NetHunter - Wi-Fi monitor mode, HID attacks, mac80211 injection, WireGuard, HID gamepads
+- NoMount path redirection subsystem
+- MPTCP multipath TCP (mainline kernel feature)
+- Dolby audio (Sony Dolby with spatial audio)
+- Device as Webcam (USB UVC enabled)
+- FP screen-off unlock enabled by default
+- NOS 3.2 vibrator improvements
+- Perf init script (CPU boost, schedutil, CPUSets, uclamp, IRQ affinity)
+- SPAMMY_LOG_TAGS (cleaner logcat on user builds)
+- OrangeFox recovery compatible (TARGET_NO_RECOVERY)
+- LTO + O3 + ThinLTO + HWUI optimizations
 
 ## Troubleshooting
 
@@ -136,6 +234,27 @@ Check GitHub authentication with:
 git ls-remote https://github.com/ang3lo-azevedo/vendor_voltage-priv_keys.git
 ```
 
+### "missing or unsuitable terminal: xterm-ghostty" (or similar)
+
+If your terminal shows errors like `missing or unsuitable terminal`, `unknown terminal type`, or `terminal is not fully functional` when SSHing, your remote server does not have your terminal's terminfo entry. This affects Ghostty, Kitty, WezTerm, Alacritty, and other modern terminals.
+
+**Fix:** Push your terminal's terminfo to the server:
+
+```bash
+infocmp -x $TERM | ssh user@server -- tic -x -
+```
+
+The `tic` command may warn about older versions treating the description as an alias - this is safe to ignore.
+
+If `tic` cannot write to the system location, it falls back to `~/.terminfo`. For servers without `tic`, set a fallback terminal in your SSH config (`~/.ssh/config`):
+
+```
+Host example.com
+  SetEnv TERM=xterm-256color
+```
+
+Note: the fallback approach loses advanced terminal features like colored underlines and styled text.
+
 ### Missing proprietary files
 
 Some prebuilt binaries may be missing from the vendor tree. Verify the branch exists and has the required files. Comment out missing modules from `Android.bp` if necessary.
@@ -149,104 +268,6 @@ sed -i 's/ro.config.ringtone=/ro.config.ringtone?=/; s/ro.config.alarm_alert=/ro
 ```
 
 This allows the device tree to override the ROM defaults with Nothing tones without a build conflict.
-
-### One-Line Setup
-
-Run this from your local machine — it handles everything automatically:
-
-```bash
-curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/local_manifests/16.2/setup.sh | bash
-```
-
-The script will prompt you for:
-- **SSH command** — connection string to your ServerHive machine
-- **SSH password** — only needed if `sshpass` is installed
-- **GitHub PAT** — for accessing the private vendor/voltage-priv/keys repo
-- **Build folder name** — where to create the VoltageOS project (default: `voltageos`)
-
-It then automatically:
-1. Pushes Ghostty terminfo to the server
-2. Configures git credentials on the server
-3. Initializes repo and clones local manifests
-4. Runs `repo sync`
-5. Adds `build-voltage` and `sync-voltage` aliases
-
-After setup, SSH in and run:
-
-```bash
-source ~/.zshrc    # load aliases
-sync-voltage       # update sources (optional, already done)
-build-voltage      # build the ROM
-```
-
-**Requirements:** `sshpass` (optional, `apt install sshpass`), working SSH, at least 200GB disk space on server.
-
-### ServerHive Build Server
-
-If building on [ServerHive](https://github.com/ServerHive-Development/guide) bare-metal servers:
-
-**SSH access:**
-
-```bash
-ssh username@server.serverhive.com -p 22
-```
-
-**Persistent sessions (Byobu):**
-
-ServerHive uses Byobu as the default terminal multiplexer. Your build keeps running even if you disconnect.
-
-```bash
-# Detach: F6 or Ctrl+A then D
-# New window: F2
-# Navigate windows: F3 (previous) / F4 (next)
-# Reattach after disconnect: byobu
-```
-
-**Git cookies (avoid rate limits):**
-
-Google rate-limits unauthenticated syncs. Set up git cookies:
-
-1. Visit https://android.googlesource.com
-2. Click "Generate Password"
-3. Authenticate and follow the "Configure Git" instructions
-4. Copy and run the provided shell script
-
-**Global git config:**
-
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "your.email@example.com"
-```
-
-**Package requests:**
-
-Root access is not provided. If a system package is missing:
-
-> "Hi, could you please install `libncurses5` via `sudo apt install`?"
-
-Most tools can be installed locally in `~/bin` or via `pip install --user`.
-
-**Plan extension:**
-
-Each rental can be extended by 2 hours for free once via the dashboard. Use it when your build is nearly done.
-
-## Features Enabled
-
-- Nothing Camera with video recording fix (MySelly blobs, portrait/night working)
-- Google Camera (from kleidione vendor)
-- NGlyphs - glyph LED control (audio sync, recording LED, music visualizer, Glyph Converter)
-- KernelSU with syscall tamper and full SUSFS (root hiding)
-- Kali NetHunter - Wi-Fi monitor mode, HID attacks, mac80211 injection, WireGuard, HID gamepads
-- NoMount path redirection subsystem
-- MPTCP multipath TCP (mainline kernel feature)
-- Dolby audio (Sony Dolby with spatial audio)
-- Device as Webcam (USB UVC enabled)
-- FP screen-off unlock enabled by default
-- NOS 3.2 vibrator improvements
-- Perf init script (CPU boost, schedutil, CPUSets, uclamp, IRQ affinity)
-- SPAMMY_LOG_TAGS (cleaner logcat on user builds)
-- OrangeFox recovery compatible (TARGET_NO_RECOVERY)
-- LTO + O3 + ThinLTO + HWUI optimizations
 
 ## Credits
 
