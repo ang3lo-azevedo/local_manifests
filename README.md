@@ -221,7 +221,7 @@ repo init -u https://github.com/VoltageOS/manifest.git -b 16.2 --git-lfs
 git clone https://github.com/ang3lo-azevedo/voltageos-spacewar.git .repo/local_manifests
 ```
 
-**Optional build aliases** -- add these to `~/.zshrc` for convenience (the one-line setup does this automatically):
+**Optional build aliases**: add these to `~/.zshrc` for convenience (the one-line setup does this automatically):
 
 ```bash
 alias sync='cd ~/voltageos && repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune'
