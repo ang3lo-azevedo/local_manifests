@@ -39,7 +39,6 @@ The kernel (`android_kernel_nothing_sm7325`) is based on:
 - **William24hmar/KSU-SUSFS** - KSU syscall tamper, full SUSFS
 - **William24hmar/Nethunter** - NetHunter configs (monitor mode, WireGuard, HID gamepads)
 - **maxsteeel/nomount** - NoMount path redirection subsystem
-- **rodrig20/moonwake** - USB gadget reconfiguration, HID keyboard descriptor
 
 ## Prerequisites
 
@@ -231,7 +230,6 @@ Each rental can be extended by 2 hours for free once via the dashboard. Use it w
 - SPAMMY_LOG_TAGS (cleaner logcat on user builds)
 - OrangeFox recovery compatible (TARGET_NO_RECOVERY)
 - LTO + O3 + ThinLTO + HWUI optimizations
-- USB gadget reconfiguration with proper HID keyboard descriptor
 
 ## Credits
 
@@ -241,7 +239,6 @@ Each rental can be extended by 2 hours for free once via the dashboard. Use it w
 - [Jis G Jacob (StudioKeys)](https://github.com/StudioKeys-Dumps) - NGlyphs, recovery ADSP patch
 - [William24hmar](https://github.com/William24hmar) - KSU-SUSFS kernel base, NetHunter configs
 - [MySelly](https://github.com/MySelly) - working Nothing Camera APK
-- [rodrig20](https://github.com/rodrig20) - USB gadget improvements
 - [maxsteeel](https://github.com/maxsteeel) - NoMount kernel subsystem
 - [QCerberusQ](https://github.com/QCerberusQ) - OrangeFox recovery for Spacewar
 - [LineageOS](https://github.com/LineageOS) - hardware/nothing base
