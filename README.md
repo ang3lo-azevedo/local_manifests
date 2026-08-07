@@ -107,6 +107,20 @@ read -s -p "GitHub PAT: " GH_PAT; echo
 printf "protocol=https\nhost=github.com\nusername=%s\npassword=%s\n\n" "$GH_USER" "$GH_PAT" | git credential approve
 ```
 
+#### Option C: Remove or replace the keys
+
+If you do not have access to the private keys repo, you have two options:
+
+**Remove it** -- edit `.repo/local_manifests/voltage_manifest.xml` and delete the `vendor/voltage-priv/keys` project entry before syncing:
+
+```xml
+<!-- Delete this block -->
+<remove-project path="vendor/voltage-priv/keys" />
+<project name="ang3lo-azevedo/vendor_voltage-priv_keys" ... />
+```
+
+**Replace it** -- create your own keys repo and change the project entry to point to yours instead.
+
 ### Git Cookies (recommended, not necessary)
 
 Google rate-limits unauthenticated repo syncs, sometimes causing `429 Too Many Requests` errors. Setting up git cookies prevents this. It is not strictly required but highly recommended to avoid sync interruptions.
