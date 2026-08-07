@@ -152,17 +152,34 @@ This allows the device tree to override the ROM defaults with Nothing tones with
 
 ### One-Line Setup
 
-After SSHing into the server, run this single command for a fresh setup:
+Run this from your local machine — it handles everything automatically:
 
 ```bash
-mkdir -p ~/voltageos && cd ~/voltageos && repo init -u https://github.com/VoltageOS/manifest.git -b bp4a && git clone https://github.com/ang3lo-azevedo/local_manifests.git .repo/local_manifests && repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune && echo "alias build-voltage='cd ~/voltageos && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon'" >> ~/.zshrc && echo "Setup complete. Run 'build-voltage' to build."
+curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/local_manifests/16.2/setup.sh | bash
 ```
 
-**Ghostty SSH terminfo fix** (run from your local machine before SSH):
+The script will prompt you for:
+- **SSH command** — connection string to your ServerHive machine
+- **SSH password** — only needed if `sshpass` is installed
+- **GitHub PAT** — for accessing the private vendor/voltage-priv/keys repo
+- **Build folder name** — where to create the VoltageOS project (default: `voltageos`)
+
+It then automatically:
+1. Pushes Ghostty terminfo to the server
+2. Configures git credentials on the server
+3. Initializes repo and clones local manifests
+4. Runs `repo sync`
+5. Adds `build-voltage` and `sync-voltage` aliases
+
+After setup, SSH in and run:
 
 ```bash
-infocmp -x xterm-ghostty | ssh username@server.serverhive.com -p 22 -- tic -x -
+source ~/.zshrc    # load aliases
+sync-voltage       # update sources (optional, already done)
+build-voltage      # build the ROM
 ```
+
+**Requirements:** `sshpass` (optional, `apt install sshpass`), working SSH, at least 200GB disk space on server.
 
 ### ServerHive Build Server
 
