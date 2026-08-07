@@ -15,6 +15,41 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 | `vendor/google/GoogleCamera` | [kleidione/vendor_google_GoogleCamera](https://github.com/kleidione/vendor_google_GoogleCamera) | `bp3a` |
 | `vendor/voltage-priv/keys` | [ang3lo-azevedo/vendor_voltage-priv_keys](https://github.com/ang3lo-azevedo/vendor_voltage-priv_keys) | `main` |
 
+## Building from Source
+
+This manifest adds the Nothing Phone (1) device tree, kernel, and proprietary blobs to the VoltageOS build system.
+
+### Quick Build
+
+```bash
+# 1. Initialize VoltageOS
+repo init -u https://github.com/VoltageOS/manifest.git -b 16.2 --git-lfs
+
+# 2. Add this manifest
+git clone https://github.com/ang3lo-azevedo/local_manifests.git .repo/local_manifests
+
+# 3. Sync (needs git cookies for reliable sync, see below)
+repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune
+
+# 4. Build
+source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon
+```
+
+The output zip is at `out/target/product/Spacewar/`.
+
+### Source Repositories
+
+| Component | Repository |
+|-----------|------------|
+| Device tree | [ang3lo-azevedo/android_device_nothing_Spacewar](https://github.com/ang3lo-azevedo/android_device_nothing_Spacewar) |
+| Kernel | [ang3lo-azevedo/android_kernel_nothing_sm7325](https://github.com/ang3lo-azevedo/android_kernel_nothing_sm7325) |
+| Hardware HAL | [ang3lo-azevedo/android_hardware_nothing](https://github.com/ang3lo-azevedo/android_hardware_nothing) |
+| Vendor blobs | [DaViDev985/vendor_nothing_Spacewar](https://github.com/DaViDev985/vendor_nothing_Spacewar) |
+| Camera blobs | [DaViDev985/proprietary_vendor_nothing_camera](https://github.com/DaViDev985/proprietary_vendor_nothing_camera) |
+| Dolby | [kleidione/hardware_dolby](https://github.com/kleidione/hardware_dolby) |
+| Google Camera | [kleidione/vendor_google_GoogleCamera](https://github.com/kleidione/vendor_google_GoogleCamera) |
+| Platform | [VoltageOS](https://github.com/VoltageOS) |
+
 ### Tree Sources
 
 The device tree (`android_device_nothing_Spacewar`) merges improvements from:
@@ -322,5 +357,7 @@ This allows the device tree to override the ROM defaults with Nothing tones with
 
 - Device tree: https://github.com/ang3lo-azevedo/android_device_nothing_Spacewar
 - Kernel source: https://github.com/ang3lo-azevedo/android_kernel_nothing_sm7325
-- Spacewar Development Telegram: Spacewar Development group
+- Hardware/nothing: https://github.com/ang3lo-azevedo/android_hardware_nothing
+- Local manifests: https://github.com/ang3lo-azevedo/local_manifests
+- VoltageOS platform: https://github.com/VoltageOS
 - ServerHive build guide: https://github.com/ServerHive-Development/guide
