@@ -84,11 +84,11 @@ Without proprietary files (camera libs, sensors, audio DSP, fingerprint firmware
 
 #### The Camera: DaViDev985 + Arcsoft Libs
 
-DaViDev985's [camera vendor repo](https://github.com/DaViDev985/proprietary_vendor_nothing_camera) has the Nothing Camera APK and companion libs. But the APK `dlopen`s arcsoft processing libs at runtime, and they are not listed anywhere in the build system. The fix was found by running `adb logcat` on a booted ROM and grepping for "dlopen failed" -- 14 arcsoft libs were failing to load. Added them to `public.libraries.txt` and `file_contexts` in the device tree to whitelist and label them for SELinux.
+DaViDev985's [camera vendor repo](https://github.com/DaViDev985/proprietary_vendor_nothing_camera) has the Nothing Camera APK and companion libs. But the APK `dlopen`s arcsoft processing libs at runtime, and they are not listed anywhere in the build system. The fix was found by running `adb logcat` on a booted ROM and grepping for "dlopen failed" - 14 arcsoft libs were failing to load. Added them to `public.libraries.txt` and `file_contexts` in the device tree to whitelist and label them for SELinux.
 
 #### The Hardware HAL: NGlyphs from StudioKeys
 
-Nothing Phone (1) has glyph LEDs that need a HAL. DaViDev985's [hardware/nothing repo](https://github.com/DaViDev985/android_hardware_nothing) had a ParanoidGlyph implementation that required root. Found [StudioKeys-Dumps' fork](https://github.com/StudioKeys-Dumps/hardware_nothing) with NGlyphs -- a system app replacement that works without root and has audio-glyph sync, music visualizer, and recording LED. Cherry-picked 20 commits from their `waterlily-qpr2` branch into our hardware/nothing tree.
+Nothing Phone (1) has glyph LEDs that need a HAL. DaViDev985's [hardware/nothing repo](https://github.com/DaViDev985/android_hardware_nothing) had a ParanoidGlyph implementation that required root. Found [StudioKeys-Dumps' fork](https://github.com/StudioKeys-Dumps/hardware_nothing) with NGlyphs - a system app replacement that works without root and has audio-glyph sync, music visualizer, and recording LED. Cherry-picked 20 commits from their `waterlily-qpr2` branch into our hardware/nothing tree.
 
 #### Cherry-Picking Improvements
 
