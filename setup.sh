@@ -62,9 +62,8 @@ for RC in ~/.bashrc ~/.zshrc; do
         echo "alias sync='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune'" >> "$RC"
 done
 
-[ -f ~/.zshrc ] && source ~/.zshrc 2>/dev/null || true
-
-echo ""
+echo "Setting up ccache..."
+ccache -M 50G 2>/dev/null || echo "  ccache not available, skipping"
 
 SETUP
 

@@ -126,8 +126,6 @@ The script prompts for your SSH details and GitHub PAT, then handles: terminfo, 
 
 > If you do not have access to the private keys repo, see [GitHub Authentication](#github-authentication) for how to remove it before building. The script handles this for the owner. Git cookies are not set up by the script (optional, see [Git Cookies](#git-cookies-recommended-not-necessary)). Needs `sshpass` locally (`apt install sshpass`).
 
-After setup, SSH in and run `sync` or `build`.
-
 ## Self-Hosted Setup
 
 If you are NOT using ServerHive, the following is required on your own machine before building.
@@ -230,8 +228,6 @@ alias sync='cd ~/voltageos && repo sync -c -j$(nproc) --force-sync --no-clone-bu
 alias build='cd ~/voltageos && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon'
 ```
 
-`sync` updates all source trees from their remotes. `build` compiles the ROM. Output is at `out/target/product/Spacewar/voltage-*.zip`.
-
 #### 3. Sync
 
 ```bash
@@ -256,7 +252,7 @@ mka bacon
 
 The `sync` alias updates all source trees from their remotes. The `build` alias compiles the ROM (sources the environment, selects the device, and starts the build).
 
-**ccache:** ServerHive rentals last up to 4 days, enough for multiple builds. Set up ccache on first build to speed up subsequent ones:
+**ccache:** Set this up on the server once to speed up future builds:
 
 ```bash
 ccache -M 50G
