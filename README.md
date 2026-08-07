@@ -6,8 +6,6 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 
 - [ServerHive Build Server](#serverhive-build-server)
   - [One-Click Deploy](#one-click-deploy)
-  - [Persistent Sessions (Byobu)](#persistent-sessions-byobu)
-  - [Package Requests](#package-requests)
 - [Self-Hosted Setup](#self-hosted-setup)
   - [Prerequisites](#prerequisites)
 - [Usage](#usage)
@@ -27,6 +25,8 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
   - [How to Find Stuff](#how-to-find-this-stuff-yourself)
 - [Features Enabled](#features-enabled)
 - [Troubleshooting](#troubleshooting)
+  - [ServerHive Sessions](#serverhive-persistent-sessions-byobu)
+  - [ServerHive Packages](#serverhive-package-requests)
 - [Credits](#credits)
 - [Useful Links](#useful-links)
 
@@ -118,25 +118,6 @@ The script prompts for your SSH details and GitHub PAT, then handles: terminfo, 
 > If you do not have access to the private keys repo, see [GitHub Authentication](#github-authentication) for how to remove it before building. The script handles this for the owner. Git cookies are not set up by the script (optional, see [Git Cookies](#git-cookies-recommended-not-necessary)). Needs `sshpass` locally (`apt install sshpass`).
 
 After setup, SSH in and run `sync` or `build`.
-
-### Persistent Sessions (Byobu)
-
-ServerHive uses Byobu. Your build keeps running even if you disconnect.
-
-```bash
-# Detach: F6 or Ctrl+A then D
-# New window: F2
-# Navigate windows: F3 (previous) / F4 (next)
-# Reattach after disconnect: byobu
-```
-
-### Package Requests
-
-Root access is not provided. If a system package is missing:
-
-> "Hi, could you please install `libncurses5` via `sudo apt install`?"
-
-Most tools can be installed locally in `~/bin` or via `pip install --user`.
 
 ## Self-Hosted Setup
 
@@ -290,6 +271,25 @@ The `sync` alias updates all source trees from their remotes. The `build` alias 
 - LTO + O3 + ThinLTO + HWUI optimizations
 
 ## Troubleshooting
+
+### ServerHive Persistent Sessions (Byobu)
+
+ServerHive uses Byobu. Your build keeps running even if you disconnect.
+
+```bash
+# Detach: F6 or Ctrl+A then D
+# New window: F2
+# Navigate windows: F3 (previous) / F4 (next)
+# Reattach after disconnect: byobu
+```
+
+### ServerHive Package Requests
+
+Root access is not provided. If a system package is missing:
+
+> "Hi, could you please install `libncurses5` via `sudo apt install`?"
+
+Most tools can be installed locally in `~/bin` or via `pip install --user`.
 
 ### "Cannot locate config makefile"
 
