@@ -84,9 +84,24 @@ Each rental can be extended by 2 hours for free once via the dashboard. Use it w
 
 ### GitHub Authentication
 
-Required for the private `vendor/voltage-priv/keys` repository (signing keys). Without this, repo sync will fail when fetching that project.
+The `vendor/voltage-priv/keys` repository is **private** and used for ROM signing. Only the repo owner has access to it. Everyone else should remove or replace it.
 
-#### Option A: GitHub CLI
+#### Option A: Remove or replace the signing keys (recommended)
+
+If you are not the repo owner, you cannot access the private keys. Pick one:
+
+| Method | What to do |
+|--------|------------|
+| **Remove it** | Edit `.repo/local_manifests/voltage_manifest.xml` and delete both the `<remove-project>` and `<project>` lines for `vendor/voltage-priv/keys` |
+| **Replace it** | Create your own keys repo (see [AOSP signing docs](https://source.android.com/docs/core/ota/sign_builds)) and change the project entry to point to yours |
+
+The build will use **test keys** if no custom keys are provided. This is fine for personal use.
+
+#### Option B: Use the private keys repo (ang3lo-azevedo only)
+
+Only the repo owner has access to this repo. Authenticate with one of:
+
+**GitHub CLI:**
 
 ```bash
 gh auth login --hostname github.com --git-protocol https
@@ -95,10 +110,10 @@ gh auth setup-git
 
 Verify: `git ls-remote https://github.com/ang3lo-azevedo/vendor_voltage-priv_keys.git`
 
-#### Option B: Manual PAT
+**Manual PAT:**
 
 1. Create a token at https://github.com/settings/tokens with `repo` scope
-2. Store credentials:
+2. Store the credentials:
 
 ```bash
 git config --global credential.helper store
@@ -106,20 +121,6 @@ read -p "GitHub username: " GH_USER
 read -s -p "GitHub PAT: " GH_PAT; echo
 printf "protocol=https\nhost=github.com\nusername=%s\npassword=%s\n\n" "$GH_USER" "$GH_PAT" | git credential approve
 ```
-
-#### Option C: Remove or replace the keys
-
-If you do not have access to the private keys repo, you have two options:
-
-**Remove it** -- edit `.repo/local_manifests/voltage_manifest.xml` and delete the `vendor/voltage-priv/keys` project entry before syncing:
-
-```xml
-<!-- Delete this block -->
-<remove-project path="vendor/voltage-priv/keys" />
-<project name="ang3lo-azevedo/vendor_voltage-priv_keys" ... />
-```
-
-**Replace it** -- create your own keys repo and change the project entry to point to yours instead.
 
 ### Git Cookies (recommended, not necessary)
 
