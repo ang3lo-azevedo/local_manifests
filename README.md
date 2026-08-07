@@ -1,6 +1,6 @@
 # VoltageOS for Nothing Phone (1) (Spacewar)
 
-Local manifest for building VoltageOS on the Nothing Phone (1).
+Local manifest and tutorial for building VoltageOS on Nothing Phone (1) (Spacewar).
 
 ## Index
 
