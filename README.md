@@ -4,13 +4,23 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 
 ## Index
 
-- [ServerHive Build Server](#serverhive-build-server) -- rent a build machine
-- [One-Line Setup](#one-line-setup) -- curl and done
-- [Manual Setup](#manual-setup) -- step by step
-- [What Each Tree Provides](#what-each-tree-provides) -- sources and branches
-- [How All the Pieces Were Found](#how-all-the-pieces-were-found) -- finding and assembling ROM sources
-- [Features Enabled](#features-enabled) -- what is in the ROM
-- [Troubleshooting](#troubleshooting) -- common fixes
+- [ServerHive Build Server](#serverhive-build-server)
+  - [Quick Start](#quick-start)
+  - [One-Line Setup](#one-line-setup)
+  - [Persistent Sessions (Byobu)](#persistent-sessions-byobu)
+  - [Package Requests](#package-requests)
+- [Self-Hosted Setup](#self-hosted-setup)
+  - [Prerequisites](#prerequisites)
+- [Usage](#usage)
+  - [GitHub Authentication](#github-authentication)
+  - [Git Cookies](#git-cookies-recommended-not-necessary)
+  - [Global Git Config](#global-git-config)
+  - [Manual Setup](#manual-setup)
+- [Included Projects](#included-projects)
+- [What Each Tree Provides](#what-each-tree-provides)
+- [How All the Pieces Were Found](#how-all-the-pieces-were-found)
+- [Features Enabled](#features-enabled)
+- [Troubleshooting](#troubleshooting)
 
 ## Included Projects
 
