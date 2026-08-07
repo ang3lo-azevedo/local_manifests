@@ -118,7 +118,7 @@ The kernel (`android_kernel_nothing_sm7325`) is based on:
 
 This project is designed to build on [ServerHive](https://github.com/ServerHive-Development/guide) bare-metal servers. A single rental gives you a machine with all build tools pre-installed: browser IDE (VS Code), monitoring dashboard, mobile app, and Drive for storage.
 
-Rent a server at [t.me/ServerRentals](https://t.me/ServerRentals). Connection details are sent to your dashboard after provisioning.
+Rent a server at [@ServerHive_bot](https://t.me/ServerHive_bot). Connection details are sent to your dashboard after provisioning. Community chat at [t.me/ServerRentals](https://t.me/ServerRentals).
 
 ### Quick Start
 
