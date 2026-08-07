@@ -17,42 +17,29 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
   - [Global Git Config](#global-git-config)
   - [Manual Setup](#manual-setup)
 - [Included Projects](#included-projects)
-- [What Each Tree Provides](#what-each-tree-provides)
 - [How All the Pieces Were Found](#how-all-the-pieces-were-found)
 - [Features Enabled](#features-enabled)
 - [Troubleshooting](#troubleshooting)
 
 ## Included Projects
 
-| Path | Repository | Branch |
-|------|------------|--------|
-| `device/nothing/Spacewar` | [ang3lo-azevedo/android_device_nothing_Spacewar](https://github.com/ang3lo-azevedo/android_device_nothing_Spacewar) | `voltage` |
-| `kernel/nothing/sm7325` | [ang3lo-azevedo/android_kernel_nothing_sm7325](https://github.com/ang3lo-azevedo/android_kernel_nothing_sm7325) | `voltage-nethunter` |
-| `vendor/nothing/Spacewar` | [DaViDev985/vendor_nothing_Spacewar](https://github.com/DaViDev985/vendor_nothing_Spacewar) | `derp16.2` |
-| `vendor/nothing/camera` | [DaViDev985/proprietary_vendor_nothing_camera](https://github.com/DaViDev985/proprietary_vendor_nothing_camera) | `derp16` |
-| `hardware/nothing` | [ang3lo-azevedo/android_hardware_nothing](https://github.com/ang3lo-azevedo/android_hardware_nothing) | `16.2-nglyphs` |
-| `hardware/dolby` | [kleidione/hardware_dolby](https://github.com/kleidione/hardware_dolby) | `bp4a` |
-| `vendor/google/GoogleCamera` | [kleidione/vendor_google_GoogleCamera](https://github.com/kleidione/vendor_google_GoogleCamera) | `bp3a` |
-| `vendor/voltage-priv/keys` | [ang3lo-azevedo/vendor_voltage-priv_keys](https://github.com/ang3lo-azevedo/vendor_voltage-priv_keys) | `main` |
+All trees are pulled automatically by `repo sync` after adding the local manifest.
 
-## What Each Tree Provides
-
-All trees are pulled automatically by `repo sync` after adding the local manifest. If you need to work on a tree directly:
-
-| Tree | Source repo | Branch |
-|------|-----------|--------|
-| `device/nothing/Spacewar` | `ang3lo-azevedo/android_device_nothing_Spacewar` | `voltage` |
-| `kernel/nothing/sm7325` | `ang3lo-azevedo/android_kernel_nothing_sm7325` | `voltage-nethunter` |
-| `vendor/nothing/Spacewar` | `DaViDev985/vendor_nothing_Spacewar` | `derp16.2` |
-| `vendor/nothing/camera` | `DaViDev985/proprietary_vendor_nothing_camera` | `derp16` |
-| `hardware/nothing` | `ang3lo-azevedo/android_hardware_nothing` | `16.2-nglyphs` |
-| `hardware/dolby` | `kleidione/hardware_dolby` | `bp4a` |
-| `vendor/google/GoogleCamera` | `kleidione/vendor_google_GoogleCamera` | `bp3a` |
+| Path | Source repo | Branch | Purpose |
+|------|-----------|--------|---------|
+| `device/nothing/Spacewar` | `ang3lo-azevedo/android_device_nothing_Spacewar` | `voltage` | Board config, overlays, init, sepolicy |
+| `kernel/nothing/sm7325` | `ang3lo-azevedo/android_kernel_nothing_sm7325` | `voltage-nethunter` | Linux 5.4.302, KSU-SUSFS, NetHunter |
+| `vendor/nothing/Spacewar` | `DaViDev985/vendor_nothing_Spacewar` | `derp16.2` | Proprietary blobs (NOS 3.2) |
+| `vendor/nothing/camera` | `DaViDev985/proprietary_vendor_nothing_camera` | `derp16` | Nothing Camera APK and libs |
+| `hardware/nothing` | `ang3lo-azevedo/android_hardware_nothing` | `16.2-nglyphs` | NGlyphs, fingerprint HAL |
+| `hardware/dolby` | `kleidione/hardware_dolby` | `bp4a` | Dolby audio processing |
+| `vendor/google/GoogleCamera` | `kleidione/vendor_google_GoogleCamera` | `bp3a` | Google Camera APK |
+| `vendor/voltage-priv/keys` | `ang3lo-azevedo/vendor_voltage-priv_keys` | `main` | ROM signing keys (private) |
 
 To clone a tree for local development:
 
 ```bash
-git clone -b <branch> https://github.com/<source> <path>
+git clone -b <branch> https://github.com/<source repo> <path>
 # Example:
 git clone -b voltage https://github.com/ang3lo-azevedo/android_device_nothing_Spacewar device/nothing/Spacewar
 ```
