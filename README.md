@@ -40,12 +40,8 @@ The kernel (`android_kernel_nothing_sm7325`) is based on:
 - **William24hmar/Nethunter** - NetHunter configs (monitor mode, WireGuard, HID gamepads)
 - **maxsteeel/nomount** - NoMount path redirection subsystem
 
-## Prerequisites
 
-- Android `repo` tool installed
-- At least 200GB free disk space
-
-## ServerHive Build Server
+### Plan Extension
 
 This project is designed to build on [ServerHive](https://github.com/ServerHive-Development/guide) bare-metal servers. A single rental gives you a fresh machine with all build tools pre-installed. Key features include a browser-based IDE (VS Code), real-time monitoring dashboard, mobile management app, and Drive for build storage.
 
@@ -79,6 +75,15 @@ Most tools can be installed locally in `~/bin` or via `pip install --user`.
 ### Plan Extension
 
 Each rental can be extended by 2 hours for free once via the dashboard. Use it when your build is nearly done.
+
+## Self-Hosted Setup
+
+If you are NOT using ServerHive, the following is required on your own machine before building.
+
+### Prerequisites
+
+- Android `repo` tool installed
+- At least 200GB free disk space
 
 ## Usage
 
