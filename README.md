@@ -151,6 +151,20 @@ sed -i 's/ro.config.ringtone=/ro.config.ringtone?=/; s/ro.config.alarm_alert=/ro
 
 This allows the device tree to override the ROM defaults with Nothing tones without a build conflict.
 
+### One-Line Setup
+
+After SSHing into the server, run this single command for a fresh setup:
+
+```bash
+mkdir -p ~/voltageos && cd ~/voltageos && repo init -u https://github.com/VoltageOS/manifest.git -b bp4a && git clone https://github.com/ang3lo-azevedo/local_manifests.git .repo/local_manifests && repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune && echo "alias build-voltage='cd ~/voltageos && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon'" >> ~/.zshrc && echo "Setup complete. Run 'build-voltage' to build."
+```
+
+**Ghostty SSH terminfo fix** (run from your local machine before SSH):
+
+```bash
+infocmp -x xterm-ghostty | ssh username@server.serverhive.com -p 22 -- tic -x -
+```
+
 ### ServerHive Build Server
 
 If building on [ServerHive](https://github.com/ServerHive-Development/guide) bare-metal servers:
