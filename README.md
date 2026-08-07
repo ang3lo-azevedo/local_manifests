@@ -41,7 +41,7 @@ The kernel (`android_kernel_nothing_sm7325`) is based on:
 - **maxsteeel/nomount** - NoMount path redirection subsystem
 
 
-### Plan Extension
+## ServerHive Build Server
 
 This project is designed to build on [ServerHive](https://github.com/ServerHive-Development/guide) bare-metal servers. A single rental gives you a fresh machine with all build tools pre-installed. Key features include a browser-based IDE (VS Code), real-time monitoring dashboard, mobile management app, and Drive for build storage.
 
@@ -51,6 +51,23 @@ Rent a ServerHive machine, then SSH in using the details from your dashboard:
 
 ```bash
 ssh username@server.serverhive.com -p 22
+```
+
+### One-Line Setup
+
+Run this from your local machine (not the server):
+
+```bash
+curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/local_manifests/16.2/setup.sh | bash
+```
+
+Git cookies are not set up by the script (optional but recommended, see below). You need `sshpass` installed locally (`apt install sshpass`).
+
+After setup, SSH in and run:
+
+```bash
+sync               # update sources
+build              # build the ROM
 ```
 
 ### Persistent Sessions (Byobu)
@@ -149,23 +166,6 @@ Google rate-limits unauthenticated repo syncs, sometimes causing `429 Too Many R
 ```bash
 git config --global user.name "Your Name"
 git config --global user.email "your.email@example.com"
-```
-
-### One-Line Setup
-
-Run this from your local machine (not the server):
-
-```bash
-curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/local_manifests/16.2/setup.sh | bash
-```
-
-Git cookies are not set up by the script (optional but recommended, see above). You need `sshpass` installed locally (`apt install sshpass`).
-
-After setup, SSH in and run:
-
-```bash
-sync               # update sources
-build              # build the ROM
 ```
 
 ### Manual Setup
