@@ -229,19 +229,24 @@ Output goes to `out/target/product/Spacewar/`.
 
 ## Features Enabled
 
-- Nothing Camera with video recording fix (MySelly blobs, portrait/night working)
-- Google Camera (from kleidione vendor)
+- Nothing Camera with video recording fix (photo/video working, portrait via Google Camera)
+- Google Camera (from kleidione vendor, portrait mode works there)
 - NGlyphs - glyph LED control (audio sync, recording LED, music visualizer, Glyph Converter)
 - KernelSU with syscall tamper and full SUSFS (root hiding)
 - Kali NetHunter - Wi-Fi monitor mode, HID attacks, mac80211 injection, WireGuard, HID gamepads
 - NoMount path redirection subsystem
-- MPTCP multipath TCP (mainline kernel feature)
-- Dolby audio (Sony Dolby with spatial audio)
-- Device as Webcam (USB UVC enabled)
+- MPTCP multipath TCP
+- Dolby audio with spatial audio
+- Device as Webcam (USB UVC)
 - FP screen-off unlock enabled by default
-- NOS 3.2 vibrator improvements
+- Persistent taskbar (config_enableTaskbar overlay)
+- QTI vndfwk / CNE networking support
+- WiFi concurrent STA (hotspot + WiFi simultaneously)
 - Perf init script (CPU boost, schedutil, CPUSets, uclamp, IRQ affinity)
 - SPAMMY_LOG_TAGS (cleaner logcat on user builds)
+- NOS 3.2 vibrator, post_boot.sh, and mixer paths
+- Extra Dim display config (linear-nits brightness mapping)
+- Bluetooth codecs: ASHA, AptX/HD/Adaptive, LDAC, AAC
 - OrangeFox recovery compatible (TARGET_NO_RECOVERY)
 - LTO + O3 + ThinLTO + HWUI optimizations
 
@@ -307,7 +312,6 @@ This allows the device tree to override the ROM defaults with Nothing tones with
 - [smrth097](https://github.com/smrth097) - original Spacewar bringup, perf init, IRQ config, SPAMMY_LOG_TAGS
 - [Jis G Jacob (StudioKeys)](https://github.com/StudioKeys-Dumps) - NGlyphs, recovery ADSP patch
 - [William24hmar](https://github.com/William24hmar) - KSU-SUSFS kernel base, NetHunter configs
-- [MySelly](https://github.com/MySelly) - working Nothing Camera APK
 - [maxsteeel](https://github.com/maxsteeel) - NoMount kernel subsystem
 - [QCerberusQ](https://github.com/QCerberusQ) - OrangeFox recovery for Spacewar
 - [LineageOS](https://github.com/LineageOS) - hardware/nothing base
