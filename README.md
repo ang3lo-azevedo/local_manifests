@@ -47,7 +47,7 @@ The kernel (`android_kernel_nothing_sm7325`) is based on:
 
 ## ServerHive Build Server
 
-This project is designed to build on [ServerHive](https://github.com/ServerHive-Development/guide) bare-metal servers. A single rental gives you a fresh machine with all build tools pre-installed.
+This project is designed to build on [ServerHive](https://github.com/ServerHive-Development/guide) bare-metal servers. A single rental gives you a fresh machine with all build tools pre-installed. Key features include a browser-based IDE (VS Code), real-time monitoring dashboard, mobile management app, and Drive for build storage.
 
 ### Quick Start
 
@@ -84,7 +84,7 @@ Each rental can be extended by 2 hours for free once via the dashboard. Use it w
 
 ### GitHub Authentication
 
-This manifest includes private repositories. Set up authentication first.
+Required for the private `vendor/voltage-priv/keys` repository (signing keys). Without this, repo sync will fail when fetching that project.
 
 #### Option A: GitHub CLI
 
@@ -107,21 +107,18 @@ read -s -p "GitHub PAT: " GH_PAT; echo
 printf "protocol=https\nhost=github.com\nusername=%s\npassword=%s\n\n" "$GH_USER" "$GH_PAT" | git credential approve
 ```
 
-### Git Cookies (avoid Google rate limits)
+### Git Cookies (recommended, not necessary)
 
-Google rate-limits unauthenticated repo syncs. Set up git cookies once:
+Google rate-limits unauthenticated repo syncs, sometimes causing `429 Too Many Requests` errors. Setting up git cookies prevents this. It is not strictly required but highly recommended to avoid sync interruptions.
 
 1. Visit https://android.googlesource.com
 2. Click "Generate Password"
 3. Authenticate and follow the "Configure Git" instructions
 4. Copy and run the provided shell script
 
-### Global Git Config
+### Global Git Config (required)
 
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "your.email@example.com"
-```
+`repo` uses git internally. Git refuses to operate without `user.name` and `user.email` set:
 
 ### One-Line Setup
 
@@ -131,7 +128,7 @@ Run this from your local machine (not the server). It prompts for your SSH detai
 curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/local_manifests/16.2/setup.sh | bash
 ```
 
-The script handles: pushing terminfo to the server, configuring git credentials, initializing the repo, cloning local manifests, syncing sources, and adding build aliases. All you need is `sshpass` installed locally (`apt install sshpass`).
+The script handles: pushing terminfo to the server, configuring git credentials, initializing the repo, cloning local manifests, syncing sources, and adding build aliases. Git cookies are not set up by the script (they are optional but recommended, see above). You only need `sshpass` installed locally (`apt install sshpass`).
 
 After setup, SSH in and run:
 
