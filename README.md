@@ -17,38 +17,66 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
 
 ## Building from Source
 
-This manifest adds the Nothing Phone (1) device tree, kernel, and proprietary blobs to the VoltageOS build system.
+All sources (device tree, kernel, vendor blobs, HAL) are pulled automatically by `repo sync`. The manifest handles everything you just need the steps below.
 
-### Quick Build
+### Full Build Guide
+
+#### 1. Get the VoltageOS source
 
 ```bash
-# 1. Initialize VoltageOS
+mkdir -p ~/voltageos && cd ~/voltageos
 repo init -u https://github.com/VoltageOS/manifest.git -b 16.2 --git-lfs
-
-# 2. Add this manifest
-git clone https://github.com/ang3lo-azevedo/local_manifests.git .repo/local_manifests
-
-# 3. Sync (needs git cookies for reliable sync, see below)
-repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune
-
-# 4. Build
-source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon
 ```
 
-The output zip is at `out/target/product/Spacewar/`.
+#### 2. Add this manifest
 
-### Source Repositories
+```bash
+git clone https://github.com/ang3lo-azevedo/local_manifests.git .repo/local_manifests
+```
 
-| Component | Repository |
-|-----------|------------|
-| Device tree | [ang3lo-azevedo/android_device_nothing_Spacewar](https://github.com/ang3lo-azevedo/android_device_nothing_Spacewar) |
-| Kernel | [ang3lo-azevedo/android_kernel_nothing_sm7325](https://github.com/ang3lo-azevedo/android_kernel_nothing_sm7325) |
-| Hardware HAL | [ang3lo-azevedo/android_hardware_nothing](https://github.com/ang3lo-azevedo/android_hardware_nothing) |
-| Vendor blobs | [DaViDev985/vendor_nothing_Spacewar](https://github.com/DaViDev985/vendor_nothing_Spacewar) |
-| Camera blobs | [DaViDev985/proprietary_vendor_nothing_camera](https://github.com/DaViDev985/proprietary_vendor_nothing_camera) |
-| Dolby | [kleidione/hardware_dolby](https://github.com/kleidione/hardware_dolby) |
-| Google Camera | [kleidione/vendor_google_GoogleCamera](https://github.com/kleidione/vendor_google_GoogleCamera) |
-| Platform | [VoltageOS](https://github.com/VoltageOS) |
+This pulls in all Nothing Phone (1) specific trees: device, kernel, vendor blobs, camera, hardware/nothing, Dolby, and Google Camera.
+
+#### 3. Handle signing keys
+
+The manifest includes a private keys repo. If you are not the repo owner, remove it before syncing. Edit `.repo/local_manifests/voltage_manifest.xml` and delete the `<remove-project>` and `<project>` lines for `vendor/voltage-priv/keys`. The build will use test keys.
+
+If you are the repo owner, set up [GitHub authentication](#github-authentication) first.
+
+#### 4. Set up git cookies (recommended)
+
+Google rate-limits unauthenticated syncs. Visit [android.googlesource.com](https://android.googlesource.com), click "Generate Password", authenticate, and run the provided shell script.
+
+#### 5. Sync
+
+```bash
+repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune
+```
+
+This downloads all ~200GB of source code. It takes a while.
+
+#### 6. Build
+
+```bash
+source build/envsetup.sh
+lunch voltage_Spacewar-bp4a-user
+mka bacon
+```
+
+Output: `out/target/product/Spacewar/voltage-*.zip`
+
+### What Each Tree Provides
+
+The manifest includes these repositories automatically. No manual cloning needed.
+
+| Tree | What it provides | Source |
+|------|-----------------|--------|
+| `device/nothing/Spacewar` | Board config, overlays, init scripts, sepolicy | [voltage](https://github.com/ang3lo-azevedo/android_device_nothing_Spacewar) |
+| `kernel/nothing/sm7325` | Linux 5.4.302 with KSU-SUSFS, NetHunter, NoMount | [voltage-nethunter](https://github.com/ang3lo-azevedo/android_kernel_nothing_sm7325) |
+| `vendor/nothing/Spacewar` | Proprietary blobs from NOS 3.2 | [derp16.2](https://github.com/DaViDev985/vendor_nothing_Spacewar) |
+| `vendor/nothing/camera` | Nothing Camera app + libs | [derp16](https://github.com/DaViDev985/proprietary_vendor_nothing_camera) |
+| `hardware/nothing` | NGlyphs, fingerprint HAL, NtOnlineConfig | [16.2-nglyphs](https://github.com/ang3lo-azevedo/android_hardware_nothing) |
+| `hardware/dolby` | Dolby audio processing | [bp4a](https://github.com/kleidione/hardware_dolby) |
+| `vendor/google/GoogleCamera` | Google Camera APK | [bp3a](https://github.com/kleidione/vendor_google_GoogleCamera) |
 
 ### Tree Sources
 
