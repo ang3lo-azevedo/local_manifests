@@ -1,14 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-RED='\033[0;31m' GREEN='\033[0;32m' CYAN='\033[0;36m' NC='\033[0m'
-
-echo -e "${CYAN}╔══════════════════════════════════════╗"
-echo -e "║  VoltageOS ServerHive One-Click Setup  ║"
-echo -e "╚══════════════════════════════════════╝${NC}"
+echo "=== VoltageOS ServerHive Setup ==="
 echo ""
 
-read -p "SSH command  [ssh nos4a2250@arcane.serverhive.in -p22]: " SSH_CMD
+read -p "SSH command [ssh nos4a2250@arcane.serverhive.in -p22]: " SSH_CMD
 SSH_CMD="${SSH_CMD:-ssh nos4a2250@arcane.serverhive.in -p22}"
 
 if command -v sshpass &>/dev/null; then
@@ -19,37 +15,32 @@ else
 fi
 
 echo ""
-echo -e "${CYAN}GitHub PAT (scope: repo) — https://github.com/settings/tokens${NC}"
-read -s -p "GitHub PAT:   " GHPAT; echo ""
+echo "GitHub PAT (scope: repo): https://github.com/settings/tokens"
+read -s -p "GitHub PAT: " GHPAT; echo ""
 
-read -p "Build folder  [voltageos]: " DIR
+read -p "Build folder [voltageos]: " DIR
 DIR="${DIR:-voltageos}"
 
-# ── Ghostty terminfo ────────────────────────────────
 echo ""
-echo -e "${GREEN}[1/4] Ghostty terminfo...${NC}"
+echo "Pushing terminfo..."
 if infocmp -x xterm-ghostty &>/dev/null 2>&1; then
-    infocmp -x xterm-ghostty | SSH "tic -x -" 2>/dev/null && \
-        echo "  done" || echo "  (skipped — server may already have it)"
+    infocmp -x xterm-ghostty | SSH "tic -x -" 2>/dev/null && echo "  done" || echo "  skipped"
 else
-    echo "  (skipped — not running in Ghostty)"
+    echo "  skipped (not in Ghostty)"
 fi
 
-# ── Remote setup ─────────────────────────────────────
-echo -e "${GREEN}[2/4] Running server setup...${NC}"
-
+echo "Running server setup..."
 SSH "GH_PAT=$GHPAT BUILD_DIR=$DIR bash -s" << 'SETUP'
 set -euo pipefail
-G='\033[0;32m' N='\033[0m'
 
-echo -e "${G}Configuring git...${N}"
+echo "Configuring git..."
 git config --global user.name  "VoltageOS Builder"  2>/dev/null || true
 git config --global user.email "builder@voltageos.local" 2>/dev/null || true
 git config --global credential.helper store 2>/dev/null || true
 printf "protocol=https\nhost=github.com\nusername=voltage-builder\npassword=%s\n\n" \
     "$GH_PAT" | git credential approve 2>/dev/null || true
 
-echo -e "${G}Initializing ~/${BUILD_DIR}...${N}"
+echo "Setting up ~/${BUILD_DIR}..."
 mkdir -p ~/"$BUILD_DIR"
 cd ~/"$BUILD_DIR"
 
@@ -59,10 +50,10 @@ if [ ! -f .repo/manifest.xml ]; then
     git clone -b 16.2 https://github.com/ang3lo-azevedo/local_manifests.git .repo/local_manifests
 fi
 
-echo -e "${G}Syncing sources (grab a coffee)...${N}"
+echo "Syncing. This takes a while."
 repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune
 
-echo -e "${G}Adding aliases...${N}"
+echo "Adding aliases..."
 for RC in ~/.bashrc ~/.zshrc; do
     [ -f "$RC" ] || continue
     grep -q "build-voltage" "$RC" 2>/dev/null || \
@@ -72,13 +63,8 @@ for RC in ~/.bashrc ~/.zshrc; do
 done
 
 echo ""
-echo -e "${G}════════════════════════════════════"
-echo -e "  Setup complete!"
-echo -e "  source ~/.zshrc"
-echo -e "  sync-voltage   (update sources)"
-echo -e "  build-voltage  (build ROM)"
-echo -e "════════════════════════════════════${N}"
+echo "Done. Run: source ~/.zshrc && build-voltage"
 SETUP
 
 echo ""
-echo -e "${GREEN}Done. SSH in and type 'build-voltage'.${NC}"
+echo "Setup finished. SSH in and run 'build-voltage'."
