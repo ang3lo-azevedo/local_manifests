@@ -25,7 +25,6 @@ Local manifest for building VoltageOS on the Nothing Phone (1).
   - [Hardware HAL](#the-hardware-hal-nglyphs-from-studiokeys)
   - [Cherry-Picks](#cherry-picking-improvements)
   - [How to Find Stuff](#how-to-find-this-stuff-yourself)
-- [Tree Sources](#tree-sources)
 - [Features Enabled](#features-enabled)
 - [Troubleshooting](#troubleshooting)
 - [Credits](#credits)
@@ -98,31 +97,6 @@ Every active Spacewar maintainer has their own device tree. Rather than fork one
 3. **Other ROM manifests**: Look at `crDroid`, `EvolutionX`, `LineageOS` manifests. They have `*.dependencies` files that list what repos they use
 4. **Build errors are clues**: When a build fails with "missing file X", search GitHub for that filename. The repo containing it is the one you are missing
 5. **logcat debug**: Flash a booting build, `adb logcat | grep -i "failed\|error\|missing"` to find runtime issues like missing libs or SELinux denials
-
-### Tree Sources
-
-The device tree (`android_device_nothing_Spacewar`) merges improvements from:
-
-- **kleidione/bp4a** - base with NOS 3.2 fixes (vibrator, FP, power profile, ghost touch fix)
-- **DaViDev985/derp16.2** - NOS 3.2 post_boot.sh, sepolicy perf, FP screen-off unlock, camera sepolicy
-- **smrth097/luna** - perf init script, IRQ balance config, SPAMMY_LOG_TAGS, QTI vndfwk
-- **crDroid/derp16** - NOS 3.2 EOL mixer paths, camcorder audio, radio power saving, Bluetooth ASHA/AptX, sensor calibration libs
-- **halogenOS/XOS-16.2** - linear-nits brightness mapping, Extra Dim evening dimmer
-- **StudioKeys-Dumps/waterlily-qpr2** - NGlyphs/GlyphManager, recovery ADSP
-
-The hardware/nothing tree (`android_hardware_nothing`) is based on:
-
-- **DaViDev985/derp16.2** - base with NtOnlineConfig stub (required for Nothing Camera)
-- **StudioKeys-Dumps/waterlily-qpr2** - NGlyphs/GlyphManager (20 commits, replaces ParanoidGlyph)
-- **kleidione/bp4a** - FP goodix_fp node wait and HAL null guards
-
-The vendor and camera blobs come from DaViDev985 (NOS 3.2, photo/video working, portrait on Google Camera).
-
-The kernel (`android_kernel_nothing_sm7325`) is based on:
-
-- **William24hmar/KSU-SUSFS** - KSU syscall tamper, full SUSFS
-- **William24hmar/Nethunter** - NetHunter configs (monitor mode, WireGuard, HID gamepads)
-- **maxsteeel/nomount** - NoMount path redirection subsystem
 
 
 ## ServerHive Build Server
