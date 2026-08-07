@@ -62,9 +62,11 @@ for RC in ~/.bashrc ~/.zshrc; do
         echo "alias sync='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune'" >> "$RC"
 done
 
+[ -f ~/.zshrc ] && source ~/.zshrc 2>/dev/null || true
+
 echo ""
-echo "Done. Run: source ~/.zshrc && build"
+
 SETUP
 
 echo ""
-echo "Setup finished. SSH in and run 'build'."
+echo "Setup finished. Aliases are loaded: run 'sync' or 'build'."

@@ -51,7 +51,7 @@ This project is designed to build on [ServerHive](https://github.com/ServerHive-
 
 ### Quick Start
 
-Rent a ServerHive machine at https://serverhive.com, then SSH in:
+Rent a ServerHive machine, then SSH in using the details from your dashboard:
 
 ```bash
 ssh username@server.serverhive.com -p 22
@@ -166,7 +166,6 @@ Git cookies are not set up by the script (optional but recommended, see above). 
 After setup, SSH in and run:
 
 ```bash
-source ~/.zshrc    # load aliases
 sync               # update sources
 build              # build the ROM
 ```
@@ -187,11 +186,20 @@ repo init -u https://github.com/VoltageOS/manifest.git -b 16.2 --git-lfs
 git clone https://github.com/ang3lo-azevedo/local_manifests.git .repo/local_manifests
 ```
 
+**Optional build aliases** -- add these to `~/.zshrc` for convenience (the one-line setup does this automatically):
+
+```bash
+alias sync='cd ~/voltageos && repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune'
+alias build='cd ~/voltageos && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon'
+```
+
 #### 3. Sync
 
 ```bash
 repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune
 ```
+
+Or run `sync` if you added the alias above.
 
 #### 4. Build
 
@@ -205,15 +213,6 @@ Or with `mka`:
 
 ```bash
 mka bacon
-```
-
-### Build Aliases
-
-Add these to `~/.zshrc` (the one-line setup does this for you):
-
-```bash
-alias sync='cd ~/voltageos && repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune'
-alias build='cd ~/voltageos && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon'
 ```
 
 ## Build Configuration
