@@ -4,11 +4,11 @@ set -euo pipefail
 echo "=== VoltageOS ServerHive Setup ==="
 echo ""
 
-read -p "SSH command [ssh nos4a2250@arcane.serverhive.in -p22]: " SSH_CMD
+read -p "SSH command [ssh nos4a2250@arcane.serverhive.in -p22]: " SSH_CMD < /dev/tty
 SSH_CMD="${SSH_CMD:-ssh nos4a2250@arcane.serverhive.in -p22}"
 
 if command -v sshpass &>/dev/null; then
-    read -s -p "SSH password: " SSHPASS; echo ""
+    read -s -p "SSH password: " SSHPASS < /dev/tty; echo ""
     SSH() { sshpass -p "$SSHPASS" $SSH_CMD -- "$@"; }
 else
     SSH() { $SSH_CMD -- "$@"; }
@@ -16,9 +16,9 @@ fi
 
 echo ""
 echo "GitHub PAT (scope: repo): https://github.com/settings/tokens"
-read -s -p "GitHub PAT: " GHPAT; echo ""
+read -s -p "GitHub PAT: " GHPAT < /dev/tty; echo ""
 
-read -p "Build folder [voltageos]: " DIR
+read -p "Build folder [voltageos]: " DIR < /dev/tty
 DIR="${DIR:-voltageos}"
 
 echo ""
