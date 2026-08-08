@@ -3,10 +3,19 @@ set -euo pipefail
 
 echo "=== VoltageOS ServerHive Setup ==="
 echo ""
-echo "Before running this script, set up git cookies for android.googlesource.com:"
-echo "  1. Visit https://android.googlesource.com"
-echo "  2. Click Generate Password"
-echo "  3. Authenticate and run the provided shell script"
+echo "Git cookies for android.googlesource.com are required."
+echo ""
+echo "If you haven't set them up yet:"
+echo "  1. Visit https://android.googlesource.com in a browser"
+echo "  2. Click 'Generate Password' and authenticate"
+echo "  3. Copy the shell script it gives you"
+echo "  4. SSH into your server and run that script"
+echo ""
+read -p "Have you set up git cookies on the server? [y/N]: " COOKIES_OK < /dev/tty
+if [ "${COOKIES_OK,,}" != "y" ] && [ "${COOKIES_OK,,}" != "yes" ]; then
+    echo "Set them up first, then re-run this script."
+    exit 1
+fi
 echo ""
 
 read -p "SSH command [ssh nos4a2250@arcane.serverhive.in -p22]: " SSH_CMD < /dev/tty

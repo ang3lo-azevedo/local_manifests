@@ -10,7 +10,7 @@ Manifest and tutorial for building VoltageOS on Nothing Phone (1) (Spacewar).
   - [Prerequisites](#prerequisites)
 - [Usage](#usage)
   - [GitHub Authentication](#github-authentication)
-  - [Git Cookies](#git-cookies-recommended-not-necessary)
+  - [Git Cookies](#git-cookies-required)
   - [Global Git Config](#global-git-config)
   - [Manual Setup](#manual-setup)
 - [Included Projects](#included-projects)
@@ -124,7 +124,7 @@ curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/voltageos-spacewar/16
 
 The script prompts for your SSH details and GitHub PAT, then handles: terminfo, git config, repo init, manifest, sync, and aliases. After setup, SSH in and run `sync` or `build`.
 
-> If you do not have access to the private keys repo, see [GitHub Authentication](#github-authentication) for how to remove it before building. The script handles this for the owner. Git cookies are not set up by the script (optional, see [Git Cookies](#git-cookies-recommended-not-necessary)). Needs `sshpass` locally (`apt install sshpass`).
+> If you do not have access to the private keys repo, see [GitHub Authentication](#github-authentication) for how to remove it before building. The script handles this for the owner. Git cookies must be set up on the server first (see [Git Cookies](#git-cookies-required)). Needs `sshpass` locally (`apt install sshpass`).
 
 ## Self-Hosted Setup
 
@@ -187,9 +187,9 @@ read -s -p "GitHub PAT: " GH_PAT; echo
 printf "protocol=https\nhost=github.com\nusername=%s\npassword=%s\n\n" "$GH_USER" "$GH_PAT" | git credential approve
 ```
 
-### Git Cookies (recommended, not necessary)
+### Git Cookies (required)
 
-Google rate-limits unauthenticated repo syncs, sometimes causing `429 Too Many Requests` errors. Setting up git cookies prevents this. It is not strictly required but highly recommended to avoid sync interruptions.
+Google rate-limits unauthenticated repo syncs, and newer versions of repo (2.50+) require cookies for android.googlesource.com. Without this, repo init and sync will fail with `GitRequireError: Missing Cookiefile`.
 
 1. Visit https://android.googlesource.com
 2. Click "Generate Password"
