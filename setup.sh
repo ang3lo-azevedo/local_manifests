@@ -64,11 +64,13 @@ fi
 DIR="${DIR:-voltageos}"
 
 echo ""
-echo "Pushing terminfo..."
-if infocmp -x xterm-ghostty &>/dev/null 2>&1; then
-    infocmp -x xterm-ghostty | SSH "tic -x -" 2>/dev/null && echo "  done" || echo "  skipped"
-else
-    echo "  skipped (not in Ghostty)"
+if [ -z "${SKIP_TERMINFO:-}" ]; then
+    echo "Pushing terminfo..."
+    if infocmp -x xterm-ghostty &>/dev/null 2>&1; then
+        infocmp -x xterm-ghostty | SSH "tic -x -" 2>/dev/null && echo "  done" || echo "  skipped"
+    else
+        echo "  skipped (not in Ghostty)"
+    fi
 fi
 
 echo "Running server setup..."
