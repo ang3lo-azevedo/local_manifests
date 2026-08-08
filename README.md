@@ -271,6 +271,7 @@ Output is at `out/target/product/Spacewar/voltage-*.zip`.
 - Kali NetHunter - Wi-Fi monitor mode, HID attacks, mac80211 injection, WireGuard, HID gamepads
 - NoMount path redirection subsystem
 - MPTCP multipath TCP
+- Droidspaces / Docker container runtime (all Linux namespaces, cgroups, nf_tables, IPVS, full cone NAT, NFS/CIFS/9P filesystems)
 - Dolby audio with spatial audio
 - Device as Webcam (USB UVC)
 - FP screen-off unlock enabled by default
