@@ -5,19 +5,17 @@ echo "=== VoltageOS ServerHive Setup ==="
 echo ""
 echo "Git cookies for android.googlesource.com are required."
 echo ""
-echo "Get them by visiting https://android.googlesource.com in a browser:"
-echo "  1. Click 'Generate Password' and authenticate"
-echo "  2. Copy the entire shell script it gives you"
-echo "  3. Save it to a file on your machine, then enter the path below"
-echo "     Example: echo 'PASTE SCRIPT HERE' > /tmp/gitcookies.sh"
+echo "  1. Visit https://android.googlesource.com in a browser"
+echo "  2. Click 'Generate Password' and authenticate"
+echo "  3. In the provided shell script, find the line starting with"
+echo "     'android.googlesource.com,FALSE,/,TRUE' - copy just that line"
 echo ""
-read -p "Path to the cookie script file (or Enter to skip): " COOKIE_FILE < /dev/tty
+read -p "Paste the cookie line here (starts with android.googlesource.com): " GS_COOKIE < /dev/tty
 
-if [ -z "$COOKIE_FILE" ] || [ ! -f "$COOKIE_FILE" ]; then
-    echo "Cannot proceed without cookies. Save the script to a file and re-run."
+if [ -z "$GS_COOKIE" ]; then
+    echo "Cannot proceed without cookies. Get the line from the link above and re-run."
     exit 1
 fi
-COOKIE_SCRIPT=$(cat "$COOKIE_FILE")
 echo ""
 
 read -p "SSH command [ssh nos4a2250@arcane.serverhive.in -p22]: " SSH_CMD < /dev/tty
@@ -32,7 +30,15 @@ fi
 
 echo ""
 echo "Pushing git cookies to server..."
-echo "$COOKIE_SCRIPT" | SSH "bash -s" 2>/dev/null && echo "  done" || { echo "  failed - check your SSH connection"; exit 1; }
+echo "$GS_COOKIE" | grep -q "android.googlesource.com" || { echo "  invalid cookie line - must start with android.googlesource.com"; exit 1; }
+SSH "GS_COOKIE=\$GS_COOKIE bash -s" << 'ENDCOOKIE'
+set -euo pipefail
+touch ~/.gitcookies
+chmod 0600 ~/.gitcookies
+git config --global http.cookiefile ~/.gitcookies
+echo "$GS_COOKIE" >> ~/.gitcookies
+echo "  done"
+ENDCOOKIE
 
 echo ""
 echo "GitHub PAT (scope: repo): https://github.com/settings/tokens"
@@ -50,7 +56,7 @@ else
 fi
 
 echo "Running server setup..."
-SSH "GH_PAT=$GHPAT BUILD_DIR=$DIR bash -s" << 'SETUP'
+SSH "GH_PAT=$GHPAT BUILD_DIR=$DIR bash -s" << 'ENDREMOTE'
 set -euo pipefail
 
 echo "Configuring git..."
@@ -85,7 +91,7 @@ done
 echo "Setting up ccache..."
 ccache -M 50G 2>/dev/null || echo "  ccache not available, skipping"
 
-SETUP
+ENDREMOTE
 
 echo ""
 echo "Setup finished. Aliases are loaded: run 'sync' or 'build'."
