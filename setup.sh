@@ -5,15 +5,15 @@ echo "=== VoltageOS ServerHive Setup ==="
 echo ""
 echo "Git cookies for android.googlesource.com are required."
 echo ""
-echo "If you haven't set them up yet:"
-echo "  1. Visit https://android.googlesource.com in a browser"
-echo "  2. Click 'Generate Password' and authenticate"
-echo "  3. Copy the shell script it gives you"
-echo "  4. SSH into your server and run that script"
+echo "Get them by visiting https://android.googlesource.com in a browser:"
+echo "  1. Click 'Generate Password' and authenticate"
+echo "  2. Copy the entire shell script it gives you (starts with #!/bin/sh)"
+echo "  3. Paste it here"
 echo ""
-read -p "Have you set up git cookies on the server? [y/N]: " COOKIES_OK < /dev/tty
-if [ "${COOKIES_OK,,}" != "y" ] && [ "${COOKIES_OK,,}" != "yes" ]; then
-    echo "Set them up first, then re-run this script."
+read -p "Paste the git cookie script (or press Enter to skip): " COOKIE_SCRIPT < /dev/tty
+
+if [ -z "$COOKIE_SCRIPT" ]; then
+    echo "Cannot proceed without cookies. Get them from the link above and re-run."
     exit 1
 fi
 echo ""
@@ -27,6 +27,10 @@ if command -v sshpass &>/dev/null; then
 else
     SSH() { $SSH_CMD -- "$@"; }
 fi
+
+echo ""
+echo "Pushing git cookies to server..."
+echo "$COOKIE_SCRIPT" | SSH "bash -s" 2>/dev/null && echo "  done" || { echo "  failed - check your SSH connection"; exit 1; }
 
 echo ""
 echo "GitHub PAT (scope: repo): https://github.com/settings/tokens"
