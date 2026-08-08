@@ -48,7 +48,7 @@ if [ -z "${GS_COOKIE_SENT:-}" ]; then
     echo ""
     echo "Pushing git cookies to server..."
     echo "$GS_COOKIE" | grep -q "android.googlesource.com" || { echo "  invalid cookie line - must start with android.googlesource.com"; exit 1; }
-    echo "$GS_COOKIE" | SSH "tee -a ~/.gitcookies > /dev/null && chmod 0600 ~/.gitcookies && git config --global http.cookiefile ~/.gitcookies && echo '  done'"
+    echo "$GS_COOKIE" | tr ',' '\t' | SSH "tee -a ~/.gitcookies > /dev/null && chmod 0600 ~/.gitcookies && git config --global http.cookiefile ~/.gitcookies && echo '  done'"
     GS_COOKIE_SENT=1
 fi
 
