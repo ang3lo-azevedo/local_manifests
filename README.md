@@ -126,6 +126,13 @@ The script prompts for your SSH details and GitHub PAT, then handles: terminfo, 
 
 > If you do not have access to the private keys repo, see [GitHub Authentication](#github-authentication) for how to remove it before building. The script handles this for the owner. Git cookies must be set up on the server first (see [Git Cookies](#git-cookies-required)). Needs `sshpass` locally (`apt install sshpass`).
 
+To skip prompts, create a `.env` file with your values:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/voltageos-spacewar/16.2/.env.example -o .env
+# Edit .env with your SSH details, GitHub PAT, and cookie line
+```
+
 ## Self-Hosted Setup
 
 If you are NOT using ServerHive, the following is required on your own machine before building.
