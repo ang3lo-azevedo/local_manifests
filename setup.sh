@@ -1,44 +1,66 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Load .env if present
+if [ -f .env ]; then
+    set -a; source .env; set +a
+    echo "Loaded .env"
+elif [ -f ~/.config/voltageos-setup.env ]; then
+    set -a; source ~/.config/voltageos-setup.env; set +a
+    echo "Loaded ~/.config/voltageos-setup.env"
+fi
+
 echo "=== VoltageOS ServerHive Setup ==="
 echo ""
-echo "Git cookies for android.googlesource.com are required."
-echo ""
-echo "  1. Visit https://android.googlesource.com in a browser"
-echo "  2. Click 'Generate Password' and authenticate"
-echo "  3. Look for the line between 'tr , \\\\t <<\\__END__' and '__END__'"
-echo "     Copy ONLY the first one, which looks like:"
-echo "     android.googlesource.com,FALSE,/,TRUE,2147483647,o,git-you=1//..."
-echo ""
-read -p "Paste that single cookie line: " GS_COOKIE < /dev/tty
 
-if [ -z "$GS_COOKIE" ]; then
-    echo "Cannot proceed without cookies. Get the line from the link above and re-run."
-    exit 1
+if [ -z "${GS_COOKIE:-}" ]; then
+    echo "Git cookies for android.googlesource.com are required."
+    echo ""
+    echo "  1. Visit https://android.googlesource.com in a browser"
+    echo "  2. Click 'Generate Password' and authenticate"
+    echo "  3. Look for the line between 'tr , \\\\t <<\\__END__' and '__END__'"
+    echo "     Copy ONLY the first one, which looks like:"
+    echo "     android.googlesource.com,FALSE,/,TRUE,2147483647,o,git-you=1//..."
+    echo ""
+    read -p "Paste that single cookie line: " GS_COOKIE < /dev/tty
+    if [ -z "$GS_COOKIE" ]; then
+        echo "Cannot proceed without cookies. Get the line from the link above and re-run."
+        exit 1
+    fi
+    echo ""
 fi
-echo ""
 
-read -p "SSH command [ssh nos4a2250@arcane.serverhive.in -p22]: " SSH_CMD < /dev/tty
+if [ -z "${SSH_CMD:-}" ]; then
+    read -p "SSH command [ssh nos4a2250@arcane.serverhive.in -p22]: " SSH_CMD < /dev/tty
+fi
 SSH_CMD="${SSH_CMD:-ssh nos4a2250@arcane.serverhive.in -p22}"
 
 if command -v sshpass &>/dev/null; then
-    read -s -p "SSH password: " SSHPASS < /dev/tty; echo ""
+    if [ -z "${SSHPASS:-}" ]; then
+        read -s -p "SSH password: " SSHPASS < /dev/tty; echo ""
+    fi
     SSH() { sshpass -p "$SSHPASS" $SSH_CMD -- "$@"; }
 else
     SSH() { $SSH_CMD -- "$@"; }
 fi
 
-echo ""
-echo "Pushing git cookies to server..."
-echo "$GS_COOKIE" | grep -q "android.googlesource.com" || { echo "  invalid cookie line - must start with android.googlesource.com"; exit 1; }
-echo "$GS_COOKIE" | SSH "tee -a ~/.gitcookies > /dev/null && chmod 0600 ~/.gitcookies && git config --global http.cookiefile ~/.gitcookies && echo '  done'"
+if [ -z "${GS_COOKIE_SENT:-}" ]; then
+    echo ""
+    echo "Pushing git cookies to server..."
+    echo "$GS_COOKIE" | grep -q "android.googlesource.com" || { echo "  invalid cookie line - must start with android.googlesource.com"; exit 1; }
+    echo "$GS_COOKIE" | SSH "tee -a ~/.gitcookies > /dev/null && chmod 0600 ~/.gitcookies && git config --global http.cookiefile ~/.gitcookies && echo '  done'"
+    GS_COOKIE_SENT=1
+fi
 
-echo ""
-echo "GitHub PAT (scope: repo): https://github.com/settings/tokens"
-read -s -p "GitHub PAT: " GHPAT < /dev/tty; echo ""
+if [ -z "${GHPAT:-}" ]; then
+    echo ""
+    echo "GitHub PAT (scope: repo): https://github.com/settings/tokens"
+    read -s -p "GitHub PAT: " GHPAT < /dev/tty; echo ""
+fi
 
-read -p "Build folder [voltageos]: " DIR < /dev/tty
+if [ -z "${DIR:-}" ]; then
+    read -p "Build folder [voltageos]: " DIR < /dev/tty
+fi
 DIR="${DIR:-voltageos}"
 
 echo ""
