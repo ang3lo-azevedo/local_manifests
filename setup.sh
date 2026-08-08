@@ -112,4 +112,10 @@ ccache -M 50G 2>/dev/null || echo "  ccache not available, skipping"
 ENDREMOTE
 
 echo ""
-echo "Setup finished. Aliases are loaded: run 'sync' or 'build'."
+echo "Setup finished. Connecting to the server..."
+echo ""
+if command -v sshpass &>/dev/null && [ -n "${SSHPASS:-}" ]; then
+    exec sshpass -p "$SSHPASS" $SSH_CMD
+else
+    exec $SSH_CMD
+fi
