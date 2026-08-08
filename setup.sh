@@ -7,15 +7,17 @@ echo "Git cookies for android.googlesource.com are required."
 echo ""
 echo "Get them by visiting https://android.googlesource.com in a browser:"
 echo "  1. Click 'Generate Password' and authenticate"
-echo "  2. Copy the entire shell script it gives you (starts with #!/bin/sh)"
-echo "  3. Paste it here"
+echo "  2. Copy the entire shell script it gives you"
+echo "  3. Save it to a file on your machine, then enter the path below"
+echo "     Example: echo 'PASTE SCRIPT HERE' > /tmp/gitcookies.sh"
 echo ""
-read -p "Paste the git cookie script (or press Enter to skip): " COOKIE_SCRIPT < /dev/tty
+read -p "Path to the cookie script file (or Enter to skip): " COOKIE_FILE < /dev/tty
 
-if [ -z "$COOKIE_SCRIPT" ]; then
-    echo "Cannot proceed without cookies. Get them from the link above and re-run."
+if [ -z "$COOKIE_FILE" ] || [ ! -f "$COOKIE_FILE" ]; then
+    echo "Cannot proceed without cookies. Save the script to a file and re-run."
     exit 1
 fi
+COOKIE_SCRIPT=$(cat "$COOKIE_FILE")
 echo ""
 
 read -p "SSH command [ssh nos4a2250@arcane.serverhive.in -p22]: " SSH_CMD < /dev/tty
