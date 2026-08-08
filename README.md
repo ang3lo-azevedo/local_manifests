@@ -275,7 +275,6 @@ Output is at `out/target/product/Spacewar/voltage-*.zip`.
 - Dolby audio with spatial audio
 - Device as Webcam (USB UVC)
 - FP screen-off unlock enabled by default
-- Persistent taskbar (config_enableTaskbar overlay)
 - QTI vndfwk / CNE networking support
 - WiFi concurrent STA (hotspot + WiFi simultaneously)
 - Perf init script (CPU boost, schedutil, CPUSets, uclamp, IRQ affinity)
