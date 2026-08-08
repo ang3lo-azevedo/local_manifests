@@ -7,10 +7,11 @@ echo "Git cookies for android.googlesource.com are required."
 echo ""
 echo "  1. Visit https://android.googlesource.com in a browser"
 echo "  2. Click 'Generate Password' and authenticate"
-echo "  3. In the provided shell script, find the line starting with"
-echo "     'android.googlesource.com,FALSE,/,TRUE' - copy just that line"
+echo "  3. Look for the line between 'tr , \\\\t <<\\__END__' and '__END__'"
+echo "     Copy ONLY the first one, which looks like:"
+echo "     android.googlesource.com,FALSE,/,TRUE,2147483647,o,git-you=1//..."
 echo ""
-read -p "Paste the cookie line here (starts with android.googlesource.com): " GS_COOKIE < /dev/tty
+read -p "Paste that single cookie line: " GS_COOKIE < /dev/tty
 
 if [ -z "$GS_COOKIE" ]; then
     echo "Cannot proceed without cookies. Get the line from the link above and re-run."
