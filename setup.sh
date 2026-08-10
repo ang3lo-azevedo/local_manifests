@@ -94,7 +94,7 @@ if [ ! -f .repo/manifest.xml ]; then
 fi
 
 echo "Syncing. This takes a while."
-repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune
+script -q -c "repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune" /dev/null
 
 
 echo "Adding aliases..."
