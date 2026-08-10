@@ -37,9 +37,9 @@ if command -v sshpass &>/dev/null; then
     if [ -z "${SSHPASS:-}" ]; then
         read -s -p "SSH password: " SSHPASS < /dev/tty; echo ""
     fi
-    SSH() { sshpass -p "$SSHPASS" $SSH_CMD -tt -- "$@"; }
+    SSH() { sshpass -p "$SSHPASS" $SSH_CMD -- "$@"; }
 else
-    SSH() { $SSH_CMD -tt -- "$@"; }
+    SSH() { $SSH_CMD -- "$@"; }
 fi
 if [ -z "${GS_COOKIE_SENT:-}" ]; then
     echo ""
@@ -88,7 +88,7 @@ if [ ! -f .repo/manifest.xml ]; then
     git clone -b 17 https://github.com/ang3lo-azevedo/voltageos-spacewar.git .repo/local_manifests
 fi
 echo "Syncing. This takes a while."
-repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune
+script -q -c "script -q -c "repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune" /dev/null" /dev/null
 
 
 echo "Adding aliases..."
