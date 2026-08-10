@@ -1,0 +1,17 @@
+#!/bin/sh
+# A17 build compatibility patches (applied after each sync)
+[ "$1" != "sync" ] && exit 0
+
+PDIR=".repo/local_manifests/patches"
+
+apply() {
+    local file="$1" repo="$2"
+    if patch --dry-run -d "$repo" -Np1 -s < "$file" 2>/dev/null; then
+        patch -d "$repo" -Np1 -s < "$file"
+        echo "[repo-hook] Patched $repo"
+    fi
+}
+
+apply "$PDIR/0001-skcms-vendor_available.patch" external/skia
+apply "$PDIR/0002-hwy-vendor_available.patch"   external/google-highway
+apply "$PDIR/0003-xmp-vendor_available.patch"   external/XMP-Toolkit-SDK

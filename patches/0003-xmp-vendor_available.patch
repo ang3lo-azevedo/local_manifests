@@ -1,0 +1,10 @@
+--- a/Android.bp
++++ b/Android.bp
+@@ -37,6 +37,7 @@ cc_library {
+ cc_library {
+     name: "xmp_toolkit_sdk",
+     host_supported: true,
++    vendor_available: true,
+     sdk_version: "current",
+     stl: "c++_shared",
+     export_include_dirs: [

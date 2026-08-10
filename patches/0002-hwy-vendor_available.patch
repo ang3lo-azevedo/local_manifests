@@ -1,0 +1,10 @@
+--- a/Android.bp
++++ b/Android.bp
+@@ -35,6 +35,7 @@ cc_library_headers {
+ cc_library {
+     name: "libhwy",
+     host_supported: true,
++    vendor_available: true,
+     sdk_version: "current",
+     stl: "c++_shared",
+     export_include_dirs: [

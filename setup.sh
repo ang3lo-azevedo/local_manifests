@@ -86,6 +86,9 @@ if [ ! -f .repo/manifest.xml ]; then
     repo init -u https://github.com/VoltageOS/manifest.git -b 17 --git-lfs --depth=1
     mkdir -p .repo/local_manifests
     git clone -b 17 https://github.com/ang3lo-azevedo/voltageos-spacewar.git .repo/local_manifests
+    mkdir -p .repo/hooks
+    cp .repo/local_manifests/hooks/repo-hook .repo/hooks/
+    chmod +x .repo/hooks/repo-hook
 fi
 echo "Syncing. This takes a while."
 repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune 2>&1 | cat
