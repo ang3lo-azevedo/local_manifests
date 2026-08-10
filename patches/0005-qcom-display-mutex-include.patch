@@ -1,0 +1,8 @@
+--- a/services/config/src/device_impl.h
++++ b/services/config/src/device_impl.h
+@@ -38,6 +38,7 @@
+ #include <utility>
+ #include <string>
+ #include <vector>
++#include <mutex>
+ #include "opcode_types.h"
