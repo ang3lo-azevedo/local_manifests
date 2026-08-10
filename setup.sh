@@ -114,7 +114,7 @@ for RC in ~/.bashrc ~/.zshrc; do
     grep -q "alias sb=" "$RC" 2>/dev/null || \
         echo "alias sb='s && b'" >> "$RC"
     grep -q "alias c="  "$RC" 2>/dev/null || \
-        echo "alias c='rm -rf ~/$BUILD_DIR/out'" >> "$RC"
+        echo "alias c='clear'" >> "$RC"
     grep -q "alias cb=" "$RC" 2>/dev/null || \
         echo "alias cb='c && b'" >> "$RC"
     # Legacy long names
