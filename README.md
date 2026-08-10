@@ -5,6 +5,7 @@ Manifest and tutorial for building VoltageOS on Nothing Phone (1) (Spacewar).
 ## TODO
 
 - Switch vendor partition to erofs (`BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := erofs`). Saves ~100MB and improves read speed. Requires clean flash.
+- Portrait mode fix: boot Nothing OS stock once, open camera in portrait mode to auto-calibrate, then dump `/mnt/vendor/persist/camera/`. Persist partition loses factory calibration on custom ROM flash. Restore dump after flashing to enable portrait mode with crDroid camera.
 
 ## Index
 
