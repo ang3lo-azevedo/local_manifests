@@ -90,6 +90,11 @@ if [ ! -f .repo/manifest.xml ]; then
     cp .repo/local_manifests/hooks/repo-hook .repo/hooks/
     chmod +x .repo/hooks/repo-hook
 fi
+echo "Installing repo hooks..."
+mkdir -p .repo/hooks
+cp .repo/local_manifests/hooks/repo-hook .repo/hooks/repo-hook
+chmod +x .repo/hooks/repo-hook
+
 echo "Syncing. This takes a while."
 repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune 2>&1 | cat
 
