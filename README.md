@@ -236,8 +236,11 @@ git clone https://github.com/ang3lo-azevedo/voltageos-spacewar.git .repo/local_m
 **Optional build aliases**: add these to `~/.zshrc` for convenience (the one-line setup does this automatically):
 
 ```bash
-alias sync='cd ~/voltageos && repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune'
-alias build='cd ~/voltageos && source build/envsetup.sh && lunch voltage_Spacewar-ap4a-user && mka bacon'
+alias s='cd ~/voltageos && repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune'
+alias b='cd ~/voltageos && source build/envsetup.sh && lunch voltage_Spacewar-ap4a-user && mka bacon'
+alias sb='s && b'
+alias c='rm -rf ~/voltageos/out'
+alias cb='c && b'
 ```
 
 #### 3. Sync

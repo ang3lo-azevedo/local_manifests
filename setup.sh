@@ -107,6 +107,17 @@ repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune
 echo "Adding aliases..."
 for RC in ~/.bashrc ~/.zshrc; do
     [ -f "$RC" ] || continue
+    grep -q "alias s="  "$RC" 2>/dev/null || \
+        echo "alias s='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune'" >> "$RC"
+    grep -q "alias b="  "$RC" 2>/dev/null || \
+        echo "alias b='cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-ap4a-user && mka bacon'" >> "$RC"
+    grep -q "alias sb=" "$RC" 2>/dev/null || \
+        echo "alias sb='s && b'" >> "$RC"
+    grep -q "alias c="  "$RC" 2>/dev/null || \
+        echo "alias c='rm -rf ~/$BUILD_DIR/out'" >> "$RC"
+    grep -q "alias cb=" "$RC" 2>/dev/null || \
+        echo "alias cb='c && b'" >> "$RC"
+    # Legacy long names
     grep -q "alias build=" "$RC" 2>/dev/null || \
         echo "alias build='cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-ap4a-user && mka bacon'" >> "$RC"
     grep -q "alias sync="  "$RC" 2>/dev/null || \
