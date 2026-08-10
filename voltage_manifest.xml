@@ -20,10 +20,10 @@
              remote="github"
              revision="voltage-nethunter" />
 
-    <project name="DaViDev985/vendor_nothing_Spacewar"
+    <project name="ang3lo-azevedo/vendor_nothing_Spacewar"
              path="vendor/nothing/Spacewar"
              remote="github"
-             revision="derp16.2" />
+             revision="voltage-17" />
 
     <project name="ang3lo-azevedo/android_hardware_nothing"
              path="hardware/nothing"

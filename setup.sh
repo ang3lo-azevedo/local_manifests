@@ -9,7 +9,6 @@ elif [ -f ~/.config/voltageos-setup.env ]; then
     set -a; source ~/.config/voltageos-setup.env; set +a
     echo "Loaded ~/.config/voltageos-setup.env"
 fi
-
 echo "=== VoltageOS ServerHive Setup ==="
 echo ""
 
@@ -29,7 +28,6 @@ if [ -z "${GS_COOKIE:-}" ]; then
     fi
     echo ""
 fi
-
 if [ -z "${SSH_CMD:-}" ]; then
     read -p "SSH command [ssh nos4a2250@arcane.serverhive.in -p22]: " SSH_CMD < /dev/tty
 fi
@@ -43,7 +41,6 @@ if command -v sshpass &>/dev/null; then
 else
     SSH() { $SSH_CMD -- "$@"; }
 fi
-
 if [ -z "${GS_COOKIE_SENT:-}" ]; then
     echo ""
     echo "Pushing git cookies to server..."
@@ -51,13 +48,11 @@ if [ -z "${GS_COOKIE_SENT:-}" ]; then
     echo "$GS_COOKIE" | tr ',' '\t' | SSH "tee -a ~/.gitcookies > /dev/null && chmod 0600 ~/.gitcookies && git config --global http.cookiefile ~/.gitcookies && echo '  done'"
     GS_COOKIE_SENT=1
 fi
-
 if [ -z "${GHPAT:-}" ]; then
     echo ""
     echo "GitHub PAT (scope: repo): https://github.com/settings/tokens"
     read -s -p "GitHub PAT: " GHPAT < /dev/tty; echo ""
 fi
-
 if [ -z "${DIR:-}" ]; then
     read -p "Build folder [voltageos]: " DIR < /dev/tty
 fi
@@ -72,7 +67,6 @@ if [ -z "${SKIP_TERMINFO:-}" ]; then
         echo "  skipped (not in Ghostty)"
     fi
 fi
-
 echo "Running server setup..."
 SSH "GH_PAT=$GHPAT BUILD_DIR=$DIR bash -s" << 'ENDREMOTE'
 set -euo pipefail
@@ -90,19 +84,12 @@ cd ~/"$BUILD_DIR"
 
 if [ ! -f .repo/manifest.xml ]; then
     repo init -u https://github.com/VoltageOS/manifest.git -b 17 --git-lfs --depth=1
-    mkdir -p .repo/local_manifests .repo/hooks
+    mkdir -p .repo/local_manifests
     git clone -b 17 https://github.com/ang3lo-azevedo/voltageos-spacewar.git .repo/local_manifests
-    cp .repo/local_manifests/hooks/repo-hook .repo/hooks/repo-hook
-    chmod +x .repo/hooks/repo-hook
 fi
-
-echo "Installing repo hooks..."
-mkdir -p .repo/hooks
-cp .repo/local_manifests/hooks/repo-hook .repo/hooks/repo-hook
-chmod +x .repo/hooks/repo-hook
-
 echo "Syncing. This takes a while."
 repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune
+
 
 echo "Adding aliases..."
 for RC in ~/.bashrc ~/.zshrc; do
