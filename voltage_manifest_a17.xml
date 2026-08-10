@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+    <remote name="github" fetch="https://github.com/" />
+
+    <remove-project path="vendor/voltage-priv/keys" />
+
+    <project name="ang3lo-azevedo/vendor_voltage-priv_keys"
+             path="vendor/voltage-priv/keys"
+             remote="github"
+             revision="main" />
+
+    <project name="ang3lo-azevedo/android_device_nothing_Spacewar"
+             path="device/nothing/Spacewar"
+             remote="github"
+             revision="voltage-17" />
+
+    <project name="ang3lo-azevedo/android_kernel_nothing_sm7325"
+             path="kernel/nothing/sm7325"
+             remote="github"
+             revision="voltage-nethunter" />
+
+    <project name="DaViDev985/vendor_nothing_Spacewar"
+             path="vendor/nothing/Spacewar"
+             remote="github"
+             revision="derp16.2" />
+
+    <project name="ang3lo-azevedo/android_hardware_nothing"
+             path="hardware/nothing"
+              remote="github"
+              revision="lineage-24.0" />
+
+    <project name="DaViDev985/proprietary_vendor_nothing_camera"
+             path="vendor/nothing/camera"
+             remote="github"
+             revision="derp16" />
+
+    <project name="kleidione/hardware_dolby"
+             path="hardware/dolby"
+              remote="github"
+              revision="bp4a" />
+
+    <project name="kleidione/vendor_google_GoogleCamera"
+             path="vendor/google/GoogleCamera"
+             remote="github"
+             revision="bp3a" />
+</manifest>
