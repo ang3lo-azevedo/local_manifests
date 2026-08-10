@@ -47,7 +47,7 @@ All trees are pulled automatically by `repo sync` after adding the local manifes
 | `vendor/nothing/Spacewar` | `DaViDev985/vendor_nothing_Spacewar` | `derp16.2` | Proprietary blobs (NOS 3.2) |
 | `vendor/nothing/camera` | `DaViDev985/proprietary_vendor_nothing_camera` | `derp16` | Nothing Camera APK and libs |
 | `hardware/nothing` | `ang3lo-azevedo/android_hardware_nothing` | `lineage-24.0` | NGlyphs, fingerprint HAL |
-| `hardware/dolby` | `kleidione/hardware_dolby` | `ap4a` | Dolby audio processing |
+| `hardware/dolby` | `kleidione/hardware_dolby` | `bp4a` | Dolby audio processing |
 | `vendor/google/GoogleCamera` | `kleidione/vendor_google_GoogleCamera` | `bp3a` | Google Camera APK |
 | `vendor/voltage-priv/keys` | `ang3lo-azevedo/vendor_voltage-priv_keys` | `main` | ROM signing keys (private) |
 
