@@ -46,8 +46,8 @@ All trees are pulled automatically by `repo sync` after adding the local manifes
 | `kernel/nothing/sm7325` | `ang3lo-azevedo/android_kernel_nothing_sm7325` | `voltage-nethunter` | Linux 5.4.302, KSU-SUSFS, NetHunter |
 | `vendor/nothing/Spacewar` | `DaViDev985/vendor_nothing_Spacewar` | `derp16.2` | Proprietary blobs (NOS 3.2) |
 | `vendor/nothing/camera` | `DaViDev985/proprietary_vendor_nothing_camera` | `derp16` | Nothing Camera APK and libs |
-| `hardware/nothing` | `ang3lo-azevedo/android_hardware_nothing` | `16.2-nglyphs` | NGlyphs, fingerprint HAL |
-| `hardware/dolby` | `kleidione/hardware_dolby` | `bp4a` | Dolby audio processing |
+| `hardware/nothing` | `ang3lo-azevedo/android_hardware_nothing` | `lineage-24.0` | NGlyphs, fingerprint HAL |
+| `hardware/dolby` | `kleidione/hardware_dolby` | `ap4a` | Dolby audio processing |
 | `vendor/google/GoogleCamera` | `kleidione/vendor_google_GoogleCamera` | `bp3a` | Google Camera APK |
 | `vendor/voltage-priv/keys` | `ang3lo-azevedo/vendor_voltage-priv_keys` | `main` | ROM signing keys (private) |
 
@@ -124,7 +124,7 @@ Rent a server at [@ServerHive_bot](https://t.me/ServerHive_bot). Connection deta
 Run this from your local machine after renting a server:
 
 ```
-curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/voltageos-spacewar/16.2/setup.sh | bash
+curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/voltageos-spacewar/17/setup.sh | bash
 ```
 
 The script prompts for your SSH details and GitHub PAT, then handles: terminfo, git config, repo init, manifest, sync, and aliases. After setup, SSH in and run `sync` or `build`.
@@ -134,7 +134,7 @@ The script prompts for your SSH details and GitHub PAT, then handles: terminfo, 
 To skip prompts, create a `.env` file with your values:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/voltageos-spacewar/16.2/.env.example -o .env
+curl -sSL https://raw.githubusercontent.com/ang3lo-azevedo/voltageos-spacewar/17/.env.example -o .env
 # Edit .env with your SSH details, GitHub PAT, and cookie line
 ```
 
@@ -237,7 +237,7 @@ git clone https://github.com/ang3lo-azevedo/voltageos-spacewar.git .repo/local_m
 
 ```bash
 alias sync='cd ~/voltageos && repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune'
-alias build='cd ~/voltageos && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon'
+alias build='cd ~/voltageos && source build/envsetup.sh && lunch voltage_Spacewar-ap4a-user && mka bacon'
 ```
 
 #### 3. Sync

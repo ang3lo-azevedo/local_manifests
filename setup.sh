@@ -108,7 +108,7 @@ echo "Adding aliases..."
 for RC in ~/.bashrc ~/.zshrc; do
     [ -f "$RC" ] || continue
     grep -q "alias build=" "$RC" 2>/dev/null || \
-        echo "alias build='cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon'" >> "$RC"
+        echo "alias build='cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-ap4a-user && mka bacon'" >> "$RC"
     grep -q "alias sync="  "$RC" 2>/dev/null || \
         echo "alias sync='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune'" >> "$RC"
 done
