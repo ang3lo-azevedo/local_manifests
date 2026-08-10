@@ -236,14 +236,14 @@ git clone https://github.com/ang3lo-azevedo/voltageos-spacewar.git .repo/local_m
 **Optional build aliases**: add these to `~/.zshrc` for convenience (the one-line setup does this automatically):
 
 ```bash
-alias sync='cd ~/voltageos && repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune' && sh device/nothing/Spacewar/rootdir/bin/fix_vendor_a17.sh > /dev/null 2>&1
+alias sync='cd ~/voltageos && repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune'
 alias build='cd ~/voltageos && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon'
 ```
 
 #### 3. Sync
 
 ```bash
-repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune
+repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune
 ```
 
 Or run `sync` if you added the alias above.
@@ -323,7 +323,7 @@ Most tools can be installed locally in `~/bin` or via `pip install --user`.
 Repos did not sync properly. Rerun:
 
 ```bash
-repo sync -c -j$(nproc)  && sh device/nothing/Spacewar/rootdir/bin/fix_vendor_a17.sh
+repo sync -c -j$(nproc) 
 ```
 
 ### "Cannot fetch repository"

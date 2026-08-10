@@ -103,7 +103,7 @@ for RC in ~/.bashrc ~/.zshrc; do
     grep -q "alias build=" "$RC" 2>/dev/null || \
         echo "alias build='cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon'" >> "$RC"
     grep -q "alias sync="  "$RC" 2>/dev/null || \
-        echo "alias sync='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune' && sh device/nothing/Spacewar/rootdir/bin/fix_vendor_a17.sh > /dev/null 2>&1" >> "$RC"
+        echo "alias sync='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune'" >> "$RC"
 done
 
 echo "Setting up ccache..."
