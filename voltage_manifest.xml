@@ -30,6 +30,11 @@
               remote="github"
               revision="lineage-24.0" />
 
+    <project name="LineageOS/android_device_lineage_sepolicy"
+             path="device/lineage/sepolicy"
+             remote="github"
+             revision="lineage-24.0" />
+
     <project name="DaViDev985/proprietary_vendor_nothing_camera"
              path="vendor/nothing/camera"
              remote="github"
