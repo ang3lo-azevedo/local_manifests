@@ -126,7 +126,7 @@ echo ""
 echo "Setup finished. Connecting to the server..."
 echo ""
 if command -v sshpass &>/dev/null && [ -n "${SSHPASS:-}" ]; then
-    exec sshpass -p "$SSHPASS" $SSH_CMD -t
+    exec sshpass -p "$SSHPASS" $SSH_CMD
 else
-    exec $SSH_CMD -t
+    exec $SSH_CMD
 fi
