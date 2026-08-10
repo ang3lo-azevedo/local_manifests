@@ -2,6 +2,10 @@
 
 Manifest and tutorial for building VoltageOS on Nothing Phone (1) (Spacewar).
 
+## TODO
+
+- Switch vendor partition to erofs (`BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := erofs`). Saves ~100MB and improves read speed. Requires clean flash.
+
 ## Index
 
 - [ServerHive Build Server](#serverhive-build-server)
