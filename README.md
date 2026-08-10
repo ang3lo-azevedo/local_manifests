@@ -224,7 +224,7 @@ If you prefer to set up manually:
 #### 1. Initialize the repo
 
 ```bash
-repo init -u https://github.com/VoltageOS/manifest.git -b 16.2 --git-lfs
+repo init -u https://github.com/VoltageOS/manifest.git -b 17 --git-lfs
 ```
 
 #### 2. Add the local manifest

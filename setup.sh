@@ -89,9 +89,9 @@ mkdir -p ~/"$BUILD_DIR"
 cd ~/"$BUILD_DIR"
 
 if [ ! -f .repo/manifest.xml ]; then
-    repo init -u https://github.com/VoltageOS/manifest.git -b 16.2 --git-lfs --depth=1
+    repo init -u https://github.com/VoltageOS/manifest.git -b 17 --git-lfs --depth=1
     mkdir -p .repo/local_manifests .repo/hooks
-    git clone -b 16.2 https://github.com/ang3lo-azevedo/voltageos-spacewar.git .repo/local_manifests
+    git clone -b 17 https://github.com/ang3lo-azevedo/voltageos-spacewar.git .repo/local_manifests
     cp .repo/local_manifests/hooks/repo-hook .repo/hooks/repo-hook
     chmod +x .repo/hooks/repo-hook
 fi

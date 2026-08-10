@@ -13,7 +13,7 @@
     <project name="ang3lo-azevedo/android_device_nothing_Spacewar"
              path="device/nothing/Spacewar"
              remote="github"
-             revision="voltage" />
+             revision="voltage-17" />
 
     <project name="ang3lo-azevedo/android_kernel_nothing_sm7325"
              path="kernel/nothing/sm7325"
@@ -28,7 +28,7 @@
     <project name="ang3lo-azevedo/android_hardware_nothing"
              path="hardware/nothing"
               remote="github"
-              revision="16.2-nglyphs" />
+              revision="lineage-24.0" />
 
     <project name="DaViDev985/proprietary_vendor_nothing_camera"
              path="vendor/nothing/camera"

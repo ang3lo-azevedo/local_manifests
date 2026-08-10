@@ -1,11 +1,9 @@
 #!/bin/sh
 # Device-specific repo sync hook — patches vendor before Soong runs
+# A17-only: the 16.2 manifest branch does not carry this hook.
 
 [ "$1" != "sync" ] && exit 0
 [ -f "device/nothing/Spacewar/rootdir/bin/fix_vendor_a17.sh" ] || exit 0
-
-# Only run on A17 — V4→V5 would break A16 vendor
-grep -q '^PLATFORM_VERSION := 17$' build/make/core/version_defaults.mk 2>/dev/null || exit 0
 
 echo "[repo-hook] Running fix_vendor_a17.sh..."
 sh device/nothing/Spacewar/rootdir/bin/fix_vendor_a17.sh
