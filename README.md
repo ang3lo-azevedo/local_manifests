@@ -237,7 +237,7 @@ git clone https://github.com/ang3lo-azevedo/voltageos-spacewar.git .repo/local_m
 
 ```bash
 alias s='cd ~/voltageos && repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune'
-alias b='cd ~/voltageos && source build/envsetup.sh && lunch voltage_Spacewar-trunk_staging-user && mka bacon'
+alias b='cd ~/voltageos && source build/envsetup.sh && breakfast Spacewar && brunch Spacewar'
 alias sb='s && b'
 alias c='clear'
 alias cb='c && b'
