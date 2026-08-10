@@ -1,0 +1,9 @@
+--- a/volume_manager/PublicVolume.cpp
++++ b/volume_manager/PublicVolume.cpp
+@@ -16,6 +16,7 @@
+  * limitations under the License.
+  */
+ 
++#include <algorithm>
+ #include "PublicVolume.h"
+ #include <volume_manager/ResponseCode.h>

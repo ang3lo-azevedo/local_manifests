@@ -17,3 +17,4 @@ apply "$PDIR/0002-hwy-vendor_available.patch"   external/google-highway
 apply "$PDIR/0003-xmp-vendor_available.patch"   external/XMP-Toolkit-SDK
 apply "$PDIR/0004-zuid_md5-vendor_available.patch" external/XMP-Toolkit-SDK
 apply "$PDIR/0005-qcom-display-mutex-include.patch"  vendor/qcom/opensource/display
+apply "$PDIR/0006-recovery-algorithm-include.patch" bootable/recovery
