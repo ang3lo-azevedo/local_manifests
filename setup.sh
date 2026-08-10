@@ -95,7 +95,7 @@ if [ ! -f .repo/manifest.xml ]; then
 fi
 
 echo "Syncing. This takes a while."
-repo sync -c -j$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune
+repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune
 
 echo "Adding aliases..."
 for RC in ~/.bashrc ~/.zshrc; do
@@ -103,7 +103,7 @@ for RC in ~/.bashrc ~/.zshrc; do
     grep -q "alias build=" "$RC" 2>/dev/null || \
         echo "alias build='cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon'" >> "$RC"
     grep -q "alias sync="  "$RC" 2>/dev/null || \
-        echo "alias sync='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune'" >> "$RC"
+        echo "alias sync='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune'" >> "$RC"
 done
 
 echo "Setting up ccache..."
