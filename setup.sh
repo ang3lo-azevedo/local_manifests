@@ -88,7 +88,7 @@ if [ ! -f .repo/manifest.xml ]; then
     git clone -b 17 https://github.com/ang3lo-azevedo/voltageos-spacewar.git .repo/local_manifests
 fi
 echo "Syncing. This takes a while."
-script -q /dev/null repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune
+repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune 2>&1 | cat
 
 
 echo "Adding aliases..."
