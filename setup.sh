@@ -37,9 +37,9 @@ if command -v sshpass &>/dev/null; then
     if [ -z "${SSHPASS:-}" ]; then
         read -s -p "SSH password: " SSHPASS < /dev/tty; echo ""
     fi
-    SSH() { sshpass -p "$SSHPASS" $SSH_CMD -- "$@"; }
+    SSH() { sshpass -p "$SSHPASS" $SSH_CMD -t -- "$@"; }
 else
-    SSH() { $SSH_CMD -- "$@"; }
+    SSH() { $SSH_CMD -t -- "$@"; }
 fi
 if [ -z "${GS_COOKIE_SENT:-}" ]; then
     echo ""
