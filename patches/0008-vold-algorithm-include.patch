@@ -1,0 +1,7 @@
+--- a/model/PublicVolume.cpp
++++ b/model/PublicVolume.cpp
+@@ -19,4 +19,5 @@
+ #include <sys/wait.h>
+ 
+ #include <android_vold_flags.h>
++#include <algorithm>
