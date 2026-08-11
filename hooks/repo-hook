@@ -26,3 +26,4 @@ apply "$PDIR/0011-ipacm-vector.patch"              vendor/qcom/opensource/data-i
 apply "$PDIR/0012-sound-trigger-extern.patch"      vendor/qcom/opensource/audio-hal
 apply "$PDIR/0013-sound-trigger-definition.patch"  vendor/qcom/opensource/audio-hal
 apply "$PDIR/0014-wifi-mte-reflection.patch"     packages/modules/Wifi
+apply "$PDIR/0015-systemui-turbine.patch"    frameworks/base

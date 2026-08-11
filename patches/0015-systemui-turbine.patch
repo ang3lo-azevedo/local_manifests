@@ -1,0 +1,14 @@
+--- a/packages/SystemUI/pods/notifications/intelligence/rules/ui/Android.bp
++++ b/packages/SystemUI/pods/notifications/intelligence/rules/ui/Android.bp
+@@ -62,9 +62,11 @@ java_library {
+     name: "com.android.systemui.notifications.intelligence.rules.ui_dagger",
+     defaults: ["sysui_dagger"],
+     static_libs: [
++        "com.android.systemui.notifications.intelligence.rules.ui_main",
++    ],
++    libs: [
+         "com.android.systemui.notifications.intelligence.rules_main",
+         "com.android.systemui.notifications.intelligence.rules_dagger",
+-        "com.android.systemui.notifications.intelligence.rules.ui_main",
+     ],
+ }
