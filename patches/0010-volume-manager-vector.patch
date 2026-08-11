@@ -1,0 +1,9 @@
+--- a/volume_manager/include/volume_manager/VolumeManager.h
++++ b/volume_manager/include/volume_manager/VolumeManager.h
+@@ -25,6 +25,7 @@
+ #include <list>
+ #include <mutex>
+ #include <string>
++#include <vector>
+ 
+ #include <android-base/logging.h>

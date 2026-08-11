@@ -1,0 +1,10 @@
+--- a/st-hal/sound_trigger_hw.c
++++ b/st-hal/sound_trigger_hw.c
+@@ -26,6 +26,8 @@
+ 
+ #include "st_hw_defs.h"
+ 
++int dbg_trace_max_lab_reads = 0;
++
+ #define XSTR(x) STR(x)
+ #define STR(x) #x

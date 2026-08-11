@@ -1,0 +1,14 @@
+--- a/st-hal/sound_trigger_hw.h
++++ b/st-hal/sound_trigger_hw.h
+@@ -310,11 +310,7 @@
+ struct sound_trigger_device {
+     struct sound_trigger_hw_device device;
+ };
+-#ifdef LINUX_ENABLED
+ extern int dbg_trace_max_lab_reads;
+-#else
+-int dbg_trace_max_lab_reads;
+-#endif
+ enum st_hw_evt_id
+ {
+     ST_HW_EVT_NONE,

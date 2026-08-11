@@ -1,0 +1,9 @@
+--- a/ipacm/inc/IPACM_OffloadManager.h
++++ b/ipacm/inc/IPACM_OffloadManager.h
+@@ -47,6 +47,7 @@
+ 
+ #include <list>
+ #include <stdint.h>
++#include <vector>
+ #include <IOffloadManager.h>
+ #include <IPACM_Defs.h>

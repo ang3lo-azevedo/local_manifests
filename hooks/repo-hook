@@ -21,3 +21,7 @@ apply "$PDIR/0006-recovery-algorithm-include.patch" bootable/recovery
 apply "$PDIR/0007-launcher3-sdk-version.patch"    packages/apps/Launcher3
 apply "$PDIR/0008-vold-algorithm-include.patch"    system/vold
 apply "$PDIR/0009-battery-listener-mutex.patch"    hardware/qcom-caf/sm8350/audio
+apply "$PDIR/0010-volume-manager-vector.patch"     bootable/recovery
+apply "$PDIR/0011-ipacm-vector.patch"              vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um
+apply "$PDIR/0012-sound-trigger-extern.patch"      vendor/qcom/opensource/audio-hal
+apply "$PDIR/0013-sound-trigger-definition.patch"  vendor/qcom/opensource/audio-hal
