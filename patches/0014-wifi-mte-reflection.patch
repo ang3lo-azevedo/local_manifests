@@ -1,0 +1,17 @@
+--- a/service/java/com/android/server/wifi/hal/WifiChipAidlImpl.java
++++ b/service/java/com/android/server/wifi/hal/WifiChipAidlImpl.java
+@@ -1093,4 +1093,12 @@
+     private static boolean shouldIgnoreDebugRingBufferLoggingRequests() {
+         // There's an MTE Wi-Fi HAL crash on Google Pixel devices that is triggered by
+         // debug ring buffer logging
+-        return "google".equals(android.os.Build.BRAND) && android.os.Process.isMemoryTaggingSupported();
++        boolean isMteSupported = false;
++        try {
++            isMteSupported = (Boolean) Class.forName("com.android.internal.os.Zygote")
++                    .getMethod("nativeSupportsMemoryTagging")
++                    .invoke(null);
++        } catch (Exception e) {
++            // ignore
++        }
++        return "google".equals(android.os.Build.BRAND) && isMteSupported;
+     }

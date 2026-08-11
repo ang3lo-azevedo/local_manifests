@@ -25,3 +25,4 @@ apply "$PDIR/0010-volume-manager-vector.patch"     bootable/recovery
 apply "$PDIR/0011-ipacm-vector.patch"              vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um
 apply "$PDIR/0012-sound-trigger-extern.patch"      vendor/qcom/opensource/audio-hal
 apply "$PDIR/0013-sound-trigger-definition.patch"  vendor/qcom/opensource/audio-hal
+apply "$PDIR/0014-wifi-mte-reflection.patch"     packages/modules/Wifi
