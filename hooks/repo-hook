@@ -20,3 +20,4 @@ apply "$PDIR/0005-qcom-display-mutex-include.patch"  vendor/qcom/opensource/disp
 apply "$PDIR/0006-recovery-algorithm-include.patch" bootable/recovery
 apply "$PDIR/0007-launcher3-sdk-version.patch"    packages/apps/Launcher3
 apply "$PDIR/0008-vold-algorithm-include.patch"    system/vold
+apply "$PDIR/0009-battery-listener-mutex.patch"    hardware/qcom-caf/sm8350/audio
