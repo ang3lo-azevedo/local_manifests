@@ -100,9 +100,10 @@ repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune --
 SYNC_PID=$!
 START=$(date +%s)
 while kill -0 $SYNC_PID 2>/dev/null; do
-    CHK=$(ls .repo/projects/ 2>/dev/null | wc -l)
     ELAPSED=$(( $(date +%s) - START ))
-    echo "  [${ELAPSED}s elapsed] ${CHK} repos checked out"
+    SIZE=$(du -sh .repo 2>/dev/null | cut -f1)
+    CHK=$(ls .repo/projects/ 2>/dev/null | wc -l)
+    echo "  [${ELAPSED}s] .repo=${SIZE} | ${CHK} checked out"
     sleep 5
 done
 wait $SYNC_PID
