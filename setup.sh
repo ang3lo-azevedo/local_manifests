@@ -95,20 +95,21 @@ mkdir -p .repo/hooks
 cp .repo/local_manifests/hooks/repo-hook .repo/hooks/repo-hook
 chmod +x .repo/hooks/repo-hook
 
-echo "Syncing 1240 repos. Progress dots appear as each batch completes."
+echo "Syncing 1240 repos..."
 repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune --quiet &
 SYNC_PID=$!
-COUNT=0
+SPIN='-\|/'
+I=0
+START=$(date +%s)
 while kill -0 $SYNC_PID 2>/dev/null; do
-    NEW=$(ls .repo/projects/ 2>/dev/null | wc -l)
-    if [ "$NEW" != "$COUNT" ]; then
-        COUNT=$NEW
-        printf "\rFetched: %d repos" "$COUNT"
-    fi
-    sleep 3
+    CHK=$(ls .repo/projects/ 2>/dev/null | wc -l)
+    ELAPSED=$(( $(date +%s) - START ))
+    printf "\r[%c] %ds elapsed | %d repos checked out" "${SPIN:$I:1}" "$ELAPSED" "$CHK"
+    I=$(( (I+1) % 4 ))
+    sleep 1
 done
 wait $SYNC_PID
-echo ""
+printf "\rsync finished.                                   \n"
 
 
 echo "Adding aliases..."
