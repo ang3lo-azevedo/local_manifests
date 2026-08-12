@@ -1,9 +1,9 @@
 --- a/audio/hal/audio_extn/battery_listener.cpp
 +++ b/audio/hal/audio_extn/battery_listener.cpp
-@@ -26,6 +26,7 @@
-  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-  */
- 
+@@ -36,6 +36,7 @@
+ #include <android/hardware/health/2.0/IHealth.h>
+ #include <healthhalutils/HealthHalUtils.h>
+ #include <hidl/HidlTransportSupport.h>
 +#include <mutex>
  #include <thread>
  #include "battery_listener.h"
