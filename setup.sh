@@ -95,21 +95,6 @@ mkdir -p .repo/hooks
 cp .repo/local_manifests/hooks/repo-hook .repo/hooks/repo-hook
 chmod +x .repo/hooks/repo-hook
 
-echo "Syncing 1240 repos..."
-repo sync -c -j$(nproc) --force-sync --no-clone-bundle --optimized-fetch --prune --quiet &
-SYNC_PID=$!
-START=$(date +%s)
-while kill -0 $SYNC_PID 2>/dev/null; do
-    ELAPSED=$(( $(date +%s) - START ))
-    SIZE=$(du -sh .repo 2>/dev/null | cut -f1)
-    CHK=$(ls .repo/projects/ 2>/dev/null | wc -l)
-    echo "  [${ELAPSED}s] .repo=${SIZE} | ${CHK} checked out"
-    sleep 5
-done
-wait $SYNC_PID
-echo "sync finished."
-
-
 echo "Adding aliases..."
 for RC in ~/.bashrc ~/.zshrc; do
     [ -f "$RC" ] || continue
@@ -132,6 +117,9 @@ done
 
 echo "Setting up ccache..."
 ccache -M 50G 2>/dev/null || echo "  ccache not available, skipping"
+
+echo ""
+echo "Setup done. Run 's' inside the server to sync the tree."
 
 ENDREMOTE
 
