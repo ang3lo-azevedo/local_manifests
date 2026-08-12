@@ -1,5 +1,5 @@
---- a/audio/hal/audio_extn/battery_listener.cpp
-+++ b/audio/hal/audio_extn/battery_listener.cpp
+--- a/hal/audio_extn/battery_listener.cpp
++++ b/hal/audio_extn/battery_listener.cpp
 @@ -36,6 +36,7 @@
  #include <android/hardware/health/2.0/IHealth.h>
  #include <healthhalutils/HealthHalUtils.h>
