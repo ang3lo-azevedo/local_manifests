@@ -96,7 +96,7 @@ cp .repo/local_manifests/hooks/repo-hook .repo/hooks/repo-hook
 chmod +x .repo/hooks/repo-hook
 
 echo "Syncing 1240 repos..."
-repo sync -c -j$(nproc) --no-clone-bundle --optimized-fetch --prune --quiet &
+repo sync -c -j$(nproc) --force-sync --no-clone-bundle --optimized-fetch --prune --quiet &
 SYNC_PID=$!
 START=$(date +%s)
 while kill -0 $SYNC_PID 2>/dev/null; do
@@ -114,7 +114,7 @@ echo "Adding aliases..."
 for RC in ~/.bashrc ~/.zshrc; do
     [ -f "$RC" ] || continue
     grep -q "alias s="  "$RC" 2>/dev/null || \
-        echo "alias s='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --no-clone-bundle --optimized-fetch --prune'" >> "$RC"
+        echo "alias s='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --force-sync --no-clone-bundle --optimized-fetch --prune'" >> "$RC"
     grep -q "alias b="  "$RC" 2>/dev/null || \
         echo "alias b='cd ~/$BUILD_DIR && source build/envsetup.sh && breakfast Spacewar && brunch Spacewar'" >> "$RC"
     grep -q "alias sb=" "$RC" 2>/dev/null || \
@@ -127,7 +127,7 @@ for RC in ~/.bashrc ~/.zshrc; do
     grep -q "alias build=" "$RC" 2>/dev/null || \
         echo "alias build='cd ~/$BUILD_DIR && source build/envsetup.sh && breakfast Spacewar && brunch Spacewar'" >> "$RC"
     grep -q "alias sync="  "$RC" 2>/dev/null || \
-        echo "alias sync='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --no-clone-bundle --optimized-fetch --prune'" >> "$RC"
+        echo "alias sync='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --force-sync --no-clone-bundle --optimized-fetch --prune'" >> "$RC"
 done
 
 echo "Setting up ccache..."
