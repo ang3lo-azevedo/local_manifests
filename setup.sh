@@ -95,8 +95,20 @@ mkdir -p .repo/hooks
 cp .repo/local_manifests/hooks/repo-hook .repo/hooks/repo-hook
 chmod +x .repo/hooks/repo-hook
 
-echo "Syncing. This takes a while."
-repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune 2>&1 | cat
+echo "Syncing 1240 repos. Progress dots appear as each batch completes."
+repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune --quiet &
+SYNC_PID=$!
+COUNT=0
+while kill -0 $SYNC_PID 2>/dev/null; do
+    NEW=$(ls .repo/projects/ 2>/dev/null | wc -l)
+    if [ "$NEW" != "$COUNT" ]; then
+        COUNT=$NEW
+        printf "\rFetched: %d repos" "$COUNT"
+    fi
+    sleep 3
+done
+wait $SYNC_PID
+echo ""
 
 
 echo "Adding aliases..."
