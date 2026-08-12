@@ -1,8 +1,10 @@
 --- a/services/config/src/device_impl.h
 +++ b/services/config/src/device_impl.h
-@@ -38,6 +38,7 @@
+@@ -36,6 +36,7 @@
+ #include <map>
  #include <utility>
  #include <string>
  #include <vector>
 +#include <mutex>
+ 
  #include "opcode_types.h"
