@@ -28,12 +28,12 @@
     <project name="ang3lo-azevedo/android_hardware_nothing"
              path="hardware/nothing"
               remote="github"
-              revision="voltage-nethunter" />
+              revision="lineage-24.0" />
 
     <project name="LineageOS/android_device_lineage_sepolicy"
              path="device/lineage/sepolicy"
              remote="github"
-             revision="voltage-nethunter" />
+             revision="lineage-24.0" />
 
     <project name="DaViDev985/proprietary_vendor_nothing_camera"
              path="vendor/nothing/camera"
