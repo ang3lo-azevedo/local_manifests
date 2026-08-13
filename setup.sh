@@ -99,7 +99,7 @@ echo "Adding aliases..."
 for RC in ~/.bashrc ~/.zshrc; do
     [ -f "$RC" ] || continue
     grep -q "alias s="  "$RC" 2>/dev/null || \
-        echo "alias s='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --force-sync --no-clone-bundle --optimized-fetch --prune'" >> "$RC"
+        echo "alias s='cd ~/$BUILD_DIR && git -C .repo/local_manifests pull -q && repo sync -c -j\$(nproc) --force-sync --no-clone-bundle --optimized-fetch --prune'" >> "$RC"
     grep -q "alias b="  "$RC" 2>/dev/null || \
         echo "alias b='cd ~/$BUILD_DIR && source build/envsetup.sh && breakfast Spacewar && brunch Spacewar'" >> "$RC"
     grep -q "alias sb=" "$RC" 2>/dev/null || \
@@ -112,7 +112,7 @@ for RC in ~/.bashrc ~/.zshrc; do
     grep -q "alias build=" "$RC" 2>/dev/null || \
         echo "alias build='cd ~/$BUILD_DIR && source build/envsetup.sh && breakfast Spacewar && brunch Spacewar'" >> "$RC"
     grep -q "alias sync="  "$RC" 2>/dev/null || \
-        echo "alias sync='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --force-sync --no-clone-bundle --optimized-fetch --prune'" >> "$RC"
+        echo "alias sync='cd ~/$BUILD_DIR && git -C .repo/local_manifests pull -q && repo sync -c -j\$(nproc) --force-sync --no-clone-bundle --optimized-fetch --prune'" >> "$RC"
 done
 
 echo "Setting up ccache..."
