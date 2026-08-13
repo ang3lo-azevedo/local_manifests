@@ -15,10 +15,10 @@
              remote="github"
              revision="voltage-17" />
 
-    <project name="StudioKeys-Dumps/kernel_nothing_sm7325"
+    <project name="ang3lo-azevedo/android_kernel_nothing_sm7325"
              path="kernel/nothing/sm7325"
              remote="github"
-             revision="lineage-24.0" />
+             revision="voltage-nethunter" />
 
     <project name="ang3lo-azevedo/vendor_nothing_Spacewar"
              path="vendor/nothing/Spacewar"
@@ -28,12 +28,12 @@
     <project name="ang3lo-azevedo/android_hardware_nothing"
              path="hardware/nothing"
               remote="github"
-              revision="lineage-24.0" />
+              revision="voltage-nethunter" />
 
     <project name="LineageOS/android_device_lineage_sepolicy"
              path="device/lineage/sepolicy"
              remote="github"
-             revision="lineage-24.0" />
+             revision="voltage-nethunter" />
 
     <project name="DaViDev985/proprietary_vendor_nothing_camera"
              path="vendor/nothing/camera"
