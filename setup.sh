@@ -58,6 +58,15 @@ if [ -z "${DIR:-}" ]; then
 fi
 DIR="${DIR:-voltageos}"
 
+if [ -z "${ANDROID_VER:-}" ]; then
+    read -p "Build Android 16 or 17? [17]: " ANDROID_VER < /dev/tty
+fi
+case "${ANDROID_VER:-17}" in
+    16)   BRANCH="16.2" ;;
+    17|"") BRANCH="17" ;;
+    *)    echo "Invalid version: $ANDROID_VER (use 16 or 17)"; exit 1 ;;
+esac
+
 echo ""
 if [ -z "${SKIP_TERMINFO:-}" ]; then
     echo "Pushing terminfo..."
@@ -68,7 +77,7 @@ if [ -z "${SKIP_TERMINFO:-}" ]; then
     fi
 fi
 echo "Running server setup..."
-SSH "GH_PAT=$GHPAT BUILD_DIR=$DIR bash -s" << 'ENDREMOTE'
+SSH "GH_PAT=$GHPAT BUILD_DIR=$DIR BRANCH=$BRANCH bash -s" << 'ENDREMOTE'
 set -euo pipefail
 
 echo "Configuring git..."
@@ -83,17 +92,16 @@ mkdir -p ~/"$BUILD_DIR"
 cd ~/"$BUILD_DIR"
 
 if [ ! -f .repo/manifest.xml ]; then
-    repo init -u https://github.com/VoltageOS/manifest.git -b 17 --git-lfs --depth=1
+    repo init -u https://github.com/VoltageOS/manifest.git -b "$BRANCH" --git-lfs --depth=1
     mkdir -p .repo/local_manifests
-    git clone -b 17 https://github.com/ang3lo-azevedo/voltageos-spacewar.git .repo/local_manifests
-    mkdir -p .repo/hooks
-    cp .repo/local_manifests/hooks/repo-hook .repo/hooks/
-    chmod +x .repo/hooks/repo-hook
+    git clone -b "$BRANCH" https://github.com/ang3lo-azevedo/voltageos-spacewar.git .repo/local_manifests
 fi
 echo "Installing repo hooks..."
 mkdir -p .repo/hooks
-cp .repo/local_manifests/hooks/repo-hook .repo/hooks/repo-hook
-chmod +x .repo/hooks/repo-hook
+if [ -f .repo/local_manifests/hooks/repo-hook ]; then
+    cp .repo/local_manifests/hooks/repo-hook .repo/hooks/repo-hook
+    chmod +x .repo/hooks/repo-hook
+fi
 
 echo "Adding aliases..."
 for RC in ~/.bashrc ~/.zshrc; do
