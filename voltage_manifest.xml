@@ -5,6 +5,16 @@
 
     <remove-project path="vendor/voltage-priv/keys" />
 
+    <!-- BISECT: replace VoltageOS keymaster/HIDL forks with AOSP to isolate the keymaster@4.0 regression -->
+    <remove-project name="system_libhidl" />
+    <remove-project name="system_security" />
+    <remove-project name="system_keymaster" />
+    <remove-project name="hardware_interfaces" />
+    <project path="system/libhidl" name="platform/system/libhidl" remote="aosp" revision="refs/tags/android-17.0.0_r1" />
+    <project path="system/security" name="platform/system/security" remote="aosp" revision="refs/tags/android-17.0.0_r1" />
+    <project path="system/keymaster" name="platform/system/keymaster" remote="aosp" revision="refs/tags/android-17.0.0_r1" />
+    <project path="hardware/interfaces" name="platform/hardware/interfaces" remote="aosp" revision="refs/tags/android-17.0.0_r1" />
+
     <project name="ang3lo-azevedo/vendor_voltage-priv_keys"
              path="vendor/voltage-priv/keys"
              remote="github"
