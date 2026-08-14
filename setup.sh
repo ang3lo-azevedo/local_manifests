@@ -9,7 +9,6 @@ elif [ -f ~/.config/voltageos-setup.env ]; then
     set -a; source ~/.config/voltageos-setup.env; set +a
     echo "Loaded ~/.config/voltageos-setup.env"
 fi
-
 echo "=== VoltageOS ServerHive Setup ==="
 echo ""
 
@@ -29,7 +28,6 @@ if [ -z "${GS_COOKIE:-}" ]; then
     fi
     echo ""
 fi
-
 if [ -z "${SSH_CMD:-}" ]; then
     read -p "SSH command [ssh nos4a2250@arcane.serverhive.in -p22]: " SSH_CMD < /dev/tty
 fi
@@ -39,11 +37,10 @@ if command -v sshpass &>/dev/null; then
     if [ -z "${SSHPASS:-}" ]; then
         read -s -p "SSH password: " SSHPASS < /dev/tty; echo ""
     fi
-    SSH() { sshpass -p "$SSHPASS" $SSH_CMD -tt -- "$@"; }
+    SSH() { sshpass -p "$SSHPASS" $SSH_CMD -- "$@"; }
 else
-    SSH() { $SSH_CMD -tt -- "$@"; }
+    SSH() { $SSH_CMD -- "$@"; }
 fi
-
 if [ -z "${GS_COOKIE_SENT:-}" ]; then
     echo ""
     echo "Pushing git cookies to server..."
@@ -51,17 +48,24 @@ if [ -z "${GS_COOKIE_SENT:-}" ]; then
     echo "$GS_COOKIE" | tr ',' '\t' | SSH "tee -a ~/.gitcookies > /dev/null && chmod 0600 ~/.gitcookies && git config --global http.cookiefile ~/.gitcookies && echo '  done'"
     GS_COOKIE_SENT=1
 fi
-
 if [ -z "${GHPAT:-}" ]; then
     echo ""
     echo "GitHub PAT (scope: repo): https://github.com/settings/tokens"
     read -s -p "GitHub PAT: " GHPAT < /dev/tty; echo ""
 fi
-
 if [ -z "${DIR:-}" ]; then
     read -p "Build folder [voltageos]: " DIR < /dev/tty
 fi
 DIR="${DIR:-voltageos}"
+
+if [ -z "${ANDROID_VER:-}" ]; then
+    read -p "Build Android 16 or 17? [17]: " ANDROID_VER < /dev/tty
+fi
+case "${ANDROID_VER:-17}" in
+    16)   BRANCH="16.2" ;;
+    17|"") BRANCH="17" ;;
+    *)    echo "Invalid version: $ANDROID_VER (use 16 or 17)"; exit 1 ;;
+esac
 
 echo ""
 if [ -z "${SKIP_TERMINFO:-}" ]; then
@@ -72,9 +76,8 @@ if [ -z "${SKIP_TERMINFO:-}" ]; then
         echo "  skipped (not in Ghostty)"
     fi
 fi
-
 echo "Running server setup..."
-SSH "GH_PAT=$GHPAT BUILD_DIR=$DIR bash -s" << 'ENDREMOTE'
+SSH "GH_PAT=$GHPAT BUILD_DIR=$DIR BRANCH=$BRANCH bash -s" << 'ENDREMOTE'
 set -euo pipefail
 
 echo "Configuring git..."
@@ -89,21 +92,24 @@ mkdir -p ~/"$BUILD_DIR"
 cd ~/"$BUILD_DIR"
 
 if [ ! -f .repo/manifest.xml ]; then
-    repo init -u https://github.com/VoltageOS/manifest.git -b 16.2 --git-lfs --depth=1
-    git clone -b 16.2 https://github.com/ang3lo-azevedo/voltageos-spacewar.git .repo/local_manifests
+    repo init -u https://github.com/VoltageOS/manifest.git -b "$BRANCH" --git-lfs --depth=1
+    mkdir -p .repo/local_manifests
+    git clone -b "$BRANCH" https://github.com/ang3lo-azevedo/voltageos-spacewar.git .repo/local_manifests
 fi
-
-echo "Syncing. This takes a while."
-repo sync -c -j$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune 2>&1 | cat
-
+echo "Installing repo hooks..."
+mkdir -p .repo/hooks
+if [ -f .repo/local_manifests/hooks/repo-hook ]; then
+    cp .repo/local_manifests/hooks/repo-hook .repo/hooks/repo-hook
+    chmod +x .repo/hooks/repo-hook
+fi
 
 echo "Adding aliases..."
 for RC in ~/.bashrc ~/.zshrc; do
     [ -f "$RC" ] || continue
     grep -q "alias s="  "$RC" 2>/dev/null || \
-        echo "alias s='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune'" >> "$RC"
+        echo "alias s='cd ~/$BUILD_DIR && git -C .repo/local_manifests pull -q && repo sync -c -j\$(nproc) --force-sync --no-clone-bundle --optimized-fetch --prune'" >> "$RC"
     grep -q "alias b="  "$RC" 2>/dev/null || \
-        echo "alias b='cd ~/$BUILD_DIR 'cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon''cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon' source build/envsetup.sh 'cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon''cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon' breakfast Spacewar 'cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon''cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon' brunch Spacewar'" >> "$RC"
+        echo "alias b='cd ~/$BUILD_DIR && source build/envsetup.sh && breakfast Spacewar && brunch Spacewar'" >> "$RC"
     grep -q "alias sb=" "$RC" 2>/dev/null || \
         echo "alias sb='s && b'" >> "$RC"
     grep -q "alias c="  "$RC" 2>/dev/null || \
@@ -112,13 +118,16 @@ for RC in ~/.bashrc ~/.zshrc; do
         echo "alias cb='c && b'" >> "$RC"
     # Legacy long names
     grep -q "alias build=" "$RC" 2>/dev/null || \
-        echo "alias build='cd ~/$BUILD_DIR 'cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon''cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon' source build/envsetup.sh 'cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon''cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon' breakfast Spacewar 'cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon''cd ~/$BUILD_DIR && source build/envsetup.sh && lunch voltage_Spacewar-bp4a-user && mka bacon' brunch Spacewar'" >> "$RC"
+        echo "alias build='cd ~/$BUILD_DIR && source build/envsetup.sh && breakfast Spacewar && brunch Spacewar'" >> "$RC"
     grep -q "alias sync="  "$RC" 2>/dev/null || \
-        echo "alias sync='cd ~/$BUILD_DIR && repo sync -c -j\$(nproc) --no-clone-bundle --no-tags --optimized-fetch --prune'" >> "$RC"
+        echo "alias sync='cd ~/$BUILD_DIR && git -C .repo/local_manifests pull -q && repo sync -c -j\$(nproc) --force-sync --no-clone-bundle --optimized-fetch --prune'" >> "$RC"
 done
 
 echo "Setting up ccache..."
 ccache -M 50G 2>/dev/null || echo "  ccache not available, skipping"
+
+echo ""
+echo "Setup done. Run 's' inside the server to sync the tree."
 
 ENDREMOTE
 
